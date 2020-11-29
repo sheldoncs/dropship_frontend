@@ -18,7 +18,7 @@ import GoogleButton from "../../components/button/google/button";
 import NavigationItems from "../../components/navigationItems/NavigationItems";
 import Cover from "../../components/cover/cover";
 import Message from "../../components/errorMessage/errorMessage";
-import { createUser } from "../../Mutation/Mutation";
+import { creatUser } from "../../Mutation/Mutation";
 import { createApolloFetch } from "apollo-fetch";
 
 class Login extends Component {
@@ -239,46 +239,7 @@ class Login extends Component {
   responseGoogle = (response) => {
     const uri = "http://localhost:4000/graphql";
 
-    const query = `
-   mutation userInfo (
-  $username: String!,
-  $email: String!,
-  $password: String!,
-  $firstname: String!,
-  $lastname: String!,
-  $addr1: String!,
-  $addr2: String!,
-  $zip: String!,
-  $country: String!,
-  $isGoogle: Int!
-) {
-  addUserInfo (
-    username: $username,
-    email: $email,
-    password: $password,
-    firstname: $firstname,
-    lastname: $lastname,
-    addr1: $addr1,
-    addr2: $addr2,
-    zip: $zip,
-    country: $country,
-    isGoogle: $isGoogle,
-  ) {
-    User{
-      username,
-      email,
-      password,  
-      firstname,
-      lastname,
-      addr1,
-      addr2,
-      zip,
-      country,
-      isGoogle,
-    }
-  }
-}
-`;
+    let query = creatUser;
 
     const variables = {
       username: response.profileObj.email,
@@ -302,8 +263,6 @@ class Login extends Component {
       .catch((error) => {
         console.log(error);
       });
-
-    // mutateData().then((response) => console.log(response));
   };
   errorHandler = () => {
     console.log(this.state.showCover);
