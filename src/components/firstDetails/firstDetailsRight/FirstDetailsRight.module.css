@@ -1,0 +1,54 @@
+.FirstDetailsRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 100px;
+  height: 750px;
+}
+.rightItems {
+  margin: 10px;
+  display: block;
+  margin-top: 30px;
+}
+.rightItemsHeader {
+  font-family: "Merriweather", serif;
+  color: #0c77eb;
+  font-size: 40px;
+  display: block;
+  margin: auto;
+  font-weight: bold;
+  width: 100%;
+}
+.rightItemsText {
+  font-family: "Merriweather", serif;
+  color: #000;
+  font-size: 16px;
+  display: block;
+  font-size: 20px;
+  width: 70%;
+  margin: 0;
+}
+.PurchaseButton {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 16px;
+  font-size: 20px;
+  width: 200px;
+  height: 55px;
+  margin: auto;
+  cursor: pointer;
+  color: #fff;
+  margin-top: 40px;
+  justify-content: flex-start;
+}
+.gif {
+  width: 140px;
+  height: 140px;
+  background-size: cover;
+  border-radius: 50%;
+  border: 0px solid #0c77eb;
+  z-index: 20;
+  margin-top: 29px;
+  margin-right: 80px;
+  box-shadow: 5px 5px 3px #888888;
+}

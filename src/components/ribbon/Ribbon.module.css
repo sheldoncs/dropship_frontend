@@ -1,0 +1,28 @@
+.Ribbon {
+  width: 90%;
+  height: 100px;
+  background-color: #2688b5;
+  margin: auto;
+  display: block;
+}
+.Contents {
+  width: 350px;
+  margin: auto;
+  color: #fff;
+}
+.LeftAudio {
+  display: inline-block;
+  margin: 10px;
+}
+.RightAudio {
+  display: inline-block;
+  margin: 10px;
+}
+.DispText {
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 30px;
+  height: 40px;
+  margin-top: 0px;
+  text-align: center;
+  padding-top: 20px;
+}

@@ -1,0 +1,8 @@
+.HamburgerBars {
+  padding-top: 20px;
+  width: 50px;
+  position: relative;
+  float: left;
+  height: 100%;
+  cursor: pointer;
+}

@@ -1,0 +1,9 @@
+.Message {
+  font-family: "Roboto Condensed", sans-serif;
+  color: red;
+  font-size: 15px;
+  z-index: 50;
+  margin: auto;
+  width: 80px;
+  font-weight: bold !important;
+}

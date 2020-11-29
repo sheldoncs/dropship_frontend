@@ -1,0 +1,84 @@
+.Input {
+  width: 350px;
+  flex-direction: column;
+  justify-content: flex-end;
+  /* margin: 120px auto; */
+  box-sizing: border-box;
+  /* box-shadow: px 1px 1px 1px grey; */
+  border-radius: 5px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+  border: 0px solid #ccc;
+  background: #fff;
+  font-family: "Abel", sans-serif;
+}
+.Logo {
+  justify-content: flex-start;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Abel", sans-serif;
+  font-size: 45px;
+}
+.Container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-top: 40px;
+  background: #fff;
+  margin: 120px auto;
+  box-shadow: 2px 2px 15px grey;
+  border-radius: 20px;
+}
+.or {
+  margin: auto;
+  width: 30px;
+  margin-top: 9px;
+}
+.ShowDivider {
+  display: block;
+}
+.HideDivider {
+  display: none;
+}
+.InputColor {
+  background-color: #edfbff !important;
+  font-family: "Abel", sans-serif;
+}
+
+.dispImage {
+  width: 225px;
+  height: 225px;
+  margin: auto;
+  z-index: 20px;
+}
+.buttonContainer {
+  width: 300px;
+  margin: auto;
+  font-family: "Roboto Condensed", sans-serif;
+}
+.InputElement {
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-family: "Roboto Condensed", sans-serif;
+  padding-top: 70px;
+  display: block;
+  width: 300px !important;
+  box-sizing: border-box;
+  margin: 20px auto;
+  color: #000 !important;
+}
+.Invalid {
+  outline: none;
+  border: 1px solid red;
+  background-color: #fda49a;
+  font: inherit;
+  display: block;
+  width: 250px;
+  box-sizing: border-box;
+}
+.InputElement:focus {
+  outline: none;
+  background-color: #ccc;
+}

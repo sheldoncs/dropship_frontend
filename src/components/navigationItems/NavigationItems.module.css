@@ -1,0 +1,44 @@
+@media (max-width: 500px) {
+  .ShowNavigation {
+    display: none;
+  }
+  .ShowBurger {
+    width: 100%;
+    height: 70px;
+    background-color: #ccc;
+    display: flex;
+    flex-direction: row;
+  }
+}
+@media (min-width: 500px) {
+  .ShowNavigation {
+    display: flex;
+  }
+  .ShowBurger {
+    display: none;
+  }
+  .NavigationItems {
+    margin: auto;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #141517;
+    box-shadow: 2px 9px 9px grey;
+  }
+  .MenuItem {
+    position: relative;
+    float: right;
+    margin: 10px;
+  }
+  @media (min-width: 500px) {
+    .NavigationItems {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      flex-flow: row;
+      align-items: center;
+      height: 100%;
+    }
+  }
+}

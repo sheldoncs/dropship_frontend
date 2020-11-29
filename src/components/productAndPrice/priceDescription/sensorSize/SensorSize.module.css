@@ -1,0 +1,86 @@
+@media (max-width: 500px) {
+  .SensorSize {
+    display: block;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 100%;
+    width: 93%;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+  .OrderButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+  }
+  .Center {
+    margin: auto;
+    width: 120px;
+  }
+  .Label {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 14px;
+    margin-left: 7px;
+  }
+  .Button {
+    margin-left: 12px !important;
+  }
+}
+@media (min-width: 500px) and (max-width: 801px) {
+  .SensorSize {
+    display: block;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 100%;
+    width: 93%;
+    margin-left: 10px;
+    margin-top: 20px;
+  }
+  .OrderButtons {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2px;
+  }
+  .Center {
+    margin: auto;
+    width: 120px;
+  }
+  .Label {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 14px;
+    margin-left: 7px;
+  }
+  .Button {
+    margin-left: 12px !important;
+  }
+}
+@media (min-width: 801px) {
+  .SensorSize {
+    display: block;
+    background-color: #fff;
+    border-radius: 10px;
+    height: 200px;
+    width: 95%;
+    margin-left: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .OrderButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2px;
+  }
+  .Center {
+    margin: auto;
+    width: 250px;
+    margin-top: 11px;
+  }
+  .Label {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 14px;
+    margin-left: 7px;
+  }
+  .Button {
+    margin: 10px !important;
+  }
+}

@@ -1,0 +1,17 @@
+.Button {
+  width: 300px;
+  font-family: "Abel", sans-serif;
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 0px;
+  border: 0px;
+  color: #fff;
+  margin: auto;
+  margin-top: 5px;
+}
+.HideButton {
+  display: none;
+}
+.ShowButton {
+  display: block;
+}

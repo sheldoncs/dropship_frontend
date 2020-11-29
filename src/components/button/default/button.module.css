@@ -1,0 +1,11 @@
+.Button {
+  width: 300px;
+  font-family: "Abel", sans-serif;
+  /* background-color: #46bd83; */
+  height: 50px;
+  border-radius: 5px;
+  margin-top: 15px;
+  border: 0px;
+  color: #fff;
+  /* cursor: pointer; */
+}

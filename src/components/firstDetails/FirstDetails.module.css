@@ -1,0 +1,8 @@
+.FirstDetails {
+  width: 90%;
+  margin: auto;
+  background-color: #fff;
+  height: 860px;
+  display: flex;
+  flex-direction: row;
+}

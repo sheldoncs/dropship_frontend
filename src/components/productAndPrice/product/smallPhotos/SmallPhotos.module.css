@@ -1,0 +1,70 @@
+@media (max-width: 500px) {
+  .LeftPhotos {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+    height: 380px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .Photos {
+    width: 40x;
+    height: 40px;
+    border-radius: 10px;
+    margin: 15px;
+  }
+  .Pointer {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    /* background-color: #fff; */
+  }
+}
+@media (min-width: 500px) and (max-width: 800px) {
+  .LeftPhotos {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 380px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .Photos {
+    width: 50x;
+    height: 50px;
+    border-radius: 10px;
+  }
+  .Pointer {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+  }
+}
+@media (min-width: 800px) {
+  .LeftPhotos {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    height: 380px;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .Photos {
+    width: 50x;
+    height: 50px;
+    border-radius: 10px;
+  }
+  .Pointer {
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #fff;
+  }
+}

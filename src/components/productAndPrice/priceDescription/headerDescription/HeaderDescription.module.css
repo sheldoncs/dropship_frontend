@@ -1,0 +1,71 @@
+@media (max-width: 500px) {
+  .HeaderDescription {
+    display: block;
+    background-color: #17a2b8;
+    margin: auto;
+    height: 50px;
+    width: 100%;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 25px;
+
+    color: #fff;
+  }
+  .Titles {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    margin: auto;
+    font-weight: normal;
+    padding-top: 7px;
+  }
+  .TitleSpacers {
+    margin-left: 10px;
+  }
+}
+@media (min-width: 500px) and (max-width: 801px) {
+  .HeaderDescription {
+    display: block;
+    background-color: #17a2b8;
+    margin: auto;
+    height: 50px;
+    width: 90%;
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 25px;
+
+    color: #fff;
+  }
+  .Titles {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    margin: auto;
+    font-weight: normal;
+    padding-top: 7px;
+  }
+  .TitleSpacers {
+    margin-left: 10px;
+  }
+}
+@media (min-width: 801px) {
+  .HeaderDescription {
+    display: block;
+    background-color: #17a2b8;
+    margin: auto;
+    height: 50px;
+    width: 90%;
+    color: #fff;
+    font-size: 25px;
+    font-family: "Open Sans Condensed", sans-serif;
+  }
+  .Titles {
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    margin: auto;
+    font-weight: normal;
+    padding-top: 7px;
+  }
+  .TitleSpacers {
+    margin-left: 10px;
+  }
+}

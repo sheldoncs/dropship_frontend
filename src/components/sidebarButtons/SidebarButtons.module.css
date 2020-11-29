@@ -1,0 +1,10 @@
+@media (min-width: 500px) {
+  .SidebarButtons {
+    display: none;
+  }
+}
+@media (max-width: 500px) {
+  .SidebarButtons {
+    margin: auto;
+  }
+}

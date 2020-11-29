@@ -1,0 +1,38 @@
+.SecondDetails {
+  width: 90%;
+  margin: auto;
+  background-color: #fff;
+  height: 500px;
+  display: flex;
+  flex-direction: row;
+}
+.Left {
+  position: relative;
+  float: left;
+  margin: 10px;
+}
+.ItemText {
+  width: 70%;
+  margin-top: 60px;
+  margin-left: 15px;
+}
+.ItemTextHeader {
+  font-family: "Merriweather", serif;
+  color: #0c77eb;
+  font-size: 40px;
+  display: block;
+  font-weight: bold;
+}
+.ItemTextDetails {
+  font-family: "Merriweather", serif;
+  color: #000;
+  font-size: 16px;
+  display: block;
+  font-size: 20px;
+  width: 550px;
+}
+.Video {
+  position: relative;
+  float: right;
+  margin: 10px;
+}

@@ -1,0 +1,12 @@
+.Plug {
+  display: flex;
+  flex-direction: row;
+}
+.Button {
+  border: 0px;
+  width: 30px;
+  height: 30px;
+  margin-left: 5px;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 14px;
+}

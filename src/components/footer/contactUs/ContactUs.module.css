@@ -1,0 +1,10 @@
+.ContactUs {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  font-family: "Abel", sans-serif;
+  width: 33%;
+  padding-top: 40px;
+  padding-left: 70px;
+  font-size: 20px;
+}

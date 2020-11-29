@@ -1,0 +1,15 @@
+.Signup {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: auto;
+  background: #fff;
+  margin-top: 120px;
+  height: 350px;
+  border-radius: 15px;
+  box-shadow: 2px 2px 15px grey;
+}
+.SignupText {
+  font-family: "Abel", sans-serif;
+  font-size: 45px;
+}
