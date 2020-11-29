@@ -8,6 +8,7 @@
   height: 350px;
   border-radius: 15px;
   box-shadow: 2px 2px 15px grey;
+  margin-bottom: 100px;
 }
 .SignupText {
   font-family: "Abel", sans-serif;

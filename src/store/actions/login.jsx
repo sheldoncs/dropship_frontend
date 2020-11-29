@@ -6,8 +6,8 @@ export const saveMenu = (navmenu) => {
 export const setToken = (token) => {
   return { type: actionTypes.SET_TOKEN, token: token };
 };
-export const saveName = (name) => {
-  return { type: actionTypes.SAVE_NAME, name: name };
+export const saveUser = (user) => {
+  return { type: actionTypes.SAVE_USER, user: user };
 };
 export const saveCredentials = (saveCredentials) => {
   return { type: actionTypes.SAVE_CREDENTIALS, credentials: saveCredentials };

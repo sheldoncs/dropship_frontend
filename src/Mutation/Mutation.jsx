@@ -1,15 +1,3 @@
-import { gql } from "apollo-boost";
-import { userFields } from "../fragments/user";
-
-// export const createUser = gql`
-//   mutation($data: User) {
-//     addUserInfo(data: $data) {
-//       ...userFields
-//     }
-//   }
-//   ${userFields}
-// `;
-
 export const creatUser = `
 mutation userInfo (
 $username: String!,

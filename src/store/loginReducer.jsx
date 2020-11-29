@@ -8,7 +8,7 @@ const initialState = {
   isRegistering: false,
   facebook: "visible",
   google: "visible",
-  name: "",
+  user: null,
   token: "",
 };
 const reducer = (state = initialState, action) => {
@@ -18,10 +18,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         token: action.token,
       };
-    case actionTypes.SAVE_NAME:
+    case actionTypes.SAVE_USER:
       return {
         ...state,
-        name: action.name,
+        user: action.user,
       };
     case actionTypes.IS_REGISTERING:
       return {

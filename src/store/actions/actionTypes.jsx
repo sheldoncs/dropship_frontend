@@ -4,5 +4,5 @@ export const LOGIN_FORM_IS_VALID = "LOGIN_FORM_IS_VALID";
 export const LOGIN_AUTHENTICATED = "LOGIN_AUTHENTICATED";
 export const IS_REGISTERING = "IS_REGISTERING";
 export const SAVE_PHOTO_AND_ID = "SAVE_PHOTO_AND_ID";
-export const SAVE_NAME = "SAVE_NAME";
+export const SAVE_USER = "SAVE_USER";
 export const SET_TOKEN = "SET_TOKEN";

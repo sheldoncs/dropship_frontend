@@ -101,9 +101,16 @@ class Home extends Component {
     });
   }
   render() {
+    if (this.props.user != null) {
+      console.log(this.props.user);
+    }
     return (
       <div>
-        <Settings welcome={this.props.name} />
+        {this.props.user != null ? (
+          <Settings welcome={this.props.user.firstname} />
+        ) : (
+          <Settings welcome="" />
+        )}
         <NavigationItems menuItems={this.state.menu} />
         {this.state.offers != null ? (
           <Offer offers={this.state.offers} />
@@ -126,7 +133,7 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     menu: state.menu.menu,
-    name: state.login.name,
+    user: state.login.user,
   };
 };
 const mapDispatchToProps = (dispatch) => {

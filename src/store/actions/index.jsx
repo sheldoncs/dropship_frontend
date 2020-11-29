@@ -1,5 +1,5 @@
 export {
-  saveName,
+  saveUser,
   setToken,
   saveMenu,
   saveCredentials,

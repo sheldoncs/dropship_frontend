@@ -61,6 +61,7 @@ class Login extends Component {
     showError: false,
     showCover: false,
     message: "",
+    user: null,
   };
   authorizeHandler = (auth) => {};
   buttonHandler = (auth) => {
@@ -204,14 +205,26 @@ class Login extends Component {
         .then((response) => {
           if (response.status !== 401) {
             this.setState({ showError: false, showCover: false, message: "" });
-            console.log(response);
+
             response.json().then((result) => {
               if (result.auth === true) {
-                //!this.state.hasAuthenticated && this.state.saveActivated
-
                 this.props.onSetToken(result.token);
                 localStorage.setItem("email", this.state.loginForm.email.value);
-                this.props.onSaveName(result.firstname);
+
+                let userObject = {
+                  username: this.state.loginForm.email.value,
+                  email: this.state.loginForm.email.value,
+                  password: "",
+                  firstname: result.firstname,
+                  lastname: result.lastname,
+                  addr1: "",
+                  addr2: "",
+                  zip: "",
+                  country: "",
+                  isGoogle: 0,
+                };
+
+                this.props.onSaveUser(userObject);
                 this.props.onLoginAuthenticated(
                   result.auth,
                   this.state.loginForm.email.value
@@ -220,7 +233,7 @@ class Login extends Component {
                   hasAuthenticated: true,
                   showError: true,
                   showCover: true,
-                  message: "Welcome " + result.firstname,
+                  message: "Welcome " + userObject.firstname,
                 });
                 // this.props.history.push("/");
               }
@@ -244,13 +257,13 @@ class Login extends Component {
     const variables = {
       username: response.profileObj.email,
       email: response.profileObj.email,
-      password: "Kentish@48",
+      password: "",
       firstname: response.profileObj.givenName,
       lastname: response.profileObj.familyName,
       addr1: "",
       addr2: "",
       zip: "",
-      country: "Barbados",
+      country: "",
       isGoogle: 1,
     };
 
@@ -321,7 +334,11 @@ class Login extends Component {
 
     return (
       <React.Fragment>
-        <Settings welcome={this.props.name} />
+        {this.props.user != null ? (
+          <Settings welcome={this.props.user.firstname} />
+        ) : (
+          <Settings welcome="" />
+        )}
         <NavigationItems menuItems={this.props.menu} />
         <div className={classes.Container}>
           <div className={classes.Logo}>
@@ -398,14 +415,14 @@ const mapStateToProps = (state) => {
     facebook: state.login.facebook,
     google: state.login.google,
     menu: state.menu.menu,
-    name: state.login.name,
+    user: state.login.user,
     token: state.login.token,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSetToken: (token) => dispatch(actionCreators.setToken(token)),
-    onSaveName: (name) => dispatch(actionCreators.saveName(name)),
+    onSaveUser: (user) => dispatch(actionCreators.saveUser(user)),
     onSaveCredentials: (saveCreds) =>
       dispatch(actionCreators.saveCredentials(saveCreds)),
     onLoginFormIsValid: (isValid) =>
