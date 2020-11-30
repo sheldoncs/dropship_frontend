@@ -16,6 +16,7 @@ class Home extends Component {
   state = {
     menu: null,
     offers: null,
+    offer: null,
     items: {
       itemList: null,
       priceOptions: null,
@@ -100,6 +101,26 @@ class Home extends Component {
       this.setState({ ...tempState });
     });
   }
+  handleOffer = (id) => {
+    let offerList = this.state.offers;
+    let tempState = { ...this.state };
+
+    offerList.map((value, index) => {
+      let offer = {};
+      if (value.id == id) {
+        offer = {
+          offer: value.offer,
+          itemdetailsid: value.itemdetailsid,
+          offerType: value.offerType,
+          amount: value.amount,
+          condition: value.condition,
+          code: value.code,
+        };
+        this.props.onSaveOffer(offer);
+        this.props.history.push("/purchase");
+      }
+    });
+  };
   render() {
     if (this.props.user != null) {
       console.log(this.props.user);
@@ -113,7 +134,7 @@ class Home extends Component {
         )}
         <NavigationItems menuItems={this.state.menu} />
         {this.state.offers != null ? (
-          <Offer offers={this.state.offers} />
+          <Offer offers={this.state.offers} clicked={this.handleOffer} />
         ) : null}
         <Display
           items={this.state.items.itemList}
@@ -134,11 +155,13 @@ const mapStateToProps = (state) => {
   return {
     menu: state.menu.menu,
     user: state.login.user,
+    offer: state.offer.offer,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
+    onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
   };
 };
 

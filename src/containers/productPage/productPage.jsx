@@ -8,6 +8,8 @@ import OpticalZoomPhoto from "../../assets/opticalzoom.png";
 import CardStoragePhoto from "../../assets/cardstorage.png";
 import SideDrawer from "../../components/sideDrawer/sideDrawer";
 import Cover from "../../components/cover/cover";
+import { connect } from "react-redux";
+import * as actionCreators from "../../store/actions/index";
 
 class ProductPage extends Component {
   state = {
@@ -135,4 +137,18 @@ class ProductPage extends Component {
   }
 }
 
-export default ProductPage;
+const mapStateToProps = (state) => {
+  return {
+    menu: state.menu.menu,
+    user: state.login.user,
+    offer: state.offer.offer,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
+    onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage);

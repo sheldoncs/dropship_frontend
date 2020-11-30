@@ -15,6 +15,7 @@ const Offer = (props) => {
 
   let offers = props.offers.map((value, index) => {
     let condLength = value.condition.length * 16;
+
     let code = ("Code:".length + value.code.length) * 19;
     return (
       <div key={value.id} className={classes.Sale}>
@@ -41,7 +42,12 @@ const Offer = (props) => {
             <div style={{ width: code + "px" }} className={classes.Code}>
               Code:{value.code}
             </div>
-            <button className={btnClasses.join(" ")}>Order Now!</button>
+            <button
+              onClick={() => props.clicked(value.id)}
+              className={btnClasses.join(" ")}
+            >
+              Order Now!
+            </button>
           </div>
         </div>
       </div>

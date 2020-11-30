@@ -9,6 +9,9 @@ export const setToken = (token) => {
 export const saveUser = (user) => {
   return { type: actionTypes.SAVE_USER, user: user };
 };
+export const saveOffer = (offer) => {
+  return { type: actionTypes.SAVE_SELECTED_OFFER, offer: offer };
+};
 export const saveCredentials = (saveCredentials) => {
   return { type: actionTypes.SAVE_CREDENTIALS, credentials: saveCredentials };
 };
