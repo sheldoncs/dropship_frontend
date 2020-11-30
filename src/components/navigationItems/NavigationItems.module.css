@@ -21,7 +21,8 @@
     margin: auto;
     list-style: none;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    height: 60px;
     width: 100%;
     background-color: #141517;
     box-shadow: 2px 9px 9px grey;
@@ -30,15 +31,5 @@
     position: relative;
     float: right;
     margin: 10px;
-  }
-  @media (min-width: 500px) {
-    .NavigationItems {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      flex-flow: row;
-      align-items: center;
-      height: 100%;
-    }
   }
 }

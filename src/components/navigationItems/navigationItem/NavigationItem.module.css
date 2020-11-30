@@ -1,49 +1,60 @@
-.NavigationItem {
-  margin: 10px 0;
-  box-sizing: border-box;
-  display: block;
-  width: 100%;
-  text-decoration: none;
-}
-.NavigationItem a {
-  color: #fff;
-  text-decoration: none;
-  width: 100%;
-  box-sizing: border-box;
-  display: block;
-  background: #141517;
-  font-family: "Abel", sans-serif;
-  font-size: 25px;
-}
-.NavigationItem a:hover,
-.NavigationItem a:active,
-.NavigationItem a.active {
-  color: #5cad45;
-  text-decoration: none;
-}
-
-@media (min-width: 500px) {
+@media (max-width: 500px) {
   .NavigationItem {
-    margin: 0;
+    margin: 10px 0;
+    box-sizing: border-box;
+    height: 50px;
     display: flex;
-    height: 100%;
-    width: auto;
-    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
   }
   .NavigationItem a {
     color: #fff;
-    height: 100%;
-    padding: 16px 10px;
-    border-bottom: 4px solid transparent;
+    text-decoration: none;
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    background: #141517;
     font-family: "Abel", sans-serif;
-    font-size: 20px;
-    font-weight: normal;
+    font-size: 25px;
   }
   .NavigationItem a:hover,
   .NavigationItem a:active,
   .NavigationItem a.active {
-    border-bottom: 4px solid #fff;
-    color: #ffcc00;
+    color: #5cad45;
+    text-decoration: none;
+  }
+}
+@media (min-width: 500px) {
+  .NavigationItem {
+    margin: 10px;
+    height: 80%;
+    width: auto;
+    display: flex;
+    color: #fff;
+    flex-direction: row;
+    cursor: pointer;
+  }
+  .NavigationItem a {
+    color: #fff;
+    height: 100%;
+    padding: 5px 10px;
+    border-bottom: 4px solid transparent;
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+    display: flex;
+    flex-direction: row;
+  }
+  .NavigationItem a:hover,
+  .NavigationItem a:active,
+  .NavigationItem a.active {
+    border-bottom: 2px solid #fff;
+    color: #fff;
+    text-decoration: none;
     font-weight: bold;
+    z-index: 20;
   }
 }

@@ -121,6 +121,9 @@ class Home extends Component {
       }
     });
   };
+  navigationHandler = (catId) => {
+    alert(catId);
+  };
   render() {
     if (this.props.user != null) {
       console.log(this.props.user);
@@ -132,7 +135,10 @@ class Home extends Component {
         ) : (
           <Settings welcome="" />
         )}
-        <NavigationItems menuItems={this.state.menu} />
+        <NavigationItems
+          clicked={this.navigationHandler}
+          menuItems={this.state.menu}
+        />
         {this.state.offers != null ? (
           <Offer offers={this.state.offers} clicked={this.handleOffer} />
         ) : null}

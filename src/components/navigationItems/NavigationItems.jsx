@@ -8,24 +8,25 @@ const navigationItems = (props) => {
   let showClasses = [classes.ShowNavigation];
   if (props.menuItems != null) {
     elem = props.menuItems.map((value, index) => {
-      return value.category == "Home" ? (
+      // return value.category == "Home" ? (
+      //   <NavigationItem
+      //     key={value.id}
+      //     onClick={() => props.clicked(value.id)}
+      //     link="/"
+      //   >
+      //     {value.category.toUpperCase()}
+      //   </NavigationItem>
+      // ) : (
+      return (
         <NavigationItem
           key={value.id}
-          onClick={() => props.clicked("home")}
-          options="home"
-          link="/"
-        >
-          {value.category.toUpperCase()}
-        </NavigationItem>
-      ) : (
-        <NavigationItem
-          key={value.id}
-          onClick={() => props.clicked(value.category)}
+          clicked={() => props.clicked(value.id)}
           link={"/" + value.category}
         >
           {value.category.toUpperCase()}
         </NavigationItem>
       );
+      // );
     });
   }
   return (

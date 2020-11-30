@@ -46,7 +46,7 @@ const Offer = (props) => {
               onClick={() => props.clicked(value.id)}
               className={btnClasses.join(" ")}
             >
-              Order Now!
+              ORDER NOW!
             </button>
           </div>
         </div>
