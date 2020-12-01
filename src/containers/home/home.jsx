@@ -11,6 +11,7 @@ import Offer from "../../components/offers/offers";
 import Settings from "../../components/settings/settings";
 import Display from "../../components/display/display";
 import Footer from "../../components/footer/footer";
+import { offers } from "../../Query/Query";
 
 class Home extends Component {
   state = {
@@ -49,18 +50,7 @@ class Home extends Component {
       uri: "http://localhost:4000/graphql",
     });
     fetchOffers({
-      query: `query  {
-      getAllOffers {
-        id
-        offer
-        itemdetailsid
-        offertype
-        amount
-        condition
-        width
-        code
-      }
-    }`,
+      query: offers,
     }).then((res) => {
       let tempState = { ...this.state };
       tempState.offers = res.data.getAllOffers;

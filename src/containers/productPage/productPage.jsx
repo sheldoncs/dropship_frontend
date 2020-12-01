@@ -10,74 +10,50 @@ import SideDrawer from "../../components/sideDrawer/sideDrawer";
 import Cover from "../../components/cover/cover";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
+import { offer } from "../../Query/Query";
+import { createApolloFetch } from "apollo-fetch";
 
 class ProductPage extends Component {
   state = {
-    photos: {
-      left: {
-        url1: { index: 0, photo: IntroPhoto },
-        url2: { index: 1, photo: MotionDetectorPhoto },
-        url3: { index: 2, photo: NightVisionPhoto },
-        url4: { index: 3, photo: OpticalZoomPhoto },
-        url5: { index: 4, photo: CardStoragePhoto },
-      },
-      right: { mainUrl: IntroPhoto },
-      cameraInfo: {
-        sensorSize: {
-          size1: {
-            size: "1080 No SD Card",
-            plug: {
-              labelEU: { label: "EU", price: "75.99" },
-              labelUS: { label: "US", price: "75.99" },
-              labelAU: { label: "AU", price: "75.99" },
-              labelUK: { label: "UK", price: "60.99" },
-            },
-          },
-          size2: {
-            size: "1080P Add 32G Card",
-            plug: {
-              labelEU: { label: "EU", price: "86.49" },
-              labelUS: { label: "US", price: "86.49" },
-              labelAU: { label: "AU", price: "86.49" },
-              labelUK: { label: "UK", price: "86.49" },
-            },
-          },
-          size3: {
-            size: "1080P Add 64G Card",
-            plug: {
-              labelEU: { label: "EU", price: "94.99" },
-              labelUS: { label: "US", price: "94.99" },
-              labelAU: { label: "AU", price: "94.99" },
-              labelUK: { label: "UK", price: "94.99" },
-            },
-          },
-          size4: {
-            size: "1080P Add 128G Card",
-            plug: {
-              labelEU: { label: "EU", price: "128.99" },
-              labelUS: { label: "US", price: "128.99" },
-              labelAU: { label: "AU", price: "128.99" },
-              labelUK: { label: "UK", price: "128.99" },
-            },
-          },
-          sensorSelected: "",
-          sensorPrice: 0,
-        },
-      },
-    },
+    photos: { subPhotos: null, main: null },
+    offer: null,
+    options: { length: null, color: null },
     openDrawer: false,
     openCover: false,
     showError: true,
   };
-  conponentDidMount() {
-    let tempState = { ...this.state };
-    tempState.photos.cameraInfo.sensorSelected =
-      tempState.photos.cameraInfo.SensorSize.size1;
-    tempState.photos.cameraInfo.sensorPrice =
-      tempState.photos.cameraInfo.SensorSize.size1.plug.labelUS.price;
 
-    this.setState({ ...tempState });
+  componentDidMount() {
+    let query = null;
+    const variables = {
+      id: 1,
+    };
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    query = offer;
+
+    fetch({
+      query: query,
+      variables: variables,
+    }).then((res) => {
+      let tempState = { ...this.state };
+      let offer = {
+        id: res.data.getOffer.id,
+        offer: res.data.getOffer.offer,
+        itemdetailsid: res.data.getOffer.itemdetailsid,
+        offertype: res.data.getOffer.offertype,
+        amount: res.data.getOffer.amount,
+        condition: res.data.getOffer.condition,
+        width: res.data.getOffer.width,
+        code: res.data.getOffer.code,
+      };
+      tempState.offer = offer;
+    });
+
+    // this.setState({ ...tempState });
   }
+  fetchQueries = () => {};
   sensorSizeHandler = (val) => {};
   photoHandler = (val) => {
     let tempState = { ...this.state };
@@ -126,12 +102,12 @@ class ProductPage extends Component {
 
         <Cover clicked={this.handleCover} show={this.state.openCover} />
         <NavigationItems clicked={this.sidebarHandler} />
-        <ProductAndPrice
+        {/* <ProductAndPrice
           clicked={(val) => this.photoHandler(val)}
           sensorSizeClicked={(val) => this.sensorSizeHandler(val)}
           urlphotos={this.state.photos}
           info={this.state.photos.cameraInfo}
-        />
+        /> */}
       </React.Fragment>
     );
   }
