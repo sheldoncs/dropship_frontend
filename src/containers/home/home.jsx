@@ -99,13 +99,16 @@ class Home extends Component {
       let offer = {};
       if (value.id == id) {
         offer = {
+          id: value.id,
           offer: value.offer,
           itemdetailsid: value.itemdetailsid,
-          offerType: value.offerType,
+          offertype: value.offertype,
           amount: value.amount,
           condition: value.condition,
           code: value.code,
+          categoryid: value.categoryid,
         };
+
         this.props.onSaveOffer(offer);
         this.props.history.push("/purchase");
       }

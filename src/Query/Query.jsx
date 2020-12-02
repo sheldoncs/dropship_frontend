@@ -15,6 +15,7 @@ export const offers = `query  {
       condition
       width
       code
+      categoryid
     }
   }`;
 export const offer = `query ($id:Int)  {
@@ -27,5 +28,6 @@ export const offer = `query ($id:Int)  {
       condition
       width
       code
+      categoryid
     }
   }`;

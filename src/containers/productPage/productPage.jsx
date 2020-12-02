@@ -25,32 +25,40 @@ class ProductPage extends Component {
 
   componentDidMount() {
     let query = null;
-    const variables = {
-      id: 1,
-    };
-    const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
-    });
-    query = offer;
 
-    fetch({
-      query: query,
-      variables: variables,
-    }).then((res) => {
-      let tempState = { ...this.state };
-      let offer = {
-        id: res.data.getOffer.id,
-        offer: res.data.getOffer.offer,
-        itemdetailsid: res.data.getOffer.itemdetailsid,
-        offertype: res.data.getOffer.offertype,
-        amount: res.data.getOffer.amount,
-        condition: res.data.getOffer.condition,
-        width: res.data.getOffer.width,
-        code: res.data.getOffer.code,
+    if (this.props.offer != null) {
+      localStorage.setItem("categoryid", this.props.offer.categoryid);
+      localStorage.setItem("itemdetailsid", this.props.offer.itemdetailsid);
+      localStorage.setItem("offerid", this.props.offer.id);
+      
+      this.setState({ offer: this.props.offer });
+    } else {
+      const variables = {
+        id: 1,
       };
-      tempState.offer = offer;
-    });
+      const fetch = createApolloFetch({
+        uri: "http://localhost:4000/graphql",
+      });
+      query = offer;
 
+      fetch({
+        query: query,
+        variables: variables,
+      }).then((res) => {
+        let tempState = { ...this.state };
+        let offer = {
+          id: res.data.getOffer.id,
+          offer: res.data.getOffer.offer,
+          itemdetailsid: res.data.getOffer.itemdetailsid,
+          offertype: res.data.getOffer.offertype,
+          amount: res.data.getOffer.amount,
+          condition: res.data.getOffer.condition,
+          width: res.data.getOffer.width,
+          code: res.data.getOffer.code,
+        };
+        tempState.offer = offer;
+      });
+    }
     // this.setState({ ...tempState });
   }
   fetchQueries = () => {};
