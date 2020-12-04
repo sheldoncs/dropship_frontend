@@ -10,14 +10,20 @@ import SideDrawer from "../../components/sideDrawer/sideDrawer";
 import Cover from "../../components/cover/cover";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
-import { offer } from "../../Query/Query";
+import {
+  offer,
+  photosByCategory,
+  itemAndCategory,
+  options,
+} from "../../Query/Query";
 import { createApolloFetch } from "apollo-fetch";
 
 class ProductPage extends Component {
   state = {
     photos: { subPhotos: null, main: null },
     offer: null,
-    options: { length: null, color: null },
+    submenu: null,
+    options: null,
     openDrawer: false,
     openCover: false,
     showError: true,
@@ -28,40 +34,111 @@ class ProductPage extends Component {
 
     if (this.props.offer != null) {
       localStorage.setItem("categoryid", this.props.offer.categoryid);
-      localStorage.setItem("itemdetailsid", this.props.offer.itemdetailsid);
+      localStorage.setItem("itemid", this.props.offer.itemdetailsid);
       localStorage.setItem("offerid", this.props.offer.id);
-      
-      this.setState({ offer: this.props.offer });
-    } else {
-      const variables = {
-        id: 1,
-      };
-      const fetch = createApolloFetch({
-        uri: "http://localhost:4000/graphql",
-      });
-      query = offer;
-
-      fetch({
-        query: query,
-        variables: variables,
-      }).then((res) => {
-        let tempState = { ...this.state };
-        let offer = {
-          id: res.data.getOffer.id,
-          offer: res.data.getOffer.offer,
-          itemdetailsid: res.data.getOffer.itemdetailsid,
-          offertype: res.data.getOffer.offertype,
-          amount: res.data.getOffer.amount,
-          condition: res.data.getOffer.condition,
-          width: res.data.getOffer.width,
-          code: res.data.getOffer.code,
-        };
-        tempState.offer = offer;
-      });
+      localStorage.setItem("isOffer", true);
     }
-    // this.setState({ ...tempState });
+    this.fetchOfferQuery(localStorage.getItem("offerid"));
+    this.fetchPhotosQuery(localStorage.getItem("categoryid"));
+
+    if (localStorage.getItem("itemid") != "null") {
+      alert();
+      this.fetchItemAndCategory(localStorage.getItem("itemid"));
+    } else {
+      this.fetchItemAndCategory(1);
+    }
+    this.fetchOptions(localStorage.getItem("categoryid"));
   }
-  fetchQueries = () => {};
+  fetchPhotosQuery = (categoryid) => {
+    let query = null;
+    query = photosByCategory;
+    const variables = {
+      categoryid: Number(categoryid),
+    };
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    fetch({
+      query,
+      variables,
+    }).then((res) => {});
+  };
+  fetchOfferQuery = (id) => {
+    let query = null;
+    const variables = {
+      id: Number(id),
+    };
+
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    query = offer;
+
+    fetch({
+      query,
+      variables,
+    }).then((res) => {
+      let tempState = { ...this.state };
+      let itemAndCategory = {
+        item: res.data.getOffer.id,
+        offer: res.data.getOffer.offer,
+        itemdetailsid: res.data.getOffer.itemdetailsid,
+        offertype: res.data.getOffer.offertype,
+        amount: res.data.getOffer.amount,
+        condition: res.data.getOffer.condition,
+        width: res.data.getOffer.width,
+        code: res.data.getOffer.code,
+      };
+      tempState.offer = offer;
+      this.setState({ ...tempState });
+    });
+  };
+  fetchItemAndCategory = (itemid) => {
+    let query = null;
+    const variables = {
+      itemid: Number(itemid),
+    };
+
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    query = itemAndCategory;
+
+    fetch({
+      query,
+      variables,
+    }).then((res) => {
+      console.log(res);
+      let tempState = { ...this.state };
+      let submenu = {
+        category: res.data.getItemAndCategory.option,
+        item: res.data.getItemAndCategory.category,
+      };
+      tempState.submenu = submenu;
+      this.setState({ ...tempState });
+    });
+  };
+  fetchOptions = (categoryid) => {
+    let query = null;
+    const variables = {
+      categoryid: Number(categoryid),
+    };
+
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    query = options;
+
+    fetch({
+      query,
+      variables,
+    }).then((res) => {
+      let tempState = { ...this.state };
+      let options = res.data.options;
+      tempState.options = options;
+      this.setState({ ...tempState });
+    });
+  };
   sensorSizeHandler = (val) => {};
   photoHandler = (val) => {
     let tempState = { ...this.state };

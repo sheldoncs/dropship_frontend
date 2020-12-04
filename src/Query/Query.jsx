@@ -31,3 +31,30 @@ export const offer = `query ($id:Int)  {
       categoryid
     }
   }`;
+export const photosByCategory = `query ($categoryid:Int)  {
+    getPhotosByCategory(categoryid:$categoryid) {
+      id
+      option
+      photo
+      itemid
+      categoryid
+      mainphoto
+    }
+  }`;
+export const itemAndCategory = `query ($itemid:Int){
+  getItemAndCategory(itemid:$itemid){
+    option
+    category
+  }
+}`;
+
+export const options = `query ($categoryid:Int) {
+  getOptions(categoryid:$categoryid) {
+   id
+   title
+   option1
+   option2
+   option3
+   option4
+  }
+}`;
