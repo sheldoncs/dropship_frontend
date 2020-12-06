@@ -1,0 +1,65 @@
+.NavigateBar {
+  display: flex;
+  flex-direction: row;
+  width: 350px;
+  margin-top: 30px;
+  margin-left: 70px;
+}
+.Category {
+  color: #a3a7a8;
+  display: inline-block;
+  width: auto;
+}
+.Category a {
+  height: 100%;
+  /* padding: 5px 10px; */
+  border-bottom: 4px solid transparent;
+  font-size: 12px;
+  font-weight: normal;
+  cursor: pointer;
+  color: #a8a8a8;
+  text-decoration: none;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 20px;
+  display: inline-block;
+  width: auto;
+}
+.Category a:hover,
+.Category a:active,
+.Category a.active {
+  border-bottom: 2px solid #7e7f80;
+  color: #a8a8a8;
+  text-decoration: none;
+  z-index: 20;
+  display: inline-block;
+  width: auto;
+}
+.Item {
+  width: 140px;
+  color: #000;
+  display: inline-block;
+  width: auto;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 20px;
+}
+.Item a {
+  height: 100%;
+  border-bottom: 4px solid transparent;
+  font-weight: normal;
+  display: inline-block;
+  width: auto;
+  font-family: "Open Sans Condensed", sans-serif;
+  font-size: 20px;
+  color: #000;
+  text-decoration: none;
+}
+.Item a:hover,
+.Item a:active,
+.Item a.active {
+  border-bottom: 2px solid #000;
+  text-decoration: none;
+  z-index: 20;
+  display: inline-block;
+  width: auto;
+  color: #000;
+}

@@ -12,10 +12,10 @@ const SmallPhotos = (props) => {
           className="pt-2"
           style={{ margin: "auto", width: "56px", height: "50px" }}
         >
-          <img
+          {/* <img
             src={props.urlphotos.left.url1.photo}
             className={classes.Photos}
-          />
+          /> */}
         </div>
       </div>
       <div
@@ -26,10 +26,10 @@ const SmallPhotos = (props) => {
           className="pt-2"
           style={{ margin: "auto", width: "56px", height: "50px" }}
         >
-          <img
+          {/* <img
             src={props.urlphotos.left.url2.photo}
             className={classes.Photos}
-          />
+          /> */}
         </div>
       </div>
       <div
@@ -40,10 +40,10 @@ const SmallPhotos = (props) => {
           className="pt-2"
           style={{ margin: "auto", width: "56px", height: "50px" }}
         >
-          <img
+          {/* <img
             src={props.urlphotos.left.url3.photo}
             className={classes.Photos}
-          />
+          /> */}
         </div>
       </div>
       <div
@@ -54,10 +54,10 @@ const SmallPhotos = (props) => {
           className="pt-2"
           style={{ margin: "auto", width: "56px", height: "50px" }}
         >
-          <img
+          {/* <img
             src={props.urlphotos.left.url4.photo}
             className={classes.Photos}
-          />
+          /> */}
         </div>
       </div>
       <div
@@ -68,10 +68,10 @@ const SmallPhotos = (props) => {
           className="pt-2"
           style={{ margin: "auto", width: "56px", height: "50px" }}
         >
-          <img
+          {/* <img
             src={props.urlphotos.left.url5.photo}
             className={classes.Photos}
-          />
+          /> */}
         </div>
       </div>
     </div>

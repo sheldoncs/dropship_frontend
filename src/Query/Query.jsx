@@ -33,10 +33,9 @@ export const offer = `query ($id:Int)  {
   }`;
 export const photosByCategory = `query ($categoryid:Int)  {
     getPhotosByCategory(categoryid:$categoryid) {
-      id
+      itemid
       option
       photo
-      itemid
       categoryid
       mainphoto
     }

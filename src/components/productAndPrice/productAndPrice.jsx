@@ -7,7 +7,6 @@ import HeaderDescription from "../../components/productAndPrice/priceDescription
 const ProductAndPrice = (props) => {
   return (
     <div>
-      <HeaderDescription info={props.info} />
       <div className={classes.ProductAndPrice}>
         <Product
           urlphotos={props.urlphotos}

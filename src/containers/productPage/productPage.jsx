@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import NavigationItems from "../../components/navigationItems/NavigationItems";
 import ProductAndPrice from "../../components/productAndPrice/productAndPrice";
 import IntroPhoto from "../../assets/intro1.png";
 import MotionDetectorPhoto from "../../assets/motiondetector.png";
@@ -15,8 +14,12 @@ import {
   photosByCategory,
   itemAndCategory,
   options,
+  categoryQuery,
 } from "../../Query/Query";
 import { createApolloFetch } from "apollo-fetch";
+import Settings from "../../components/settings/settings";
+import NavigationItems from "../../components/navigationItems/NavigationItems";
+import NavigateBar from "../../components/navigateBar/navigateBar";
 
 class ProductPage extends Component {
   state = {
@@ -27,11 +30,23 @@ class ProductPage extends Component {
     openDrawer: false,
     openCover: false,
     showError: true,
+    menu: null,
+    firstname: null,
   };
 
   componentDidMount() {
-    let query = null;
+    if (this.props.user != null) {
+      localStorage.setItem("firstname", this.props.user.firstname);
+      this.setState({ firstname: this.props.user.firstname });
+    } else {
+      this.setState({ firstname: localStorage.getItem("firstname") });
+    }
 
+    if (this.props.menu != null) {
+      this.setState({ menu: this.props.menu });
+    } else {
+      this.fetchMenuQuery();
+    }
     if (this.props.offer != null) {
       localStorage.setItem("categoryid", this.props.offer.categoryid);
       localStorage.setItem("itemid", this.props.offer.itemdetailsid);
@@ -42,13 +57,23 @@ class ProductPage extends Component {
     this.fetchPhotosQuery(localStorage.getItem("categoryid"));
 
     if (localStorage.getItem("itemid") != "null") {
-      alert();
       this.fetchItemAndCategory(localStorage.getItem("itemid"));
     } else {
       this.fetchItemAndCategory(1);
     }
     this.fetchOptions(localStorage.getItem("categoryid"));
   }
+  fetchMenuQuery = () => {
+    let query = categoryQuery;
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    fetch({
+      query,
+    }).then((res) => {
+      this.setState({ menu: res.data.getAllCategories });
+    });
+  };
   fetchPhotosQuery = (categoryid) => {
     let query = null;
     query = photosByCategory;
@@ -61,7 +86,17 @@ class ProductPage extends Component {
     fetch({
       query,
       variables,
-    }).then((res) => {});
+    }).then((res) => {
+      let photos = res.data.getPhotosByCategory;
+      let tempState = { ...this.state };
+      tempState.photos.subphotos = res.data.getPhotosByCategory;
+      console.log("tempstate=", tempState.photos.subphotos);
+      photos.map((data) => {
+        if (data.mainphoto == 1) {
+          tempState.photos.main = data.photo;
+        }
+      });
+    });
   };
   fetchOfferQuery = (id) => {
     let query = null;
@@ -108,11 +143,10 @@ class ProductPage extends Component {
       query,
       variables,
     }).then((res) => {
-      console.log(res);
       let tempState = { ...this.state };
       let submenu = {
-        category: res.data.getItemAndCategory.option,
-        item: res.data.getItemAndCategory.category,
+        category: res.data.getItemAndCategory.category,
+        item: res.data.getItemAndCategory.option,
       };
       tempState.submenu = submenu;
       this.setState({ ...tempState });
@@ -160,9 +194,7 @@ class ProductPage extends Component {
     tempState.openCover = !tempState.openCover;
     this.setState({ ...tempState });
   };
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(prevState.openDrawer, this.state.openDrawer);
-  }
+
   handleCover = () => {
     let saveState = { ...this.state };
 
@@ -179,14 +211,14 @@ class ProductPage extends Component {
   render() {
     return (
       <React.Fragment>
-        <SideDrawer
-          clicked={this.handleCover}
-          show={this.state.openCover}
-          openDrawer={this.state.openDrawer}
-        />
-
-        <Cover clicked={this.handleCover} show={this.state.openCover} />
-        <NavigationItems clicked={this.sidebarHandler} />
+        {this.props.user != null ? (
+          <Settings welcome={this.state.firstname} />
+        ) : (
+          <Settings welcome="" />
+        )}
+        <NavigationItems menuItems={this.state.menu} />
+        <NavigateBar submenu={this.state.submenu} />
+        <ProductAndPrice urlphotos={this.state.photos} />
         {/* <ProductAndPrice
           clicked={(val) => this.photoHandler(val)}
           sensorSizeClicked={(val) => this.sensorSizeHandler(val)}

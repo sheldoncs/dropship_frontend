@@ -118,9 +118,6 @@ class Home extends Component {
     alert(catId);
   };
   render() {
-    if (this.props.user != null) {
-      console.log(this.props.user);
-    }
     return (
       <div>
         {this.props.user != null ? (

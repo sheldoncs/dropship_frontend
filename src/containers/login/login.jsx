@@ -20,6 +20,7 @@ import Cover from "../../components/cover/cover";
 import Message from "../../components/errorMessage/errorMessage";
 import { creatUser } from "../../Mutation/Mutation";
 import { createApolloFetch } from "apollo-fetch";
+import { categoryQuery } from "../../Query/Query";
 
 class Login extends Component {
   state = {
@@ -62,6 +63,7 @@ class Login extends Component {
     showCover: false,
     message: "",
     user: null,
+    menu: null,
   };
   authorizeHandler = (auth) => {};
   buttonHandler = (auth) => {
@@ -170,10 +172,26 @@ class Login extends Component {
     return isValid;
   }
   componentDidMount() {
+    if (this.props.menu != null) {
+      this.setState({ menu: this.props.menu });
+    } else {
+      this.fetchMenuQuery();
+    }
     let currentState = { ...this.state };
     currentState.mounted = true;
     this.setState({ mounted: currentState.mounted });
   }
+  fetchMenuQuery = () => {
+    let query = categoryQuery;
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    fetch({
+      query,
+    }).then((res) => {
+      this.setState({ menu: res.data.getAllCategories });
+    });
+  };
   googleHandler = (event) => {
     event.preventDefault();
     const myHeaders = new Headers();
@@ -339,7 +357,7 @@ class Login extends Component {
         ) : (
           <Settings welcome="" />
         )}
-        <NavigationItems menuItems={this.props.menu} />
+        <NavigationItems menuItems={this.state.menu} />
         <div className={classes.Container}>
           <div className={classes.Logo}>
             <img src={Logo} />

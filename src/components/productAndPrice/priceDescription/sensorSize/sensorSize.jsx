@@ -5,7 +5,7 @@ import Button from "../../../button/button";
 const SensorSize = (props) => {
   return (
     <div className={classes.SensorSize}>
-      <div className={classes.Center}>
+      {/* <div className={classes.Center}>
         <div className={classes.Label}>SENSOR CARD SIZE:</div>
         <div className={classes.OrderButtons}>
           <Button className={classes.Button}>
@@ -19,7 +19,7 @@ const SensorSize = (props) => {
           <Button>{props.info.cameraInfo.sensorSize.size3.size}</Button>
           <Button>{props.info.cameraInfo.sensorSize.size4.size}</Button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
