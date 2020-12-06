@@ -89,13 +89,15 @@ class ProductPage extends Component {
     }).then((res) => {
       let photos = res.data.getPhotosByCategory;
       let tempState = { ...this.state };
-      tempState.photos.subphotos = res.data.getPhotosByCategory;
-      console.log("tempstate=", tempState.photos.subphotos);
-      photos.map((data) => {
+      tempState.photos.subPhotos = res.data.getPhotosByCategory;
+
+      let mainPhoto = photos.map((data) => {
         if (data.mainphoto == 1) {
-          tempState.photos.main = data.photo;
+          return data.photo;
         }
       });
+      tempState.photos.main = mainPhoto[0];
+      this.setState({ ...tempState });
     });
   };
   fetchOfferQuery = (id) => {
@@ -114,7 +116,7 @@ class ProductPage extends Component {
       variables,
     }).then((res) => {
       let tempState = { ...this.state };
-      let itemAndCategory = {
+      let offerInfo = {
         item: res.data.getOffer.id,
         offer: res.data.getOffer.offer,
         itemdetailsid: res.data.getOffer.itemdetailsid,
@@ -124,7 +126,7 @@ class ProductPage extends Component {
         width: res.data.getOffer.width,
         code: res.data.getOffer.code,
       };
-      tempState.offer = offer;
+      tempState.offer = offerInfo;
       this.setState({ ...tempState });
     });
   };

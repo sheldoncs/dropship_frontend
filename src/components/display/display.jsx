@@ -15,7 +15,7 @@ const display = (props) => {
     }
     items = props.items.map((value, index) => {
       return (
-        <div key={value.id} className={classes.griditem}>
+        <div key={value.itemid} className={classes.griditem}>
           <div>
             <img src={value.photo} className={classes.ImgDimen} />
           </div>
