@@ -11,6 +11,8 @@ const ProductAndPrice = (props) => {
         <Product
           urlphotos={props.urlphotos}
           clicked={(val) => props.clicked(val)}
+          offer={props.offer}
+          showSubPhotos={props.showSubPhotos}
         />
         <PriceDescription info={props.urlphotos} />
       </div>

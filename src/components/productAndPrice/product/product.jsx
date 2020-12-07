@@ -6,11 +6,13 @@ import ExpandedPhoto from "./expandedPhoto/expandedPhoto";
 const Product = (props) => {
   return (
     <div className={classes.Product}>
-      <ExpandedPhoto urlphoto={props.urlphotos} />
-      <SmallPhotos
-        urlphotos={props.urlphotos}
-        clicked={(val) => props.clicked(val)}
-      />
+      <ExpandedPhoto urlphoto={props.urlphotos} offer={props.offer} />
+      {props.showSubPhotos == true ? (
+        <SmallPhotos
+          urlphotos={props.urlphotos}
+          clicked={(val) => props.clicked(val)}
+        />
+      ) : null}
     </div>
   );
 };

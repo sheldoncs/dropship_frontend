@@ -32,6 +32,7 @@ class ProductPage extends Component {
     showError: true,
     menu: null,
     firstname: null,
+    showSubPhotos: true,
   };
 
   componentDidMount() {
@@ -126,6 +127,9 @@ class ProductPage extends Component {
         width: res.data.getOffer.width,
         code: res.data.getOffer.code,
       };
+      if (res.data.getOffer.itemdetailsid != null) {
+        tempState.showSubPhotos = false;
+      }
       tempState.offer = offerInfo;
       this.setState({ ...tempState });
     });
@@ -220,7 +224,11 @@ class ProductPage extends Component {
         )}
         <NavigationItems menuItems={this.state.menu} />
         <NavigateBar submenu={this.state.submenu} />
-        <ProductAndPrice urlphotos={this.state.photos} />
+        <ProductAndPrice
+          urlphotos={this.state.photos}
+          offer={this.state.offer}
+          showSubPhotos={this.state.showSubPhotos}
+        />
         {/* <ProductAndPrice
           clicked={(val) => this.photoHandler(val)}
           sensorSizeClicked={(val) => this.sensorSizeHandler(val)}
