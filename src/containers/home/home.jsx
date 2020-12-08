@@ -25,7 +25,7 @@ class Home extends Component {
   };
 
   purchaseHandler = () => {
-    this.props.history.push("/purchase");
+    this.props.history.push("/product");
   };
   componentDidUpdate(prevProps, prevState) {
     let tempState = { ...this.state };
@@ -110,7 +110,7 @@ class Home extends Component {
         };
 
         this.props.onSaveOffer(offer);
-        this.props.history.push("/purchase");
+        this.props.history.push("/product");
       }
     });
   };
