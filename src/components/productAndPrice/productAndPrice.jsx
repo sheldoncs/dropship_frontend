@@ -12,6 +12,7 @@ const ProductAndPrice = (props) => {
           urlphotos={props.urlphotos}
           clicked={(val) => props.clicked(val)}
           offer={props.offer}
+          isOffer={props.isOffer}
           showSubPhotos={props.showSubPhotos}
         />
         <PriceDescription info={props.urlphotos} />

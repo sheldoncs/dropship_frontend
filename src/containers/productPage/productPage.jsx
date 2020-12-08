@@ -33,6 +33,7 @@ class ProductPage extends Component {
     menu: null,
     firstname: null,
     showSubPhotos: true,
+    isOffer: false,
   };
 
   componentDidMount() {
@@ -53,6 +54,7 @@ class ProductPage extends Component {
       localStorage.setItem("itemid", this.props.offer.itemdetailsid);
       localStorage.setItem("offerid", this.props.offer.id);
       localStorage.setItem("isOffer", true);
+      this.setState({ isOffer: true });
     }
     this.fetchOfferQuery(localStorage.getItem("offerid"));
     this.fetchPhotosQuery(localStorage.getItem("categoryid"));
@@ -227,6 +229,7 @@ class ProductPage extends Component {
         <ProductAndPrice
           urlphotos={this.state.photos}
           offer={this.state.offer}
+          isOffer={this.state.isOffer}
           showSubPhotos={this.state.showSubPhotos}
         />
         {/* <ProductAndPrice

@@ -10,6 +10,9 @@ const Product = (props) => {
       {props.showSubPhotos == true ? (
         <SmallPhotos
           urlphotos={props.urlphotos}
+          isOffer={props.isOffer}
+          offer={props.offer}
+          showSubPhotos={props.showSubPhotos}
           clicked={(val) => props.clicked(val)}
         />
       ) : null}

@@ -1,9 +1,7 @@
 @media (max-width: 500px) {
   .LeftPhotos {
-    display: flex;
-    flex-direction: row;
     width: 20%;
-    height: 380px;
+    height: 390px;
     margin-left: 10px;
     margin-top: 10px;
   }
@@ -24,10 +22,8 @@
 }
 @media (min-width: 500px) and (max-width: 800px) {
   .LeftPhotos {
-    display: flex;
-    flex-direction: column;
     width: 20%;
-    height: 380px;
+    height: 390px;
     margin-left: 10px;
     margin-top: 10px;
   }
@@ -47,10 +43,8 @@
 }
 @media (min-width: 800px) {
   .LeftPhotos {
-    display: flex;
-    flex-direction: column;
     width: 20%;
-    height: 380px;
+    height: 390px;
     margin-left: 10px;
     margin-top: 10px;
   }
