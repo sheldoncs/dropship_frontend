@@ -14,6 +14,7 @@ import {
   photosByCategory,
   itemAndCategory,
   options,
+  pricesByCategory,
   categoryQuery,
 } from "../../Query/Query";
 import { createApolloFetch } from "apollo-fetch";
@@ -27,6 +28,7 @@ class ProductPage extends Component {
     offer: null,
     submenu: null,
     options: null,
+    priceOptions: null,
     openDrawer: false,
     openCover: false,
     showError: true,
@@ -58,6 +60,7 @@ class ProductPage extends Component {
     }
     this.fetchOfferQuery(localStorage.getItem("offerid"));
     this.fetchPhotosQuery(localStorage.getItem("categoryid"));
+    this.fetchPricesByCategory(localStorage.getItem("categoryid"));
 
     if (localStorage.getItem("itemid") != "null") {
       this.fetchItemAndCategory(localStorage.getItem("itemid"));
@@ -101,6 +104,27 @@ class ProductPage extends Component {
       });
       tempState.photos.main = mainPhoto[0];
       this.setState({ ...tempState });
+    });
+  };
+  fetchPricesByCategory = (catid) => {
+    let query = null;
+    const variables = {
+      categoryid: Number(catid),
+    };
+
+    const fetch = createApolloFetch({
+      uri: "http://localhost:4000/graphql",
+    });
+    query = pricesByCategory;
+
+    fetch({
+      query,
+      variables,
+    }).then((res) => {
+      console.log(res.data.getPriceOptions);
+
+      // tempState.offer = offerInfo;
+      this.setState({ priceOptions: res.data.getPriceOptions });
     });
   };
   fetchOfferQuery = (id) => {
@@ -183,13 +207,11 @@ class ProductPage extends Component {
   };
   sensorSizeHandler = (val) => {};
   photoHandler = (val) => {
-    let tempState = { ...this.state };
-    let keys = { ...this.state.photos.left };
-    let urlArray = Object.keys(this.state.photos.left);
-    urlArray.map((values, index) => {
-      let v = urlArray[val];
-      if (val === index) {
-        tempState.photos.right.mainUrl = keys[v].photo;
+    this.state.photos.subPhotos.map((value, index) => {
+      let tempState = { ...this.state };
+      if (val == value.itemid) {
+        this.fetchItemAndCategory(val);
+        tempState.photos.main = value.photo;
         this.setState({ ...tempState });
       }
     });
@@ -231,13 +253,9 @@ class ProductPage extends Component {
           offer={this.state.offer}
           isOffer={this.state.isOffer}
           showSubPhotos={this.state.showSubPhotos}
-        />
-        {/* <ProductAndPrice
           clicked={(val) => this.photoHandler(val)}
-          sensorSizeClicked={(val) => this.sensorSizeHandler(val)}
-          urlphotos={this.state.photos}
-          info={this.state.photos.cameraInfo}
-        /> */}
+          priceOptions={this.state.priceOptions}
+        />
       </React.Fragment>
     );
   }

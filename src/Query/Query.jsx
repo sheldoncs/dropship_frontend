@@ -57,3 +57,12 @@ export const options = `query ($categoryid:Int) {
    option4
   }
 }`;
+
+export const pricesByCategory = `query ($categoryid:Int) {
+  getPriceOptions(categoryid:$categoryid) {
+  id
+  hairlength
+  categoryid
+  price
+  }
+}`;

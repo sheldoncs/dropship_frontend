@@ -24,7 +24,7 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <ApolloProvider client={client}>
       <Provider store={store}>
         <BrowserRouter>
@@ -32,7 +32,7 @@ ReactDOM.render(
         </BrowserRouter>
       </Provider>
     </ApolloProvider>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById("root")
 );
 

@@ -1,13 +1,13 @@
 import React from "react";
 import classes from "./PriceDescription.module.css";
 
-import SensorSize from "./sensorSize/sensorSize";
+import Classifications from "./classifications/classifications";
 import PlugType from "./plugType/plugType";
 
 const PriceDecription = (props) => {
   return (
     <div className={classes.PriceDescription}>
-      <SensorSize info={props.info} />
+      <Classifications info={props.info} priceOptions={props.priceOptions} />
       <PlugType info={props.info} />
     </div>
   );

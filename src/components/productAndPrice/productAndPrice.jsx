@@ -15,7 +15,10 @@ const ProductAndPrice = (props) => {
           isOffer={props.isOffer}
           showSubPhotos={props.showSubPhotos}
         />
-        <PriceDescription info={props.urlphotos} />
+        <PriceDescription
+          info={props.urlphotos}
+          priceOptions={props.priceOptions}
+        />
       </div>
     </div>
   );
