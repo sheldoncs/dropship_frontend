@@ -12,6 +12,12 @@ export const saveUser = (user) => {
 export const saveOffer = (offer) => {
   return { type: actionTypes.SAVE_SELECTED_OFFER, offer: offer };
 };
+export const saveOrder = (order) => {
+  return { type: actionTypes.SAVE_ORDER, order: order };
+};
+export const saveCategory = (category) => {
+  return { type: actionTypes.SAVE_CATEGORY, category: category };
+};
 export const saveCredentials = (saveCredentials) => {
   return { type: actionTypes.SAVE_CREDENTIALS, credentials: saveCredentials };
 };

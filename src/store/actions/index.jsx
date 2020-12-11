@@ -7,4 +7,6 @@ export {
   formIsRegistering,
   loginAuthenticated,
   saveOffer,
+  saveOrder,
+  saveCategory,
 } from "./login";

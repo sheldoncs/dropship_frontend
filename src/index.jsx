@@ -12,6 +12,8 @@ import ApolloBoost from "apollo-boost";
 import menuReducer from "./store/menuReducer";
 import loginReducer from "./store/loginReducer";
 import offerReducer from "./store/offerReducer";
+import orderCategoryReducer from "./store/orderCategoryReducer";
+
 const client = new ApolloBoost({
   uri: "http://localhost:4000/graphql",
 });
@@ -20,6 +22,7 @@ const rootReducer = combineReducers({
   menu: menuReducer,
   login: loginReducer,
   offer: offerReducer,
+  orderCategory: orderCategoryReducer,
 });
 const store = createStore(rootReducer);
 

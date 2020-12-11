@@ -59,18 +59,20 @@ const Input = (props) => {
       );
       break;
     case "select":
-      inputElement = (
-        <select onChange={props.changed} className={inputClasses.join(" ")}>
-          {/* <option></option> */}
-          {props.elementconfig.selectoptions.map((option) => {
-            return (
-              <option key={option.value} value={option.value}>
-                {option.displayValue}
-              </option>
-            );
-          })}
-        </select>
-      );
+      if (props.elementconfig !== undefined) {
+        inputElement = (
+          <select onChange={props.changed} className={classes.Select}>
+            {/* <option></option> */}
+            {props.elementconfig.selectoptions.map((option) => {
+              return (
+                <option key={option.value} value={option.value}>
+                  {option.displayValue}
+                </option>
+              );
+            })}
+          </select>
+        );
+      }
       break;
     default:
       inputElement = (

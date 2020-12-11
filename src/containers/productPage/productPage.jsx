@@ -9,6 +9,7 @@ import SideDrawer from "../../components/sideDrawer/sideDrawer";
 import Cover from "../../components/cover/cover";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
+
 import {
   offer,
   photosByCategory,
@@ -36,6 +37,18 @@ class ProductPage extends Component {
     firstname: null,
     showSubPhotos: true,
     isOffer: false,
+    hairType: {
+      elementtype: "select",
+      elementname: "HairType",
+      elementconfig: {
+        selectoptions: [
+          { value: "Malaysian", displayValue: "Malaysian hair" },
+          { value: "Brazilian", displayValue: "Brazilian hair" },
+          { value: "Peruvian", displayValue: "Peruvian hair" },
+          { value: "Indian", displayValue: "Indian hair" },
+        ],
+      },
+    },
   };
 
   componentDidMount() {
@@ -121,8 +134,6 @@ class ProductPage extends Component {
       query,
       variables,
     }).then((res) => {
-      console.log(res.data.getPriceOptions);
-
       // tempState.offer = offerInfo;
       this.setState({ priceOptions: res.data.getPriceOptions });
     });
@@ -255,6 +266,8 @@ class ProductPage extends Component {
           showSubPhotos={this.state.showSubPhotos}
           clicked={(val) => this.photoHandler(val)}
           priceOptions={this.state.priceOptions}
+          category={this.state.submenu}
+          hairType={this.state.hairType}
         />
       </React.Fragment>
     );
@@ -266,11 +279,16 @@ const mapStateToProps = (state) => {
     menu: state.menu.menu,
     user: state.login.user,
     offer: state.offer.offer,
+    order: state.orderCategory.order,
+    category: state.orderCategory.category,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
+    onSaveOrder: (order) => dispatch(actionCreators.saveOrder(order)),
+    onSaveCategory: (category) =>
+      dispatch(actionCreators.saveCategory(category)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
   };
 };

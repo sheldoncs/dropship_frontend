@@ -1,7 +1,31 @@
-.Button {
-  display: flex;
-  flex-direction: row;
-  width: 90%;
-  margin: auto;
-  margin-top: 5px;
+@media (max-width: 500px) {
+  .Button {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    margin-top: 5px;
+  }
+}
+@media (min-width: 500px) and (max-width: 801px) {
+  .Button {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    margin-top: 5px;
+  }
+}
+@media (min-width: 801px) {
+  .variances {
+    display: flex;
+    flex-direction: column;
+  }
+  .Button {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    margin: auto;
+    margin-top: 5px;
+  }
 }

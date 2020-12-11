@@ -7,3 +7,5 @@ export const SAVE_PHOTO_AND_ID = "SAVE_PHOTO_AND_ID";
 export const SAVE_USER = "SAVE_USER";
 export const SET_TOKEN = "SET_TOKEN";
 export const SAVE_SELECTED_OFFER = " SAVE_SELECTED_OFFER";
+export const SAVE_ORDER = " SAVE_ORDER";
+export const SAVE_CATEGORY = "SAVE_CATEGORY";

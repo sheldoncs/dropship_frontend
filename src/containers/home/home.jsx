@@ -11,7 +11,7 @@ import Offer from "../../components/offers/offers";
 import Settings from "../../components/settings/settings";
 import Display from "../../components/display/display";
 import Footer from "../../components/footer/footer";
-import { offers } from "../../Query/Query";
+import { offers, pricesByCategory } from "../../Query/Query";
 
 class Home extends Component {
   state = {
@@ -76,15 +76,16 @@ class Home extends Component {
     const fetchPriceOptions = createApolloFetch({
       uri: "http://localhost:4000/graphql",
     });
+    let query = pricesByCategory;
+    let variables = null;
+    if (this.props.category == null) {
+      variables = { categoryid: 2 };
+    } else {
+      variables = { categoryid: Number(this.props.category.id) };
+    }
     fetchPriceOptions({
-      query: `query  {
-        getPriceOptions {
-          id
-          hairlength
-          itemid
-          price
-      }
-    }`,
+      query,
+      variables,
     }).then((res) => {
       let tempState = { ...this.state };
       tempState.items.priceOptions = res.data.getPriceOptions;
@@ -152,6 +153,8 @@ const mapStateToProps = (state) => {
     menu: state.menu.menu,
     user: state.login.user,
     offer: state.offer.offer,
+    order: state.orderCategory.order,
+    category: state.orderCategory.category,
   };
 };
 const mapDispatchToProps = (dispatch) => {

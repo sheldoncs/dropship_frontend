@@ -1,0 +1,36 @@
+.Counter {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 40px;
+  margin-left: 25px;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+}
+.LeftIncrement {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  font-family: "Abel", sans-serif;
+  font-size: 25px;
+  color: #d1cfcf;
+}
+
+.RightIncrement {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 25px;
+  color: #d1cfcf;
+}
+.Increment {
+  width: 118px;
+  height: 40px;
+  border: 1px solid #ccc;
+  font-family: "Roboto Condensed", sans-serif;
+  font-size: 20px;
+  padding-top: 3px;
+  color: #000;
+  background: #f0f0f0;
+}

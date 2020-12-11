@@ -7,8 +7,12 @@ import PlugType from "./plugType/plugType";
 const PriceDecription = (props) => {
   return (
     <div className={classes.PriceDescription}>
-      <Classifications info={props.info} priceOptions={props.priceOptions} />
-      <PlugType info={props.info} />
+      <Classifications
+        category={props.category}
+        info={props.info}
+        priceOptions={props.priceOptions}
+        hairType={props.hairType}
+      />
     </div>
   );
 };

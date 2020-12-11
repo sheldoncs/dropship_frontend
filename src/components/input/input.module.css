@@ -1,5 +1,5 @@
 .Input {
-  width: 350px;
+  width: 200px;
   flex-direction: column;
   justify-content: flex-end;
   /* margin: 120px auto; */
@@ -42,8 +42,9 @@
   display: none;
 }
 .InputColor {
-  background-color: #edfbff !important;
-  font-family: "Abel", sans-serif;
+  background-color: #fff !important;
+  font-family: "Abel", sans-serif !important;
+  width: 200px !important;
 }
 
 .dispImage {
@@ -53,9 +54,18 @@
   z-index: 20px;
 }
 .buttonContainer {
-  width: 300px;
+  width: 200px;
   margin: auto;
   font-family: "Roboto Condensed", sans-serif;
+}
+.Select {
+  width: 200px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  outline: none;
+  margin: 5px auto;
+  border-radius: 10px;
+  height: 40px;
 }
 .InputElement {
   outline: none;

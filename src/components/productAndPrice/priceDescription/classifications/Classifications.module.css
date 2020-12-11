@@ -59,11 +59,31 @@
     display: block;
     background-color: #fff;
     border-radius: 10px;
-    height: 200px;
+    height: 400px;
     width: 95%;
     margin-left: 10px;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+  }
+  .Type {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    height: 50px;
+    width: 150px;
+    border-radius: 60px;
+    border: 2px solid #000;
+    margin-left: 130px;
+    padding-top: 6px;
+  }
+  .Select {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    height: 50px;
+    width: 200px !important;
+    margin-left: 93px;
+    padding-top: 0px;
   }
   .OrderButtons {
     display: flex;

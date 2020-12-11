@@ -6,15 +6,22 @@ const buttonVariances = (props) => {
   let variances = null;
   if (props.priceOptions != null) {
     variances = props.priceOptions.map((values, index) => {
-      console.log(values);
       return (
-        <div className={classes.Button} key={values.id}>
+        // <div>
+        <div className={classes.Container} key={values.id}>
           <ButtonVariance>{values.hairlength}</ButtonVariance>
         </div>
+        // <div className={classes.Container}></div>
+        // </div>
       );
     });
   }
-  return <div className={classes.Button}>{variances}</div>;
+  return (
+    <React.Fragment>
+      <div className={classes.Button}>{variances}</div>
+      
+    </React.Fragment>
+  );
 };
 
 export default buttonVariances;
