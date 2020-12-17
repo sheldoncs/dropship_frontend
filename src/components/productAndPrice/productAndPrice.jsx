@@ -14,12 +14,17 @@ const ProductAndPrice = (props) => {
           offer={props.offer}
           isOffer={props.isOffer}
           showSubPhotos={props.showSubPhotos}
+          photoclicked={(val) => props.photoclicked(val)}
         />
         <PriceDescription
           info={props.urlphotos}
+          offer={props.offer}
           priceOptions={props.priceOptions}
           category={props.category}
           hairType={props.hairType}
+          priceId={props.priceId}
+          hairlength={props.hairlength}
+          clicked={(val) => props.clicked(val)}
         />
       </div>
     </div>

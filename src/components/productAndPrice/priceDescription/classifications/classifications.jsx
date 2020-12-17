@@ -4,9 +4,9 @@ import Button from "../../../button/button";
 import ButtonVariances from "../../../buttonVariances/buttonVariances";
 import Counter from "../../../counter/counter";
 import Input from "../../../input/input";
+import Header from "../headerDescription/headerDescription";
 
-const SensorSize = (props) => {
-  // console.log("selectoptions", props.hairType.elementconfig.selectoptions);
+const classification = (props) => {
   let category = "";
   let StoreClasses = [classes.Type];
   StoreClasses.push("text-center");
@@ -15,17 +15,37 @@ const SensorSize = (props) => {
   }
   return (
     <div className={classes.Classification}>
-      <ButtonVariances priceOptions={props.priceOptions} />
+      <Header
+        category={props.category}
+        offer={props.offer}
+        price={props.price}
+        priceId={props.priceId}
+        hairlength={props.hairlength}
+      />
+      <ButtonVariances
+        priceOptions={props.priceOptions}
+        clicked={(val) => props.clicked(val)}
+      />
       <div
-        style={{ display: "flex", flexDirection: "row", width: "100%" }}
-        className="ml-4 pt-5"
+        style={{
+          margin: "auto",
+          display: "flex",
+          flexDirection: "row",
+          width: "85%",
+        }}
+        className="pt-5"
       >
         <div style={{ paddingTop: "6px" }}>Type:</div>
         <div className={StoreClasses.join(" ")}>{category}</div>
       </div>
       <div
-        style={{ display: "flex", flexDirection: "row", width: "100%" }}
-        className="ml-4 pt-5"
+        style={{
+          margin: "auto",
+          display: "flex",
+          flexDirection: "row",
+          width: "85%",
+        }}
+        className="pt-5"
       >
         <div style={{ paddingTop: "6px" }}>Hair Type:</div>
         <div className={classes.Select}>
@@ -41,4 +61,4 @@ const SensorSize = (props) => {
   );
 };
 
-export default SensorSize;
+export default classification;

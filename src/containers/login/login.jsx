@@ -296,7 +296,6 @@ class Login extends Component {
       });
   };
   errorHandler = () => {
-    console.log(this.state.showCover);
     let tempState = { ...this.state };
     tempState.showCover = !this.state.showCover;
     tempState.showError = !this.state.showError;

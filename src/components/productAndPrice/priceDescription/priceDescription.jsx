@@ -12,6 +12,12 @@ const PriceDecription = (props) => {
         info={props.info}
         priceOptions={props.priceOptions}
         hairType={props.hairType}
+        offer={props.offer}
+        priceId={props.priceId}
+        hairlength={props.hairlength}
+        category={props.category}
+        price={props.priceOptions}
+        clicked={(val) => props.clicked(val)}
       />
     </div>
   );

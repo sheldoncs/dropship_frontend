@@ -3,14 +3,15 @@ import classes from "./ButtonVariance.module.css";
 
 const buttonVariance = (props) => {
   let storeClasses = [classes.Button];
-  //   storeClass.push("btn");
-  storeClasses.push("btn-info");
+  storeClasses.push("btn");
+  storeClasses.push("btn-dark");
   return (
     <div>
       <div
-        style={{ fontSize: "12px", width: "55px", margin: "2px" }}
-        className="btn btn-secondary"
+        style={{ fontSize: "12px", margin: "2px" }}
+        className={storeClasses.join(" ")}
         onClick={props.clicked}
+        onClick={() => props.clicked(props.keyValue)}
       >
         {props.children}
       </div>

@@ -8,6 +8,7 @@
   border-radius: 5px;
   padding-top: 40px;
   padding-bottom: 10px;
+  padding-left: 10px;
   border: 0px solid #ccc;
   background: #fff;
   font-family: "Abel", sans-serif;
@@ -61,11 +62,12 @@
 .Select {
   width: 200px;
   border: 1px solid #ccc;
-  background-color: #fff;
+  background-color: #ebe8e8;
   outline: none;
   margin: 5px auto;
   border-radius: 10px;
   height: 40px;
+  padding-left: 15px;
 }
 .InputElement {
   outline: none;

@@ -28,6 +28,7 @@ class ProductPage extends Component {
     photos: { subPhotos: null, main: null },
     offer: null,
     submenu: null,
+    hairlength: null,
     options: null,
     priceOptions: null,
     openDrawer: false,
@@ -37,6 +38,7 @@ class ProductPage extends Component {
     firstname: null,
     showSubPhotos: true,
     isOffer: false,
+    priceId: null,
     hairType: {
       elementtype: "select",
       elementname: "HairType",
@@ -135,7 +137,11 @@ class ProductPage extends Component {
       variables,
     }).then((res) => {
       // tempState.offer = offerInfo;
-      this.setState({ priceOptions: res.data.getPriceOptions });
+      console.log("hairlength", res.data.getPriceOptions[0].hairlength);
+      this.setState({
+        priceOptions: res.data.getPriceOptions,
+        hairlength: res.data.getPriceOptions[0].hairlength,
+      });
     });
   };
   fetchOfferQuery = (id) => {
@@ -249,6 +255,13 @@ class ProductPage extends Component {
 
     this.setState({ ...saveState });
   };
+  hairLengthHandler = (val) => {
+    this.state.priceOptions.map((value, index) => {
+      if (value.id == val) {
+        this.setState({ priceId: val, hairlength: value.hairlength });
+      }
+    });
+  };
   render() {
     return (
       <React.Fragment>
@@ -264,10 +277,13 @@ class ProductPage extends Component {
           offer={this.state.offer}
           isOffer={this.state.isOffer}
           showSubPhotos={this.state.showSubPhotos}
-          clicked={(val) => this.photoHandler(val)}
+          photoclicked={(val) => this.photoHandler(val)}
           priceOptions={this.state.priceOptions}
           category={this.state.submenu}
           hairType={this.state.hairType}
+          priceId={this.state.priceId}
+          hairlength={this.state.hairlength}
+          clicked={(val) => this.hairLengthHandler(val)}
         />
       </React.Fragment>
     );

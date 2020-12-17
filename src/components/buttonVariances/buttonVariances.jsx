@@ -7,19 +7,20 @@ const buttonVariances = (props) => {
   if (props.priceOptions != null) {
     variances = props.priceOptions.map((values, index) => {
       return (
-        // <div>
         <div className={classes.Container} key={values.id}>
-          <ButtonVariance>{values.hairlength}</ButtonVariance>
+          <ButtonVariance
+            keyValue={values.id}
+            clicked={(val) => props.clicked(val)}
+          >
+            {values.hairlength}
+          </ButtonVariance>
         </div>
-        // <div className={classes.Container}></div>
-        // </div>
       );
     });
   }
   return (
     <React.Fragment>
       <div className={classes.Button}>{variances}</div>
-      
     </React.Fragment>
   );
 };

@@ -24,7 +24,7 @@
   .Button {
     display: flex;
     flex-direction: row;
-    width: 90%;
+    width: 85%;
     margin: auto;
     margin-top: 5px;
   }

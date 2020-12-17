@@ -1,71 +1,162 @@
 @media (max-width: 500px) {
   .HeaderDescription {
-    display: block;
-    background-color: #17a2b8;
-    margin: auto;
-    height: 50px;
-    width: 100%;
-    font-family: "Open Sans Condensed", sans-serif;
-    font-size: 25px;
-
-    color: #fff;
-  }
-  .Titles {
     display: flex;
+    background-color: #ff4e3f;
     flex-direction: row;
-    width: 250px;
+    border-radius: 5px;
     margin: auto;
-    font-weight: normal;
-    padding-top: 7px;
+    height: 70px;
+    width: 90%;
+    color: #fff;
+    font-size: 20px;
+    font-family: "Abel", sans-serif;
+    margin-bottom: 35px;
   }
+  .Title {
+    width: 100%;
+    font-weight: normal;
+    padding-top: 5px;
+    font-family: "Abel", sans-serif;
+    font-weight: normal;
+    padding-left: 10px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
+
   .TitleSpacers {
-    margin-left: 10px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .Discount {
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-left: 0px;
+    height: 70px;
+    width: 300px;
+    background: #ff4e3f;
+    font-size: 12px;
+  }
+  .UnitCost {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    width: 90px;
+    padding-top: 10px;
+  }
+  .Price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-family: "Abel", sans-serif;
+    font-size: 15px;
+    padding-bottom: 13px;
   }
 }
 @media (min-width: 500px) and (max-width: 801px) {
   .HeaderDescription {
-    display: block;
-    background-color: #17a2b8;
-    margin: auto;
-    height: 50px;
-    width: 90%;
-    font-family: "Open Sans Condensed", sans-serif;
-    font-size: 25px;
-
-    color: #fff;
-  }
-  .Titles {
     display: flex;
+    background-color: #ff4e3f;
     flex-direction: row;
-    width: 250px;
+    border-radius: 5px;
     margin: auto;
-    font-weight: normal;
-    padding-top: 7px;
+    height: 70px;
+    width: 90%;
+    color: #fff;
+    font-size: 20px;
+    font-family: "Abel", sans-serif;
+    margin-bottom: 35px;
   }
+  .Title {
+    width: 100%;
+    font-weight: normal;
+    padding-top: 5px;
+    font-family: "Abel", sans-serif;
+    font-weight: normal;
+    padding-left: 10px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
+  }
+
   .TitleSpacers {
-    margin-left: 10px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .Discount {
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-left: 0px;
+    height: 70px;
+    width: 300px;
+    background: #ff4e3f;
+    font-size: 12px;
+  }
+  .UnitCost {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    width: 90px;
+    padding-top: 10px;
+  }
+  .Price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-family: "Abel", sans-serif;
+    font-size: 15px;
+    padding-bottom: 13px;
   }
 }
 @media (min-width: 801px) {
   .HeaderDescription {
-    display: block;
-    background-color: #17a2b8;
+    display: flex;
+    background-color: #ff4e3f;
+    flex-direction: row;
+    border-radius: 5px;
     margin: auto;
-    height: 50px;
+    height: 70px;
     width: 90%;
     color: #fff;
-    font-size: 25px;
-    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 20px;
+    font-family: "Abel", sans-serif;
+    margin-bottom: 35px;
   }
-  .Titles {
-    display: flex;
-    flex-direction: row;
-    width: 250px;
-    margin: auto;
+  .Title {
+    width: 100%;
     font-weight: normal;
-    padding-top: 7px;
+    padding-top: 5px;
+    font-family: "Abel", sans-serif;
+    font-weight: normal;
+    padding-left: 10px;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: column;
   }
+
   .TitleSpacers {
-    margin-left: 10px;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .Discount {
+    justify-content: flex-start;
+    flex-direction: row;
+    margin-left: 0px;
+    height: 70px;
+    width: 300px;
+    background: #ff4e3f;
+    font-size: 12px;
+  }
+  .UnitCost {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    width: 90px;
+    padding-top: 10px;
+  }
+  .Price {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-family: "Abel", sans-serif;
+    font-size: 15px;
+    padding-bottom: 13px;
   }
 }
