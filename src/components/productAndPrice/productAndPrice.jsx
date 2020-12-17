@@ -25,6 +25,7 @@ const ProductAndPrice = (props) => {
           priceId={props.priceId}
           hairlength={props.hairlength}
           clicked={(val) => props.clicked(val)}
+          whichButton={(val) => props.whichButton(val)}
         />
       </div>
     </div>

@@ -18,6 +18,7 @@ const PriceDecription = (props) => {
         category={props.category}
         price={props.priceOptions}
         clicked={(val) => props.clicked(val)}
+        whichButton={(val) => props.whichButton(val)}
       />
     </div>
   );

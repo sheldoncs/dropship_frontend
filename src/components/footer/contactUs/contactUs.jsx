@@ -7,8 +7,8 @@ const contactUs = (props) => {
       <div style={{ fontWeight: "bold", paddingBottom: "20px" }}>
         CONTACT US
       </div>
-      <div>luxifiedhairnlash@gmail.com</div>
-      <div>(246) 847-3460</div>
+      <div>admin@opitin.com</div>
+      <div>(246) 233-3829</div>
     </div>
   );
 };

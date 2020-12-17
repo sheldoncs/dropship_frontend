@@ -13,8 +13,9 @@
     width: 90%;
     margin: auto;
     background-color: #fff;
-    height: 700px;
+    height: 900px;
     display: flex;
     flex-direction: row;
+    margin-bottom: 80px;
   }
 }

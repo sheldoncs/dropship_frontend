@@ -9,6 +9,7 @@ import SideDrawer from "../../components/sideDrawer/sideDrawer";
 import Cover from "../../components/cover/cover";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
+import Footer from "../../components/footer/footer";
 
 import {
   offer,
@@ -255,6 +256,9 @@ class ProductPage extends Component {
 
     this.setState({ ...saveState });
   };
+  actionHandler = (val) => {
+    alert(val);
+  };
   hairLengthHandler = (val) => {
     this.state.priceOptions.map((value, index) => {
       if (value.id == val) {
@@ -284,7 +288,9 @@ class ProductPage extends Component {
           priceId={this.state.priceId}
           hairlength={this.state.hairlength}
           clicked={(val) => this.hairLengthHandler(val)}
+          whichButton={(val) => this.actionHandler(val)}
         />
+        <Footer />
       </React.Fragment>
     );
   }
