@@ -28,6 +28,7 @@ class ProductPage extends Component {
   state = {
     photos: { subPhotos: null, main: null },
     offer: null,
+    count: 1,
     submenu: null,
     hairlength: null,
     options: null,
@@ -266,6 +267,16 @@ class ProductPage extends Component {
       }
     });
   };
+  counterAddHandler = (val) => {
+    val = val + 1;
+    this.setState({ count: val });
+  };
+  counterSubtractHandler = (val) => {
+    if (val > 1) {
+      val = val - 1;
+      this.setState({ count: val });
+    }
+  };
   render() {
     return (
       <React.Fragment>
@@ -288,7 +299,10 @@ class ProductPage extends Component {
           priceId={this.state.priceId}
           hairlength={this.state.hairlength}
           clicked={(val) => this.hairLengthHandler(val)}
+          lclicked={(val) => this.counterSubtractHandler(val)}
+          rclicked={(val) => this.counterAddHandler(val)}
           whichButton={(val) => this.actionHandler(val)}
+          count={this.state.count}
         />
         <Footer />
       </React.Fragment>

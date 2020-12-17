@@ -57,7 +57,11 @@ const classification = (props) => {
           />
         </div>
       </div>
-      <Counter lclicked={props.lclicked} rclicked={props.rclicked} />
+      <Counter
+        count={props.count}
+        lclicked={(val) => props.lclicked(val)}
+        rclicked={(val) => props.rclicked(val)}
+      />
       <div
         style={{
           margin: "auto",
@@ -73,7 +77,7 @@ const classification = (props) => {
             <span style={{ color: "#3FB22B", fontWeight: "bold" }}>
               Free Shipping
             </span>{" "}
-            to United States Via USPS
+            to United States Via EMS
           </div>
           <div className={classes.FreeshippingText}>
             <span style={{ color: "#989C98", fontSize: "15px" }}>
@@ -82,7 +86,7 @@ const classification = (props) => {
             <span
               style={{ color: "red", fontSize: "15px", fontWeight: "bold" }}
             >
-              72 hrs
+              10 Days
             </span>
           </div>
         </div>
@@ -92,15 +96,18 @@ const classification = (props) => {
           display: "flex",
           flexDirection: "row",
           margin: "auto",
-          width: "325px",
+          width: "385px",
           marginTop: "30px",
         }}
       >
         <ActionButton whichButton={(val) => props.whichButton(val)}>
+          Buy Now
+        </ActionButton>
+        <ActionButton whichButton={(val) => props.whichButton(val)}>
           Add To Cart
         </ActionButton>
         <ActionButton whichButton={(val) => props.whichButton(val)}>
-          Buy Now
+          Book It
         </ActionButton>
       </div>
     </div>

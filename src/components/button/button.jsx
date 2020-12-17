@@ -9,6 +9,8 @@ const Button = (props) => {
       formatClasses.push("btn-success");
     } else if (props.children == "Buy Now") {
       formatClasses.push("btn-danger");
+    } else if (props.children == "Book It") {
+      formatClasses.push("btn-primary");
     }
   }
   return (

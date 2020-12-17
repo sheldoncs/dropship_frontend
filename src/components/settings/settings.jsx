@@ -23,6 +23,11 @@ const Settings = (props) => {
         </NavigationItem>
       </div>
       <div className={classes.Icons}>
+        <div className={classes.Order}>
+          <div className="text-center pt-1">
+            <span>0</span>
+          </div>
+        </div>
         <img src={Shopping} />
       </div>
     </div>

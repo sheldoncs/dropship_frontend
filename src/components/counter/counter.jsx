@@ -14,13 +14,16 @@ const counter = (props) => {
       <div className="pt-1">Quantity:</div>
       <div
         style={{ marginLeft: "100px" }}
-        onClick={props.lclicked}
+        onClick={() => props.lclicked(props.count)}
         className={leftClasses.join(" ")}
       >
         -
       </div>
-      <div className={middleClasses.join(" ")}>1</div>
-      <div onClick={props.rclicked} className={rightClasses.join(" ")}>
+      <div className={middleClasses.join(" ")}>{props.count}</div>
+      <div
+        onClick={() => props.rclicked(props.count)}
+        className={rightClasses.join(" ")}
+      >
         +
       </div>
     </div>

@@ -17,6 +17,9 @@ const PriceDecription = (props) => {
         hairlength={props.hairlength}
         category={props.category}
         price={props.priceOptions}
+        count={props.count}
+        lclicked={(val) => props.lclicked(val)}
+        rclicked={(val) => props.rclicked(val)}
         clicked={(val) => props.clicked(val)}
         whichButton={(val) => props.whichButton(val)}
       />
