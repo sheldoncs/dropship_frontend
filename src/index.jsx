@@ -15,7 +15,7 @@ import offerReducer from "./store/offerReducer";
 import orderCategoryReducer from "./store/orderCategoryReducer";
 
 const client = new ApolloBoost({
-  uri: "http://localhost:4000/graphql",
+  uri: "http://localhost:8080/graphql",
 });
 
 const rootReducer = combineReducers({

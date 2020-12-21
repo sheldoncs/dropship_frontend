@@ -2,7 +2,7 @@ import React from "react";
 import Signup from "../../assets/loginsignup.png";
 import Shopping from "../../assets/cart.png";
 import classes from "./Settings.module.css";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/wizzy_wig.png";
 import NavigationItem from "../../components/footerNavigationItem/footerNavigationItem";
 
 const Settings = (props) => {

@@ -41,6 +41,10 @@
     color: #000;
     margin: 10px auto;
   }
+  .LogoFont {
+    font-family: "Parisienne", cursive;
+    font-size: 50px;
+  }
   .Order {
     position: absolute;
     right: 10px;

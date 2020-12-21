@@ -10,6 +10,7 @@ import Cover from "../../components/cover/cover";
 import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 import Footer from "../../components/footer/footer";
+import Review from "../../components/review/review";
 
 import {
   offer,
@@ -37,6 +38,7 @@ class ProductPage extends Component {
     openCover: false,
     showError: true,
     menu: null,
+    slideDown: false,
     firstname: null,
     showSubPhotos: true,
     isOffer: false,
@@ -52,6 +54,11 @@ class ProductPage extends Component {
           { value: "Indian", displayValue: "Indian hair" },
         ],
       },
+    },
+    chatType: {
+      elementype: "input",
+      elementname: "chatClient",
+      elementConfig: { type: "text", placeholder: "Chat" },
     },
   };
 
@@ -89,7 +96,7 @@ class ProductPage extends Component {
   fetchMenuQuery = () => {
     let query = categoryQuery;
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetch({
       query,
@@ -104,7 +111,7 @@ class ProductPage extends Component {
       categoryid: Number(categoryid),
     };
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetch({
       query,
@@ -130,7 +137,7 @@ class ProductPage extends Component {
     };
 
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     query = pricesByCategory;
 
@@ -153,7 +160,7 @@ class ProductPage extends Component {
     };
 
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     query = offer;
 
@@ -186,7 +193,7 @@ class ProductPage extends Component {
     };
 
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     query = itemAndCategory;
 
@@ -210,7 +217,7 @@ class ProductPage extends Component {
     };
 
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     query = options;
 
@@ -258,7 +265,14 @@ class ProductPage extends Component {
     this.setState({ ...saveState });
   };
   actionHandler = (val) => {
-    alert(val);
+    let tempState = { ...this.state };
+    if (val == "AddToCart") {
+      this.setState({ slideDown: true });
+      setTimeout(this.timeOutHandler, 5000);
+    }
+  };
+  timeOutHandler = () => {
+    this.setState({ slideDown: false });
   };
   hairLengthHandler = (val) => {
     this.state.priceOptions.map((value, index) => {
@@ -277,9 +291,15 @@ class ProductPage extends Component {
       this.setState({ count: val });
     }
   };
+
   render() {
     return (
       <React.Fragment>
+        <Review slideDown={this.state.slideDown}>
+          {/* {this.state.slideDown ? "Review Order" : null} */}
+          Review Order
+        </Review>
+
         {this.props.user != null ? (
           <Settings welcome={this.state.firstname} />
         ) : (

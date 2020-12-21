@@ -1,0 +1,28 @@
+.ChatClient {
+  position: fixed;
+  float: right;
+  display: block;
+  right: 20px;
+  width: 33%;
+  height: 300px;
+  border: 1px solid #ccc;
+  background: #237ed9;
+  z-index: 40;
+  margin-top: 200px;
+  border-radius: 20px;
+}
+.Button {
+  width: 70px;
+  height: 35px;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  margin-top: 22px;
+}
+.ChatArea {
+  width: 360px;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin: auto;
+  margin-top: 10px;
+  background: #fff;
+}

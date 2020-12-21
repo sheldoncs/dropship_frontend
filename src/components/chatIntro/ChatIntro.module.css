@@ -1,0 +1,13 @@
+.ChatIntro {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 350px;
+}
+.Button {
+  width: 130px;
+  height: 35px;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  margin-left: 23px;
+}

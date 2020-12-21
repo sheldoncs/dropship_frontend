@@ -12,15 +12,41 @@ import Settings from "../../components/settings/settings";
 import Display from "../../components/display/display";
 import Footer from "../../components/footer/footer";
 import { offers, pricesByCategory } from "../../Query/Query";
+import ChatButton from "../../components/button/chatButton/chatButton";
+import ChatClient from "../../components/chatClient/chatClient";
+import socketClient from "socket.io-client";
 
 class Home extends Component {
   state = {
     menu: null,
     offers: null,
     offer: null,
+    showIntro: true,
+    chatPressed: false,
+    channels: [{ id: 1, name: "", participants: 1, message: "", email: "" }],
     items: {
       itemList: null,
       priceOptions: null,
+    },
+    chatType: {
+      elemenType: "input",
+      elementName: "chatClient",
+      elementConfig: { type: "text", placeholder: "Chat" },
+      visibility: true,
+    },
+    chatName: {
+      elemenType: "input",
+      elementName: "chatName",
+      elementConfig: { type: "text", placeholder: "Chat Name" },
+      visibility: true,
+      value: "",
+    },
+    chatEmail: {
+      elemenType: "input",
+      elementName: "email",
+      elementConfig: { type: "text", placeholder: "email" },
+      visibility: true,
+      value: "",
     },
   };
 
@@ -33,7 +59,7 @@ class Home extends Component {
   }
   componentDidMount() {
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetch({
       query: `query  {
@@ -47,7 +73,7 @@ class Home extends Component {
       this.setState({ menu: res.data.getAllCategories });
     });
     const fetchOffers = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetchOffers({
       query: offers,
@@ -57,7 +83,7 @@ class Home extends Component {
       this.setState({ ...tempState });
     });
     const fetchItems = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetchItems({
       query: `query  {
@@ -74,7 +100,7 @@ class Home extends Component {
       this.setState({ ...tempState });
     });
     const fetchPriceOptions = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     let query = pricesByCategory;
     let variables = null;
@@ -118,9 +144,58 @@ class Home extends Component {
   navigationHandler = (catId) => {
     alert(catId);
   };
+  chatHandler = () => {
+    let tempState = { ...this.state };
+    this.setState({ chatPressed: !tempState.chatPressed });
+  };
+  eventHandler = (message, name, event) => {
+    const socket = socketClient("http://localhost:8080");
+    socket.on("connection", () => {
+      console.log(`I'm connected with the back-end`);
+    });
+    let tempState = { ...this.state };
+    if (tempState.channels[0].name != "") {
+      tempState.channels[0].name = name + ":";
+    }
+    tempState.channels[0].message = message;
+    this.setState({ ...tempState });
+    if (event != null) {
+      event.target.value = "";
+      socket.emit("name", name);
+      socket.emit("client_message", message);
+    }
+  };
+  activateChatHandler = (nameEvent, emailEvent) => {
+    if (nameEvent != null && emailEvent != null) {
+      let tempState = { ...this.state };
+      tempState.channels[0].name = nameEvent.target.value;
+      tempState.channels[0].email = emailEvent.tatget.value;
+      tempState.showIntro = false;
+      this.setState({ ...tempState });
+    }
+  };
   render() {
     return (
       <div>
+        <ChatClient
+          key={this.state.chatType.elementName}
+          chatPressed={this.state.chatPressed}
+          elementtype={this.state.chatType.elementType}
+          elementconfig={this.state.chatType.elementConfig}
+          elementname={this.state.chatType.elementName}
+          visibility={this.state.visibility}
+          chatName={this.state.chatName}
+          chatEmail={this.state.chatEmail}
+          showIntro={this.state.showIntro}
+          participant={this.state.channels[0].name}
+          message={this.state.channels[0].message}
+          channels={this.state.channels}
+          activateChat={(nameEvent, emailEvent) =>
+            this.activateChatHandler(nameEvent, emailEvent)
+          }
+          eventChanged={(val, msg, event) => this.eventHandler(val, msg, event)}
+        />
+        <ChatButton chatClicked={this.chatHandler} />
         {this.props.user != null ? (
           <Settings welcome={this.props.user.firstname} />
         ) : (
