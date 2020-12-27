@@ -4,10 +4,35 @@ import ScrollArea from "react-scrollbar";
 import classes from "./ChatClient.module.css";
 import Input from "../input/input";
 import ChatIntro from "../chatIntro/chatIntro";
+import { createPropertySignature } from "typescript";
 
 const chatClient = (props) => {
   let value = "";
   let eventObject = null;
+  let chatMessage = "";
+
+  if (props.channels.length > 0) {
+    chatMessage = (
+      <ChatMessage
+        participant=""
+        message=""
+        setActive={value.onActivate}
+        channels={props.channels}
+      />
+    );
+  } else {
+    if (props.showIntro) {
+      chatMessage = (
+        <ChatIntro
+          chatName={props.chatName}
+          chatEmail={props.chatEmail}
+          activateChat={(nameEvent, emailEvent) =>
+            props.activateChat(nameEvent, emailEvent)
+          }
+        />
+      );
+    }
+  }
 
   function inputHandler(event) {
     event.preventDefault();
@@ -28,20 +53,7 @@ const chatClient = (props) => {
         className={classes.ChatArea}
         horizontal={false}
       >
-        {!props.showIntro ? (
-          <ChatMessage
-            participant={props.participant}
-            message={props.message}
-          />
-        ) : (
-          <ChatIntro
-            chatEmail={props.chatEmail}
-            chatName={props.chatName}
-            activateChat={(nameEvent, emailEvent) =>
-              props.activateChat(nameEvent, emailEvent)
-            }
-          />
-        )}
+        {chatMessage}
       </ScrollArea>
       <div
         style={{

@@ -173,7 +173,11 @@ class Login extends Component {
   }
   componentDidMount() {
     if (this.props.menu != null) {
-      this.setState({ menu: this.props.menu });
+      let tempMenu = this.props.menu;
+      var filteredMenu = tempMenu.filter(function (el) {
+        return el.category == "Home";
+      });
+      this.setState({ menu: filteredMenu });
     } else {
       this.fetchMenuQuery();
     }
@@ -184,18 +188,22 @@ class Login extends Component {
   fetchMenuQuery = () => {
     let query = categoryQuery;
     const fetch = createApolloFetch({
-      uri: "http://localhost:4000/graphql",
+      uri: "http://localhost:8080/graphql",
     });
     fetch({
       query,
     }).then((res) => {
-      this.setState({ menu: res.data.getAllCategories });
+      let tempMenu = res.data.getAllCategories;
+      var filteredMenu = tempMenu.filter(function (el) {
+        return el.category == "Home";
+      });
+      this.setState({ menu: filteredMenu });
     });
   };
   googleHandler = (event) => {
     event.preventDefault();
     const myHeaders = new Headers();
-    fetch("http://localhost:4000/auth/google")
+    fetch("http://localhost:8080/auth/google")
       .then((res) => {
         console.log(res);
       })
@@ -214,7 +222,7 @@ class Login extends Component {
         password: this.state.loginForm.password.value,
       };
 
-      fetch("http://localhost:4000/login", {
+      fetch("http://localhost:8080/login", {
         method: "POST",
         body: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
@@ -228,6 +236,7 @@ class Login extends Component {
               if (result.auth === true) {
                 this.props.onSetToken(result.token);
                 localStorage.setItem("email", this.state.loginForm.email.value);
+                console.log("result", result);
 
                 let userObject = {
                   username: this.state.loginForm.email.value,
@@ -240,6 +249,7 @@ class Login extends Component {
                   zip: "",
                   country: "",
                   isGoogle: 0,
+                  admin: result.admin,
                 };
 
                 this.props.onSaveUser(userObject);
@@ -268,7 +278,7 @@ class Login extends Component {
     }
   };
   responseGoogle = (response) => {
-    const uri = "http://localhost:4000/graphql";
+    const uri = "http://localhost:8080/graphql";
 
     let query = creatUser;
 
@@ -300,6 +310,11 @@ class Login extends Component {
     tempState.showCover = !this.state.showCover;
     tempState.showError = !this.state.showError;
     this.setState({ ...tempState });
+  };
+  navigationHandler = (catId) => {
+    if (catId == 1) {
+      this.props.history.push("/");
+    }
   };
   render() {
     // if (!this.state.mounted) {
@@ -356,7 +371,11 @@ class Login extends Component {
         ) : (
           <Settings welcome="" />
         )}
-        <NavigationItems menuItems={this.state.menu} />
+        <NavigationItems
+          menuItems={this.state.menu}
+          page="login"
+          clicked={(id) => this.navigationHandler(id)}
+        />
         <div className={classes.Container}>
           <div className={classes.Logo}>
             <img src={Logo} />
@@ -364,7 +383,7 @@ class Login extends Component {
               Connect With Us
             </div>
           </div>
-          {/*  */}
+
           <form className={classes.Input} onSubmit={this.loginHandler}>
             <div>
               <div>

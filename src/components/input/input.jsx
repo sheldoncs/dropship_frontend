@@ -84,7 +84,7 @@ const Input = (props) => {
           value={props.value}
           name={props.elementName}
           id={props.elementName}
-          visibility={props.visibility}
+          type={props.visibility}
         />
       );
   }

@@ -20,6 +20,7 @@ const navigationItems = (props) => {
       return (
         <NavigationItem
           key={value.id}
+          page={props.page}
           clicked={() => props.clicked(value.id)}
           link={"/" + value.category}
         >

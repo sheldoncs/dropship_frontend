@@ -66,3 +66,20 @@ export const pricesByCategory = `query ($categoryid:Int) {
   price
   }
 }`;
+export const activeChatters = `query ($active:Int) {
+  getActiveChatters(active:$active) {
+    id
+    name
+    email
+    isadmin
+    active
+    socketid
+  }
+}`;
+export const deactivatChatter = `mutation ($socketid:String) {
+  deactivateActiveChatter(socketid:$socketid) {
+    Socket {
+      socketid
+    }
+  }
+}`;

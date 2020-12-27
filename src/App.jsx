@@ -7,6 +7,7 @@ import Features from "./containers/features/features";
 import Product from "./containers/productPage/productPage";
 import Login from "./containers/login/login";
 import ForgotPassword from "./containers/forgotPassword/forgotPassword";
+import AdminChat from "./containers/adminChat/adminChat";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/features" component={Features} />
         <Route exact path="/signup" component={Signup} />
+        <Route exact path="/adminChat" component={AdminChat} />
         <Route exact path="/" component={Home} />
       </Switch>
     </div>

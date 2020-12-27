@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { createApolloFetch } from "apollo-fetch";
 import { connect } from "react-redux";
 import NavigationItems from "../../components/navigationItems/NavigationItems";
-import IntroHeader from "../../components/intro/intro";
-import Ribbon from "../../components/ribbon/ribbon";
-import FirstDetails from "../../components/firstDetails/firstDetails";
-import SecondDetails from "../../components/secondDetails/secondDetails";
 import * as actionCreators from "../../store/actions/index";
 import Offer from "../../components/offers/offers";
 import Settings from "../../components/settings/settings";
@@ -14,16 +10,23 @@ import Footer from "../../components/footer/footer";
 import { offers, pricesByCategory } from "../../Query/Query";
 import ChatButton from "../../components/button/chatButton/chatButton";
 import ChatClient from "../../components/chatClient/chatClient";
-import socketClient from "socket.io-client";
+import socket from "../../components/socket/socket";
+import { textSpanIsEmpty } from "typescript";
 
 class Home extends Component {
   state = {
     menu: null,
     offers: null,
     offer: null,
-    showIntro: true,
+    showIntro: false,
     chatPressed: false,
-    channels: [{ id: 1, name: "", participants: 1, message: "", email: "" }],
+    onActivate: true,
+    chatMessage: null,
+    channels: [],
+    chatters: [
+      { name: "", socketid: "", open: false, messages: [{ message: "" }] },
+    ],
+    socketid: "",
     items: {
       itemList: null,
       priceOptions: null,
@@ -32,20 +35,20 @@ class Home extends Component {
       elemenType: "input",
       elementName: "chatClient",
       elementConfig: { type: "text", placeholder: "Chat" },
-      visibility: true,
+      visibility: "true",
     },
     chatName: {
       elemenType: "input",
       elementName: "chatName",
       elementConfig: { type: "text", placeholder: "Chat Name" },
-      visibility: true,
+      visibility: "true",
       value: "",
     },
     chatEmail: {
       elemenType: "input",
       elementName: "email",
       elementConfig: { type: "text", placeholder: "email" },
-      visibility: true,
+      visibility: "true",
       value: "",
     },
   };
@@ -58,6 +61,8 @@ class Home extends Component {
     let menuValues = tempState.menu;
   }
   componentDidMount() {
+    // console.log(this.props.user);
+    this.setState({ showIntro: true });
     const fetch = createApolloFetch({
       uri: "http://localhost:8080/graphql",
     });
@@ -117,7 +122,63 @@ class Home extends Component {
       tempState.items.priceOptions = res.data.getPriceOptions;
       this.setState({ ...tempState });
     });
+
+    socket.on("new_msg", function (data) {
+      console.log(data);
+      let tempState = { ...this.state };
+      if (tempState.socketid == data.socketid) {
+        tempState.channels.push({
+          name: data.name + ":",
+          email: tempState.channels[0].email,
+          message: data.message,
+          onActivate: false,
+          showIntro: false,
+        });
+
+        tempState.onActivate = false;
+        this.setState({ ...tempState });
+      }
+    });
+    socket.on("chatroom", (data) => {
+      console.log("chatroom", data);
+    });
+    socket.on("connection id", (data) => {
+      console.log(data);
+      this.setState({ socketid: data });
+    });
+    socket.on("message", (data) => {
+      let tempState = { ...this.state };
+
+      if (tempState.chatters.length > 0) {
+        const found = tempState.chatters.find(
+          (element) => element.socketid == data.socketid
+        );
+        if (found) {
+          tempState.chatters.forEach((chatter) => {
+            if (chatter.socketid == data.socketid) {
+              chatter.messages.push({ message: data.message });
+            }
+          });
+        } else {
+          tempState.chatters.push({
+            name: data.name,
+            socketid: data.socketid,
+            messages: [{ message: data.message }],
+          });
+        }
+      } else {
+        tempState.chatters.push({
+          name: data.name,
+          socketid: data.socketid,
+          messages: [{ message: data.message }],
+        });
+      }
+      console.log(tempState.chatters);
+    });
   }
+  arrayFilterHandler = () => {
+    //var filtered = someArray.filter(function(el) { return el.Name != "Kristian"; });
+  };
   handleOffer = (id) => {
     let offerList = this.state.offers;
     let tempState = { ...this.state };
@@ -142,38 +203,72 @@ class Home extends Component {
     });
   };
   navigationHandler = (catId) => {
-    alert(catId);
+    if (catId == 1) {
+      this.props.history.push("/");
+    }
   };
   chatHandler = () => {
     let tempState = { ...this.state };
+    //
+
     this.setState({ chatPressed: !tempState.chatPressed });
   };
   eventHandler = (message, name, event) => {
-    const socket = socketClient("http://localhost:8080");
-    socket.on("connection", () => {
-      console.log(`I'm connected with the back-end`);
+    socket.emit("message", {
+      socketid: this.state.socketid,
+      name: name,
+      message: message,
     });
+
     let tempState = { ...this.state };
-    if (tempState.channels[0].name != "") {
-      tempState.channels[0].name = name + ":";
-    }
-    tempState.channels[0].message = message;
-    this.setState({ ...tempState });
-    if (event != null) {
-      event.target.value = "";
-      socket.emit("name", name);
-      socket.emit("client_message", message);
-    }
+
+    tempState.channels.push({
+      name: name + ":",
+
+      message: message,
+      onActivate: false,
+      showIntro: false,
+    });
+
+    // tempState.onActivate = false;
+    // this.setState({ ...tempState });
+    // if (event != null) {
+    //   event.target.value = "";
+    //   socket.emit("name", name);
+    //   socket.emit("client_message", message);
+    // }
   };
   activateChatHandler = (nameEvent, emailEvent) => {
     if (nameEvent != null && emailEvent != null) {
       let tempState = { ...this.state };
-      tempState.channels[0].name = nameEvent.target.value;
-      tempState.channels[0].email = emailEvent.tatget.value;
-      tempState.showIntro = false;
+
+      tempState.channels.push({
+        name: nameEvent.target.value,
+        email: emailEvent.target.value,
+        message: "",
+        showIntro: false,
+        onActivate: true,
+      });
+      socket.emit("name", tempState.channels[0].name);
+      socket.emit("nameandemail", {
+        name: tempState.channels[0].name,
+        email: tempState.channels[0].email,
+        socketid: "",
+      });
+      socket.emit("email", tempState.channels[0].email);
+      // socket.emit(, { email: tempState.channels[0].email });
+      socket.on("socketid", (data) => {
+        let tempState = { ...this.state };
+        tempState.socketid = data.socketid;
+        this.setState({ ...tempState });
+        alert(data.socketid);
+      });
       this.setState({ ...tempState });
+      nameEvent.target.value = "";
+      emailEvent.target.value = "";
     }
   };
+
   render() {
     return (
       <div>
@@ -183,13 +278,11 @@ class Home extends Component {
           elementtype={this.state.chatType.elementType}
           elementconfig={this.state.chatType.elementConfig}
           elementname={this.state.chatType.elementName}
-          visibility={this.state.visibility}
           chatName={this.state.chatName}
           chatEmail={this.state.chatEmail}
           showIntro={this.state.showIntro}
-          participant={this.state.channels[0].name}
-          message={this.state.channels[0].message}
           channels={this.state.channels}
+          setActive={this.state.onActivate}
           activateChat={(nameEvent, emailEvent) =>
             this.activateChatHandler(nameEvent, emailEvent)
           }
@@ -202,6 +295,7 @@ class Home extends Component {
           <Settings welcome="" />
         )}
         <NavigationItems
+          page="home"
           clicked={this.navigationHandler}
           menuItems={this.state.menu}
         />
@@ -213,11 +307,6 @@ class Home extends Component {
           prices={this.state.items.priceOptions}
         />
         <Footer />
-        {/* <IntroHeader clicked={this.purchaseHandler} />
-        <Ribbon>IP66 LEVEL PROTECTION</Ribbon>
-        <FirstDetails />
-        <Ribbon>OTHER FEATURES</Ribbon>
-        <SecondDetails /> */}
       </div>
     );
   }
@@ -239,4 +328,5 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
+export { socket };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

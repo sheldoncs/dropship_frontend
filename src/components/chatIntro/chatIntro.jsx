@@ -20,7 +20,6 @@ const chatIntro = (props) => {
   return (
     <div className={classes.ChatIntro}>
       <Input
-        key={props.chatName.elementName}
         elementtype={props.chatName.elementType}
         elementconfig={props.chatName.elementConfig}
         elementname={props.chatName.elementName}
@@ -28,7 +27,6 @@ const chatIntro = (props) => {
         changed={(event) => inputNameHandler(event)}
       />
       <Input
-        key={props.chatEmail.elementName}
         elementtype={props.chatEmail.elementType}
         elementconfig={props.chatEmail.elementConfig}
         elementname={props.chatEmail.elementName}

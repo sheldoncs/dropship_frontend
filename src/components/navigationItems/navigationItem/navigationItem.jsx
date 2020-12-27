@@ -17,14 +17,15 @@ const navigationItem = (props) => {
     //   </NavLink> */}
 
     // </li>
-
-    <div
-      onClick={props.clicked}
-      className={classes.NavigationItem}
-      onClick={props.clicked}
-    >
-      <a href="#">{props.children}</a>
-    </div>
+    <React.Fragment>
+      <div
+        onClick={props.clicked}
+        className={classes.NavigationItem}
+        onClick={props.clicked}
+      >
+        <a href="#">{props.children}</a>
+      </div>
+    </React.Fragment>
   );
 };
 
