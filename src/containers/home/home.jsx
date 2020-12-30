@@ -12,7 +12,8 @@ import ChatButton from "../../components/button/chatButton/chatButton";
 import ChatClient from "../../components/chatClient/chatClient";
 import socket from "../../components/socket/socket";
 import ChatController from "../../components/chatController/chatController";
-import { throwServerError } from "@apollo/client";
+import ReactAudioPlayer from "react-audio-player";
+import soundfile from "../../assets/sound/chatsignal.mp3";
 
 class Home extends Component {
   state = {
@@ -61,6 +62,10 @@ class Home extends Component {
     let tempState = { ...this.state };
     let menuValues = tempState.menu;
   }
+  start = () => {
+    const audioEl = document.getElementsByClassName("audio-element")[0];
+    audioEl.play();
+  };
   componentDidMount() {
     if (this.props.user != null) {
       let tempState = { ...this.state };
@@ -150,9 +155,8 @@ class Home extends Component {
       this.setState({ socketid: data });
     });
     socket.on("message", (data) => {
-      console.log("receiving ", data);
       let tempState = { ...this.state };
-
+      this.start();
       if (this.props.user != null) {
         if (this.props.user.admin == 1) {
           this.props.onSaveClientSocketId(data.socketid);
@@ -360,6 +364,11 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <div>
+          <audio className="audio-element">
+            <source src={soundfile}></source>
+          </audio>
+        </div>
         <ChatClient
           key={this.state.chatType.elementName}
           chatPressed={this.state.chatPressed}
