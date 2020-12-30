@@ -14,7 +14,7 @@ function App() {
     <div className={classes.Bgrnd}>
       <Switch>
         <Route exact path="/forgot" component={ForgotPassword} />
-        <Route exact path="/product" component={Product} />
+        <Route exact path="/productpage" component={Product} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/contact" component={Contact} />
         <Route exact path="/features" component={Features} />

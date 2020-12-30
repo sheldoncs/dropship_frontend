@@ -292,14 +292,15 @@ class Login extends Component {
       zip: "",
       country: "",
       isGoogle: 1,
+      admin: 0,
     };
+
+    this.props.onSaveUser(variables);
 
     const apolloFetch = createApolloFetch({ uri });
 
     apolloFetch({ query, variables })
-      .then((resp) => {
-        console.log(resp);
-      })
+      .then((resp) => {})
       .catch((error) => {
         console.log(error);
       });

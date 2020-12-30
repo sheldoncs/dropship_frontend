@@ -155,67 +155,82 @@ class Home extends Component {
       this.setState({ socketid: data });
     });
     socket.on("message", (data) => {
-      let tempState = { ...this.state };
-      this.start();
-      if (this.props.user != null) {
-        if (this.props.user.admin == 1) {
-          this.props.onSaveClientSocketId(data.socketid);
-          tempState.clientsocketid = data.socketid;
+      try {
+        let tempState = { ...this.state };
 
-          this.setState({ ...tempState });
-        }
-        if (tempState.chatters != null) {
-          const chatter = tempState.chatters.find(
-            (element) => element.opened == true
-          );
-        }
+        if (this.props.user != null) {
+          if (this.props.user.admin == 1) {
+            this.start();
+            this.props.onSaveClientSocketId(data.socketid);
+            tempState.clientsocketid = data.socketid;
 
-        console.log(tempState);
-        this.setState({ ...tempState });
+            this.setState({ ...tempState });
 
-        if (tempState.chatters.length > 0) {
-          const chatter = tempState.chatters.find(
-            (element) => element.socketid == data.socketid
-          );
+            if (tempState.chatters != null) {
+              const chatter = tempState.chatters.find(
+                (element) => element.opened == true
+              );
+            }
 
-          if (chatter) {
-            chatter.messages.push({ message: data.message });
-            if (chatter.opened) {
+            this.setState({ ...tempState });
+
+            if (tempState.chatters.length > 0) {
+              const chatter = tempState.chatters.find(
+                (element) => element.socketid == data.socketid
+              );
+
+              if (chatter) {
+                chatter.messages.push({ message: data.message });
+                if (chatter.opened) {
+                  tempState.channels.push({
+                    name: data.name + ":",
+                    message: data.message,
+                    onActivate: false,
+                    showIntro: false,
+                  });
+                  this.setState({ ...tempState });
+                }
+              } else {
+                tempState.chatters.push({
+                  name: data.name,
+                  opened: false,
+                  socketid: data.socketid,
+                  messages: [{ message: data.message }],
+                });
+              }
+            } else {
+              tempState.chatters.push({
+                name: data.name,
+                opened: false,
+                socketid: data.socketid,
+                messages: [{ message: data.message }],
+              });
+            }
+          } else if (this.props.user.admin == 0) {
+            if (data.clientsocketid == this.state.socketid) {
+              this.start();
               tempState.channels.push({
-                name: data.name + ":",
+                name: data.name.replace(":", "") + ":",
                 message: data.message,
                 onActivate: false,
                 showIntro: false,
               });
               this.setState({ ...tempState });
             }
-          } else {
-            tempState.chatters.push({
-              name: data.name,
-              opened: false,
-              socketid: data.socketid,
-              messages: [{ message: data.message }],
-            });
           }
         } else {
-          tempState.chatters.push({
-            name: data.name,
-            opened: false,
-            socketid: data.socketid,
-            messages: [{ message: data.message }],
-          });
+          if (data.clientsocketid == this.state.socketid) {
+            this.start();
+            tempState.channels.push({
+              name: data.name.replace(":", "") + ":",
+              message: data.message,
+              onActivate: false,
+              showIntro: false,
+            });
+            this.setState({ ...tempState });
+          }
         }
-      } else {
-        if (data.clientsocketid == this.state.socketid) {
-          tempState.channels.push({
-            name: data.name.replace(":", "") + ":",
-            message: data.message,
-            onActivate: false,
-            showIntro: false,
-          });
-          this.setState({ ...tempState });
-        }
-      }
+      } catch (error) {}
     });
   }
   arrayFilterHandler = () => {
@@ -359,6 +374,29 @@ class Home extends Component {
       });
 
       this.setState({ showIntro: false });
+    } else {
+      if (tempState.chatters != null) {
+        tempState.chatters = tempState.chatters.find(
+          (element) => element.opened == false
+        );
+        tempState.channels.push({
+          name: "Chat Ended",
+          email: tempState.channels[0].email,
+          message: "",
+          onActivate: false,
+          showIntro: false,
+        });
+        let data = {
+          socketid: this.state.socketid,
+          clientsocketid: this.state.clientsocketid,
+          name: "",
+          message: "Chat Ended",
+          admin: this.state.admin,
+        };
+
+        socket.emit("message", data);
+        this.setState({ ...tempState });
+      }
     }
   };
   render() {

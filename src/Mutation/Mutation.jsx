@@ -10,6 +10,7 @@ $addr2: String!,
 $zip: String!,
 $country: String!,
 $isGoogle: Int!
+$admin:Int!
 ) {
 addUserInfo (
  username: $username,
@@ -22,6 +23,7 @@ addUserInfo (
  zip: $zip,
  country: $country,
  isGoogle: $isGoogle,
+ admin:$admin,
 ) {
  User{
    username,
@@ -34,6 +36,7 @@ addUserInfo (
    zip,
    country,
    isGoogle,
+   admin,
   }
  }
 }
