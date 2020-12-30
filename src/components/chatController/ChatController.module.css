@@ -1,0 +1,23 @@
+.ChatController {
+  position: fixed;
+  margin-top: 510px;
+  margin-right: 10px;
+  float: right;
+  right: 70px;
+  background: #a62b31;
+  display: inline;
+  width: 227px;
+  height: 73px;
+  border-radius: 10px;
+  border: 2px solid #fff;
+  z-index: 20;
+}
+.Button {
+  width: 90px;
+  height: 50px;
+  border-radius: 5px;
+  display: inline;
+  font-family: "Abel", sans-serif;
+  font-size: 12px;
+  margin: 10px;
+}

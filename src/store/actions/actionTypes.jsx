@@ -9,3 +9,5 @@ export const SET_TOKEN = "SET_TOKEN";
 export const SAVE_SELECTED_OFFER = " SAVE_SELECTED_OFFER";
 export const SAVE_ORDER = " SAVE_ORDER";
 export const SAVE_CATEGORY = "SAVE_CATEGORY";
+export const SAVE_SOCKET_ID = "SAVE_SOCKET_ID";
+export const SAVE_CLIENT_SOCKET_ID = "SAVE_CLIENT_SOCKET_ID";

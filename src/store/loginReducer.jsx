@@ -10,9 +10,21 @@ const initialState = {
   google: "visible",
   user: null,
   token: "",
+  socketID: "",
+  clientSocketID: "",
 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SAVE_SOCKET_ID:
+      return {
+        ...state,
+        socketid: action.socketid,
+      };
+    case actionTypes.SAVE_CLIENT_SOCKET_ID:
+      return {
+        ...state,
+        clisocketid: action.clisocketid,
+      };
     case actionTypes.SET_TOKEN:
       return {
         ...state,

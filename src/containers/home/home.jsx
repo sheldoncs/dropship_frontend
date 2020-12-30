@@ -11,10 +11,12 @@ import { offers, pricesByCategory } from "../../Query/Query";
 import ChatButton from "../../components/button/chatButton/chatButton";
 import ChatClient from "../../components/chatClient/chatClient";
 import socket from "../../components/socket/socket";
-import { textSpanIsEmpty } from "typescript";
+import ChatController from "../../components/chatController/chatController";
+import { throwServerError } from "@apollo/client";
 
 class Home extends Component {
   state = {
+    user: { name: "", admin: 0 },
     menu: null,
     offers: null,
     offer: null,
@@ -23,10 +25,9 @@ class Home extends Component {
     onActivate: true,
     chatMessage: null,
     channels: [],
-    chatters: [
-      { name: "", socketid: "", open: false, messages: [{ message: "" }] },
-    ],
+    chatters: [],
     socketid: "",
+    clientsocketid: "",
     items: {
       itemList: null,
       priceOptions: null,
@@ -61,7 +62,13 @@ class Home extends Component {
     let menuValues = tempState.menu;
   }
   componentDidMount() {
-    // console.log(this.props.user);
+    if (this.props.user != null) {
+      let tempState = { ...this.state };
+      tempState.socketid = this.props.socketid;
+      tempState.user.name = this.props.user.firstname;
+      tempState.user.admin = this.props.user.admin;
+      this.setState({ ...tempState });
+    }
     this.setState({ showIntro: true });
     const fetch = createApolloFetch({
       uri: "http://localhost:8080/graphql",
@@ -124,7 +131,6 @@ class Home extends Component {
     });
 
     socket.on("new_msg", function (data) {
-      console.log(data);
       let tempState = { ...this.state };
       if (tempState.socketid == data.socketid) {
         tempState.channels.push({
@@ -139,41 +145,73 @@ class Home extends Component {
         this.setState({ ...tempState });
       }
     });
-    socket.on("chatroom", (data) => {
-      console.log("chatroom", data);
-    });
     socket.on("connection id", (data) => {
-      console.log(data);
+      this.props.onSaveSocketId(data);
       this.setState({ socketid: data });
     });
     socket.on("message", (data) => {
+      console.log("receiving ", data);
       let tempState = { ...this.state };
 
-      if (tempState.chatters.length > 0) {
-        const found = tempState.chatters.find(
-          (element) => element.socketid == data.socketid
-        );
-        if (found) {
-          tempState.chatters.forEach((chatter) => {
-            if (chatter.socketid == data.socketid) {
-              chatter.messages.push({ message: data.message });
+      if (this.props.user != null) {
+        if (this.props.user.admin == 1) {
+          this.props.onSaveClientSocketId(data.socketid);
+          tempState.clientsocketid = data.socketid;
+
+          this.setState({ ...tempState });
+        }
+        if (tempState.chatters != null) {
+          const chatter = tempState.chatters.find(
+            (element) => element.opened == true
+          );
+        }
+
+        console.log(tempState);
+        this.setState({ ...tempState });
+
+        if (tempState.chatters.length > 0) {
+          const chatter = tempState.chatters.find(
+            (element) => element.socketid == data.socketid
+          );
+
+          if (chatter) {
+            chatter.messages.push({ message: data.message });
+            if (chatter.opened) {
+              tempState.channels.push({
+                name: data.name + ":",
+                message: data.message,
+                onActivate: false,
+                showIntro: false,
+              });
+              this.setState({ ...tempState });
             }
-          });
+          } else {
+            tempState.chatters.push({
+              name: data.name,
+              opened: false,
+              socketid: data.socketid,
+              messages: [{ message: data.message }],
+            });
+          }
         } else {
           tempState.chatters.push({
             name: data.name,
+            opened: false,
             socketid: data.socketid,
             messages: [{ message: data.message }],
           });
         }
       } else {
-        tempState.chatters.push({
-          name: data.name,
-          socketid: data.socketid,
-          messages: [{ message: data.message }],
-        });
+        if (data.clientsocketid == this.state.socketid) {
+          tempState.channels.push({
+            name: data.name.replace(":", "") + ":",
+            message: data.message,
+            onActivate: false,
+            showIntro: false,
+          });
+          this.setState({ ...tempState });
+        }
       }
-      console.log(tempState.chatters);
     });
   }
   arrayFilterHandler = () => {
@@ -209,34 +247,56 @@ class Home extends Component {
   };
   chatHandler = () => {
     let tempState = { ...this.state };
+
     //
 
     this.setState({ chatPressed: !tempState.chatPressed });
   };
   eventHandler = (message, name, event) => {
-    socket.emit("message", {
+    let tempState = { ...this.state };
+    if (tempState.user.admin == 1) {
+      name = this.props.user.firstname;
+    }
+
+    if (this.props.user == null) {
+      tempState.clientsocketid = tempState.socketid;
+
+      this.setState({ ...tempState });
+    } else {
+      if (this.props.user.admin == 0) {
+        tempState.clientsocketid = tempState.socketid;
+
+        this.setState({ ...tempState });
+      }
+
+      this.setState({ ...tempState });
+    }
+    let data = {
       socketid: this.state.socketid,
+      clientsocketid: this.state.clientsocketid,
       name: name,
       message: message,
-    });
-
-    let tempState = { ...this.state };
-
+      admin: this.state.admin,
+    };
+    console.log("transmit " + data);
+    socket.emit("message", data);
+    if (this.props.user != null) {
+      if (this.props.user.admin == 1) {
+      }
+    } else {
+    }
     tempState.channels.push({
       name: name + ":",
-
       message: message,
       onActivate: false,
       showIntro: false,
     });
 
-    // tempState.onActivate = false;
-    // this.setState({ ...tempState });
-    // if (event != null) {
-    //   event.target.value = "";
-    //   socket.emit("name", name);
-    //   socket.emit("client_message", message);
-    // }
+    tempState.onActivate = false;
+    this.setState({ ...tempState });
+    if (event != null) {
+      event.target.value = "";
+    }
   };
   activateChatHandler = (nameEvent, emailEvent) => {
     if (nameEvent != null && emailEvent != null) {
@@ -249,14 +309,7 @@ class Home extends Component {
         showIntro: false,
         onActivate: true,
       });
-      socket.emit("name", tempState.channels[0].name);
-      socket.emit("nameandemail", {
-        name: tempState.channels[0].name,
-        email: tempState.channels[0].email,
-        socketid: "",
-      });
-      socket.emit("email", tempState.channels[0].email);
-      // socket.emit(, { email: tempState.channels[0].email });
+
       socket.on("socketid", (data) => {
         let tempState = { ...this.state };
         tempState.socketid = data.socketid;
@@ -268,7 +321,42 @@ class Home extends Component {
       emailEvent.target.value = "";
     }
   };
+  controllerHandler = (val) => {
+    let tempState = { ...this.state };
+    let chatData = null;
+    if (val == "addChat") {
+      let maxlen = tempState.chatters.length;
+      if (tempState.chatters.length > 0) {
+        chatData = tempState.chatters.map((data, index) => {
+          if (index == maxlen - 1) {
+            if (data.opened == false) {
+              return data;
+            } else {
+              return null;
+            }
+          }
+        });
+      }
 
+      chatData.forEach((chatter) => {
+        chatter.opened = true;
+      });
+
+      let name = chatData[0].name;
+      chatData[0].messages.map((value, index) => {
+        tempState.channels.push({
+          name: name + ":",
+          message: value.message,
+          onActivate: false,
+          showIntro: false,
+        });
+
+        this.setState({ ...tempState });
+      });
+
+      this.setState({ showIntro: false });
+    }
+  };
   render() {
     return (
       <div>
@@ -289,6 +377,11 @@ class Home extends Component {
           eventChanged={(val, msg, event) => this.eventHandler(val, msg, event)}
         />
         <ChatButton chatClicked={this.chatHandler} />
+        {this.state.user.admin == 1 ? (
+          <ChatController
+            chatControlClicked={(val) => this.controllerHandler(val)}
+          />
+        ) : null}
         {this.props.user != null ? (
           <Settings welcome={this.props.user.firstname} />
         ) : (
@@ -315,6 +408,8 @@ class Home extends Component {
 const mapStateToProps = (state) => {
   return {
     menu: state.menu.menu,
+    socketid: state.login.socketid,
+    clisocketid: state.login.clisocketid,
     user: state.login.user,
     offer: state.offer.offer,
     order: state.orderCategory.order,
@@ -323,6 +418,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSaveClientSocketId: (socketid) =>
+      dispatch(actionCreators.saveClientSocketID(socketid)),
+    onSaveSocketId: (socketid) =>
+      dispatch(actionCreators.saveSocketID(socketid)),
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
   };

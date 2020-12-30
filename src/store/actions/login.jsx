@@ -18,6 +18,12 @@ export const saveOrder = (order) => {
 export const saveCategory = (category) => {
   return { type: actionTypes.SAVE_CATEGORY, category: category };
 };
+export const saveSocketID = (socketid) => {
+  return { type: actionTypes.SAVE_SOCKET_ID, socketid: socketid };
+};
+export const saveClientSocketID = (socketid) => {
+  return { type: actionTypes.SAVE_CLIENT_SOCKET_ID, clisocketid: socketid };
+};
 export const saveCredentials = (saveCredentials) => {
   return { type: actionTypes.SAVE_CREDENTIALS, credentials: saveCredentials };
 };

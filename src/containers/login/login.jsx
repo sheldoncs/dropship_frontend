@@ -236,7 +236,6 @@ class Login extends Component {
               if (result.auth === true) {
                 this.props.onSetToken(result.token);
                 localStorage.setItem("email", this.state.loginForm.email.value);
-                console.log("result", result);
 
                 let userObject = {
                   username: this.state.loginForm.email.value,

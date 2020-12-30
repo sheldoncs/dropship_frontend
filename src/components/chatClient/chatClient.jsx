@@ -4,7 +4,6 @@ import ScrollArea from "react-scrollbar";
 import classes from "./ChatClient.module.css";
 import Input from "../input/input";
 import ChatIntro from "../chatIntro/chatIntro";
-import { createPropertySignature } from "typescript";
 
 const chatClient = (props) => {
   let value = "";

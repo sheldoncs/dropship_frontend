@@ -9,4 +9,6 @@ export {
   saveOffer,
   saveOrder,
   saveCategory,
+  saveSocketID,
+  saveClientSocketID,
 } from "./login";
