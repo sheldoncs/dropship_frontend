@@ -54,6 +54,7 @@ const classification = (props) => {
             elementType={props.hairType.elementtype}
             elementconfig={props.hairType.elementconfig}
             elementName={props.hairType.elementname}
+            changed={props.changed}
           />
         </div>
       </div>
@@ -101,13 +102,13 @@ const classification = (props) => {
         }}
       >
         <ActionButton whichButton={(val) => props.whichButton(val)}>
-          Buy Now
+          BUY NOW
         </ActionButton>
         <ActionButton whichButton={(val) => props.whichButton(val)}>
-          Add To Cart
+          ADD TO CART
         </ActionButton>
         <ActionButton whichButton={(val) => props.whichButton(val)}>
-          Book It
+          BOOK IT
         </ActionButton>
       </div>
     </div>

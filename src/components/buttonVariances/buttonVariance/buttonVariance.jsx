@@ -10,7 +10,6 @@ const buttonVariance = (props) => {
       <div
         style={{ fontSize: "12px", margin: "2px" }}
         className={storeClasses.join(" ")}
-        onClick={props.clicked}
         onClick={() => props.clicked(props.keyValue)}
       >
         {props.children}

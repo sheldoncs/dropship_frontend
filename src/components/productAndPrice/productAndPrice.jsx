@@ -14,7 +14,7 @@ const ProductAndPrice = (props) => {
           offer={props.offer}
           isOffer={props.isOffer}
           showSubPhotos={props.showSubPhotos}
-          photoclicked={(val) => props.photoclicked(val)}
+          photoclicked={(val, photo) => props.photoclicked(val, photo)}
         />
         <PriceDescription
           info={props.urlphotos}
@@ -25,6 +25,7 @@ const ProductAndPrice = (props) => {
           priceId={props.priceId}
           hairlength={props.hairlength}
           count={props.count}
+          changed={props.selectChanged}
           clicked={(val) => props.clicked(val)}
           lclicked={(val) => props.lclicked(val)}
           rclicked={(val) => props.rclicked(val)}

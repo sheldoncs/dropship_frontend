@@ -62,7 +62,7 @@ const Input = (props) => {
       if (props.elementconfig !== undefined) {
         inputElement = (
           <select onChange={props.changed} className={classes.Select}>
-            {/* <option></option> */}
+            
             {props.elementconfig.selectoptions.map((option) => {
               return (
                 <option key={option.value} value={option.value}>

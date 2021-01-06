@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { createApolloFetch } from "apollo-fetch";
 import { connect } from "react-redux";
 import NavigationItems from "../../components/navigationItems/NavigationItems";
 import * as actionCreators from "../../store/actions/index";
@@ -7,15 +6,24 @@ import Offer from "../../components/offers/offers";
 import Settings from "../../components/settings/settings";
 import Display from "../../components/display/display";
 import Footer from "../../components/footer/footer";
-import { offers, pricesByCategory } from "../../Query/Query";
+import {
+  offers,
+  pricesByCategory,
+  getAllItems,
+  categoryQuery,
+} from "../../Query/Query";
 import ChatButton from "../../components/button/chatButton/chatButton";
 import ChatClient from "../../components/chatClient/chatClient";
 import socket from "../../components/socket/socket";
 import ChatController from "../../components/chatController/chatController";
-import ReactAudioPlayer from "react-audio-player";
+
 import soundfile from "../../assets/sound/chatsignal.mp3";
+import fetch from "../../fetchservice/fetchservice";
 
 class Home extends Component {
+  abortController = new AbortController();
+  signal = this.abortController.signal;
+
   state = {
     user: { name: "", admin: 0 },
     menu: null,
@@ -56,17 +64,19 @@ class Home extends Component {
   };
 
   purchaseHandler = () => {
-    this.props.history.push("/product");
+    this.props.history.push("/productpage");
   };
   componentDidUpdate(prevProps, prevState) {
     let tempState = { ...this.state };
     let menuValues = tempState.menu;
   }
+
   start = () => {
     const audioEl = document.getElementsByClassName("audio-element")[0];
     audioEl.play();
   };
   componentDidMount() {
+    this._isMounted = true;
     if (this.props.user != null) {
       let tempState = { ...this.state };
       tempState.socketid = this.props.socketid;
@@ -75,65 +85,10 @@ class Home extends Component {
       this.setState({ ...tempState });
     }
     this.setState({ showIntro: true });
-    const fetch = createApolloFetch({
-      uri: "http://localhost:8080/graphql",
-    });
-    fetch({
-      query: `query  {
-      getAllCategories {
-        id
-        category
-      }
-    }`,
-    }).then((res) => {
-      this.props.onSaveMenu(res.data.getAllCategories);
-      this.setState({ menu: res.data.getAllCategories });
-    });
-    const fetchOffers = createApolloFetch({
-      uri: "http://localhost:8080/graphql",
-    });
-    fetchOffers({
-      query: offers,
-    }).then((res) => {
-      let tempState = { ...this.state };
-      tempState.offers = res.data.getAllOffers;
-      this.setState({ ...tempState });
-    });
-    const fetchItems = createApolloFetch({
-      uri: "http://localhost:8080/graphql",
-    });
-    fetchItems({
-      query: `query  {
-        getAllItems {
-        id
-        option
-        photo
-        itemid
-      }
-    }`,
-    }).then((res) => {
-      let tempState = { ...this.state };
-      tempState.items.itemList = res.data.getAllItems;
-      this.setState({ ...tempState });
-    });
-    const fetchPriceOptions = createApolloFetch({
-      uri: "http://localhost:8080/graphql",
-    });
-    let query = pricesByCategory;
-    let variables = null;
-    if (this.props.category == null) {
-      variables = { categoryid: 2 };
-    } else {
-      variables = { categoryid: Number(this.props.category.id) };
-    }
-    fetchPriceOptions({
-      query,
-      variables,
-    }).then((res) => {
-      let tempState = { ...this.state };
-      tempState.items.priceOptions = res.data.getPriceOptions;
-      this.setState({ ...tempState });
-    });
+    this.fetchAllCategories();
+    this.fetchOffers();
+    this.fetchPriceOptions();
+    this.fetchAllItems();
 
     socket.on("new_msg", function (data) {
       let tempState = { ...this.state };
@@ -236,6 +191,72 @@ class Home extends Component {
   arrayFilterHandler = () => {
     //var filtered = someArray.filter(function(el) { return el.Name != "Kristian"; });
   };
+  fetchOffers = () => {
+    let query = offers;
+    fetch(
+      {
+        query: query,
+      },
+      { signal: this.signal }
+    ).then((res) => {
+      let tempState = { ...this.state };
+      tempState.offers = res.data.getAllOffers;
+      this.setState({ ...tempState });
+    });
+  };
+  fetchPriceOptions = () => {
+    let query = pricesByCategory;
+    let variables = null;
+    if (this.props.category == null) {
+      variables = { categoryid: 2 };
+    } else {
+      variables = { categoryid: Number(this.props.category.id) };
+    }
+
+    fetch(
+      {
+        query,
+        variables,
+      },
+      { signal: this.signal }
+    ).then((res) => {
+      let tempState = { ...this.state };
+      tempState.items.priceOptions = res.data.getPriceOptions;
+      this.setState({ ...tempState });
+    });
+  };
+
+  fetchAllCategories = () => {
+    let query = categoryQuery;
+
+    this.signal.addEventListener("abort", () => {
+      // Logs true:
+      console.log("signal abort = " + this.signal.aborted);
+    });
+
+    fetch(
+      {
+        query: query,
+      },
+      { signal: this.signal }
+    ).then((res) => {
+      this.props.onSaveMenu(res.data.getAllCategories);
+      this.setState({ menu: res.data.getAllCategories });
+    });
+  };
+  fetchAllItems = () => {
+    let query = getAllItems;
+    fetch(
+      {
+        query: query,
+      },
+      { signal: this.signal }
+    ).then((res) => {
+      let tempState = { ...this.state };
+      tempState.items.itemList = res.data.getAllItems;
+      this.setState({ ...tempState });
+    });
+  };
   handleOffer = (id) => {
     let offerList = this.state.offers;
     let tempState = { ...this.state };
@@ -255,7 +276,7 @@ class Home extends Component {
         };
 
         this.props.onSaveOffer(offer);
-        this.props.history.push("/product");
+        this.props.history.push("/productpage");
       }
     });
   };
@@ -399,6 +420,10 @@ class Home extends Component {
       }
     }
   };
+  componentWillUnmount() {
+    this.abortController.abort();
+    this._isMounted = false;
+  }
   render() {
     return (
       <div>
@@ -430,9 +455,12 @@ class Home extends Component {
           />
         ) : null}
         {this.props.user != null ? (
-          <Settings welcome={this.props.user.firstname} />
+          <Settings
+            count={this.props.quantity}
+            welcome={this.props.user.firstname}
+          />
         ) : (
-          <Settings welcome="" />
+          <Settings welcome="" count={this.props.quantity} />
         )}
         <NavigationItems
           page="home"
@@ -461,6 +489,7 @@ const mapStateToProps = (state) => {
     offer: state.offer.offer,
     order: state.orderCategory.order,
     category: state.orderCategory.category,
+    quantity: state.orderCategory.quantity,
   };
 };
 const mapDispatchToProps = (dispatch) => {

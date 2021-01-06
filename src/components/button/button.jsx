@@ -5,11 +5,11 @@ const Button = (props) => {
   let formatClasses = [classes.Button];
   if (props.whichButton) {
     formatClasses.push("btn");
-    if (props.children == "Add To Cart") {
+    if (props.children == "ADD TO CART") {
       formatClasses.push("btn-success");
-    } else if (props.children == "Buy Now") {
+    } else if (props.children == "BUY NOW") {
       formatClasses.push("btn-danger");
-    } else if (props.children == "Book It") {
+    } else if (props.children == "BOOK IT") {
       formatClasses.push("btn-primary");
     }
   }

@@ -18,6 +18,7 @@ const PriceDecription = (props) => {
         category={props.category}
         price={props.priceOptions}
         count={props.count}
+        changed={props.changed}
         lclicked={(val) => props.lclicked(val)}
         rclicked={(val) => props.rclicked(val)}
         clicked={(val) => props.clicked(val)}

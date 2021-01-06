@@ -5,6 +5,12 @@ export const categoryQuery = `query  {
     }
   }`;
 
+export const lastIdentityQuery = `query  {
+    getMaxIdentity {
+      
+      maxidentityid
+    }
+  }`;
 export const offers = `query  {
     getAllOffers {
       id
@@ -76,6 +82,15 @@ export const activeChatters = `query ($active:Int) {
     socketid
   }
 }`;
+export const getAllItems = `query  {
+  getAllItems {
+  id
+  option
+  photo
+  itemid
+}
+}`;
+
 export const deactivatChatter = `mutation ($socketid:String) {
   deactivateActiveChatter(socketid:$socketid) {
     Socket {
@@ -83,3 +98,12 @@ export const deactivatChatter = `mutation ($socketid:String) {
     }
   }
 }`;
+export const addLastIdentity = `mutation addLastIdentity($lastidentityid:Int) {
+  addLastIdentity(
+    lastidentityid: $lastidentityid
+    ) {
+    LastIdentity {
+      lastidentityid
+         }
+      }
+  }`;

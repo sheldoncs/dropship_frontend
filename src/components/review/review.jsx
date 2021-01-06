@@ -13,9 +13,8 @@ const review = (props) => {
 
   return (
     <div className={tempClasses.join(" ")}>
-      <div style={{ position: "relative" }}>
+      <div onClick={props.clicked} style={{ position: "relative" }}>
         <a href="#">{props.children}</a>
-        {/* <button style={{ marginTop: "-40px" }}>Help</button> */}
       </div>
     </div>
   );

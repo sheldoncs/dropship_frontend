@@ -13,7 +13,7 @@ const SmallPhotos = (props) => {
           <div
             className={classes.Pointer}
             key={index}
-            onClick={() => props.clicked(value.itemid)}
+            onClick={() => props.clicked(value.itemid, value.photo)}
           >
             <div
               className="pt-2"

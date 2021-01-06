@@ -1,0 +1,35 @@
+.Orders {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: auto;
+}
+.OrderRow {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.Photo {
+  width: 130px;
+  height: 100px;
+}
+.RowMargin {
+  margin: 10px;
+  width: 130px;
+  font-family: "Abel", sans-serif;
+}
+.Spinner {
+  width: 40px;
+  margin-top: 20px;
+}
+.RemoveButton {
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  border: 0px solid #ccc;
+  font-family: "Abel", sans-serif;
+  color: #000;
+  background: #ffcc00;
+
+  cursor: pointer;
+}

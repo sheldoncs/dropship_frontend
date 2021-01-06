@@ -1,0 +1,19 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin-top: 40px;
+  background: #fff;
+  margin: 70px auto;
+  box-shadow: 2px 2px 15px grey;
+  border-radius: 10px;
+}
+.CartLabel {
+  display: flex;
+  font-family: "Abel", sans-serif;
+  font-size: 24px;
+  margin: auto;
+  width: 240px;
+  font-weight: bold;
+  margin-top: 70px;
+}

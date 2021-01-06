@@ -1,10 +1,9 @@
 .ErrorMessage {
   position: fixed;
   width: 340px;
-  /* max-width: 70%; */
   height: 50px;
   left: 0;
-  top: 220px;
+  top: 200px;
   color: white;
   z-index: 200;
   background-color: #000;
@@ -24,7 +23,7 @@
 
 .Open {
   margin: 0;
-  position: absolute;
+  position: fixed;
   transform: translate(-50%);
   /* top: 50%; */
   left: 50%;

@@ -13,7 +13,7 @@ const Product = (props) => {
           isOffer={props.isOffer}
           offer={props.offer}
           showSubPhotos={props.showSubPhotos}
-          clicked={(val) => props.photoclicked(val)}
+          clicked={(val, photo) => props.photoclicked(val, photo)}
         />
       ) : null}
     </div>

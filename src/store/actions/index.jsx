@@ -8,6 +8,7 @@ export {
   loginAuthenticated,
   saveOffer,
   saveOrder,
+  saveQuantity,
   saveCategory,
   saveSocketID,
   saveClientSocketID,
