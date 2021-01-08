@@ -9,6 +9,7 @@ export {
   saveOffer,
   saveOrder,
   saveQuantity,
+  updateOrder,
   saveCategory,
   saveSocketID,
   saveClientSocketID,

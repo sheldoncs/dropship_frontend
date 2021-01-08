@@ -12,7 +12,7 @@ const chatInquiry = (props) => {
   function inputHandler(event) {
     event.preventDefault();
     eventObject = event;
-    console.log(event.target.name);
+
     value = event.target.value;
   }
   return (

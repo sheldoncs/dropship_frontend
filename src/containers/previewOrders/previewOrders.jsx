@@ -9,7 +9,7 @@ import Footer from "../../components/footer/footer";
 import classes from "./PreviewOrders.module.css";
 import Orders from "../../components/orders/orders";
 import Subtotal from "../../components/subtotal/subtotal";
-import { textSpanIsEmpty } from "typescript";
+import OrderLabels from "../../components/orders/orderlabels/orderlabels";
 
 class PreviewOrders extends Component {
   abortController = new AbortController();
@@ -20,29 +20,67 @@ class PreviewOrders extends Component {
     offertotal: 0.0,
     grandtotal: 0.0,
     showOffer: false,
+    quantity: 0,
+    labels: [],
+    offer: null,
+  };
+  calcTotals = (offer) => {
+    let tempState = { ...this.state };
+    let orders = null;
+
+    if (this.props.orders.length > 0) {
+      orders = this.props.orders;
+      localStorage.setItem("orders", JSON.stringify(this.props.orders));
+    } else {
+      orders = JSON.parse(localStorage.getItem("orders"));
+    }
+    tempState.orders = orders;
+
+    let quantity = 0;
+    tempState.totalprice = 0;
+    let totalQuantity = orders.map((data, index) => {
+      quantity = Number(data.quantity) + Number(quantity);
+      if (this.props.orders == null) {
+        this.props.onSaveOrder(data);
+      }
+      let itemprice = Number(data.quantity) * Number(data.price);
+      tempState.totalprice = itemprice + tempState.totalprice;
+      return quantity;
+    });
+
+    if (offer != null) {
+      if (offer.offertype == "PERCENT") {
+        if (quantity >= 3) {
+          tempState.showOffer = true;
+
+          tempState.offertotal = (offer.amount / 100) * tempState.totalprice;
+          tempState.grandtotal = tempState.totalprice - tempState.offertotal;
+        } else {
+          tempState.grandtotal = tempState.totalprice;
+        }
+      }
+    }
+    this.props.onSaveQuantity(totalQuantity);
+    tempState.quantity = quantity;
+    this.setState({ orders: tempState.orders, ...tempState });
   };
   componentDidMount() {
     let tempState = { ...this.state };
+    let offer = null;
 
-    let quantity = 0;
-    let totalQuantity = this.props.orders.map((data, index) => {
-      quantity = data.quantity + quantity;
-      tempState.totalprice = data.totalprice + tempState.totalprice;
-
-      return quantity;
-    });
     if (this.props.offer != null) {
-      tempState.showOffer = true;
-      if (this.props.offer.offertype == "PERCENT") {
-        tempState.offertotal =
-          (this.props.offer.amount / 100) * tempState.totalprice;
-        tempState.grandtotal = tempState.totalprice - tempState.offertotal;
+      let tempOffer = JSON.parse(localStorage.getItem("offer"));
+      if (tempOffer == null) {
+        localStorage.setItem("offer", JSON.stringify(this.props.offer));
       }
-      console.log("offer", this.props.offer);
+      offer = this.props.offer;
+    } else {
+      offer = JSON.parse(localStorage.getItem("offer"));
     }
-    this.props.onSaveQuantity(totalQuantity);
-    tempState.orders = this.props.orders;
-    tempState.quantity = totalQuantity;
+
+    this.props.onSaveOffer(offer);
+
+    this.calcTotals(offer);
 
     if (this.props.menu != null) {
       let tempMenu = this.props.menu;
@@ -50,13 +88,10 @@ class PreviewOrders extends Component {
         return el.category == "Home";
       });
       tempState.menu = filteredMenu;
+      this.setState({ menu: tempState.menu });
     } else {
       this.fetchMenuQuery();
     }
-
-    //console.log("orders", this.props.orders);
-
-    this.setState({ ...tempState });
   }
   fetchMenuQuery = () => {
     let query = categoryQuery;
@@ -77,15 +112,39 @@ class PreviewOrders extends Component {
   componentWillUnmount() {
     this.abortController.abort();
   }
+
   spinnerHandler = (event, itemid) => {
-    // alert(event.target.value);
+    let tempState = { ...this.state };
+
+    var filteredOrder = tempState.orders.filter(function (el) {
+      return el.itemid == itemid;
+    });
+    filteredOrder[0].quantity = event.target.value;
+
+    this.props.onUpdateOrder(filteredOrder);
+    tempState.quantity = 0;
+    tempState.orders.map((data, index) => {
+      if (data.itemid == itemid) {
+        tempState.orders[index].quantity = event.target.value;
+        tempState.quantity =
+          Number(event.target.value) + Number(tempState.quantity);
+      } else {
+        tempState.quantity = Number(data.quantity) + Number(tempState.quantity);
+      }
+      this.props.onSaveQuantity(tempState.quantity);
+
+      this.setState({ ...tempState });
+      localStorage.setItem("orders", JSON.stringify(this.state.orders));
+      console.log("parse order", JSON.parse(localStorage.getItem("orders")));
+      this.calcTotals(this.props.offer);
+    });
   };
   render() {
     return (
       <React.Fragment>
         {this.props.user != null ? (
           <Settings
-            count={this.state.total}
+            count={this.state.quantity}
             showCart={true}
             welcome={this.props.user.firstname}
           />
@@ -98,6 +157,9 @@ class PreviewOrders extends Component {
           clicked={(id) => this.navigationHandler(id)}
         />
         <div className={classes.CartLabel}>YOUR SHOPPING CART</div>
+        <div className="mt-5">
+          <OrderLabels />
+        </div>
         <div className={classes.Container}>
           <Orders
             orders={this.state.orders}
@@ -105,7 +167,7 @@ class PreviewOrders extends Component {
           />
         </div>
         <Subtotal
-          offerType={this.props.offer.offer}
+          offerType={this.props.offer != null ? this.props.offer.offer : null}
           subtotal={this.state.totalprice}
           showOffer={this.state.showOffer}
           offerTotal={this.state.offertotal}
@@ -123,11 +185,14 @@ const mapStateToProps = (state) => {
     user: state.login.user,
     offer: state.offer.offer,
     orders: state.orderCategory.orders,
+    quantity: state.orderCategory.quantity,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveOrder: (order) => dispatch(actionCreators.saveOrder(order)),
+    onUpdateOrder: (order) => dispatch(actionCreators.updateOrder(order)),
+    onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
     onSaveQuantity: (quantity) =>
       dispatch(actionCreators.saveQuantity(quantity)),
   };

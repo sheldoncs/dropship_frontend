@@ -14,7 +14,9 @@ const review = (props) => {
   return (
     <div className={tempClasses.join(" ")}>
       <div onClick={props.clicked} style={{ position: "relative" }}>
-        <a href="#">{props.children}</a>
+        <a href="#">
+          <span>{props.title}</span>
+        </a>
       </div>
     </div>
   );

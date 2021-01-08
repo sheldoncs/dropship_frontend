@@ -113,4 +113,29 @@
   .Button {
     margin: 10px !important;
   }
+  .Review {
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    width: 120px;
+    margin: 25px auto;
+  }
+  .Review a {
+    display: inline-block;
+    font-family: "Abel", sans-serif;
+    font-size: 20px;
+    width: auto;
+    color: #2c7bb8;
+    text-decoration: none;
+  }
+
+  .Review a:hover,
+  .Review a:active,
+  .Review a.active {
+    border-bottom: 2px solid #2c7bb8;
+    text-decoration: none;
+    z-index: 20;
+    display: inline-block;
+    width: auto;
+    color: #2c7bb8;
+  }
 }

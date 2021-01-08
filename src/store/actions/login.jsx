@@ -15,6 +15,9 @@ export const saveOffer = (offer) => {
 export const saveOrder = (order) => {
   return { type: actionTypes.SAVE_ORDER, order: order };
 };
+export const updateOrder = (order) => {
+  return { type: actionTypes.UPDATE_ORDER, order: order };
+};
 export const saveQuantity = (quantity) => {
   return { type: actionTypes.SAVE_QUANTITY, quantity: quantity };
 };

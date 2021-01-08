@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import * as actionCreators from "../../store/actions/index";
 import Footer from "../../components/footer/footer";
 import Review from "../../components/review/review";
+import axios from "../../axios/axios-orders";
 
 import {
   offer,
@@ -36,6 +37,7 @@ class ProductPage extends Component {
     openCover: false,
     showError: false,
     showCover: false,
+    validOrder: false,
     message: "",
     menu: null,
     slideDown: false,
@@ -75,8 +77,19 @@ class ProductPage extends Component {
     },
   };
 
+  setToAxios = (offer) => {
+    setTimeout(() => {
+      axios
+        .post("/offer.json", offer)
+        .then((response) => {
+          console.log("axios", response);
+        })
+        .catch((error) => {
+          console.log("axios", error);
+        });
+    }, 2000);
+  };
   componentDidMount() {
-    this._isMounted = true;
     if (this.props.user != null) {
       localStorage.setItem("firstname", this.props.user.firstname);
       this.setState({ firstname: this.props.user.firstname });
@@ -90,11 +103,19 @@ class ProductPage extends Component {
       this.fetchMenuQuery();
     }
     if (this.props.offer != null) {
+      localStorage.setItem("offer", JSON.stringify(this.props.offer));
       localStorage.setItem("categoryid", this.props.offer.categoryid);
       localStorage.setItem("itemid", this.props.offer.itemdetailsid);
       localStorage.setItem("offerid", this.props.offer.id);
       localStorage.setItem("isOffer", true);
       this.setState({ isOffer: true });
+    } else {
+      let offer = JSON.parse(localStorage.getItem("offer"));
+      this.props.onSaveOffer(offer);
+      localStorage.setItem("categoryid", offer.categoryid);
+      localStorage.setItem("itemid", offer.itemdetailsid);
+      localStorage.setItem("offerid", offer.id);
+      localStorage.setItem("isOffer", true);
     }
     this.fetchOfferQuery(localStorage.getItem("offerid"));
     this.fetchPhotosQuery(localStorage.getItem("categoryid"));
@@ -338,12 +359,15 @@ class ProductPage extends Component {
         tempState.order["quantity"] * tempState.order["price"];
       if (val == "ADDTOCART") {
         this.props.onSaveOrder(tempState.order);
-        this.setState({ slideDown: true });
+        tempState.orders.push({ ...tempState.order });
+
+        this.setState({ ...tempState, slideDown: true, validOrder: true });
         setTimeout(this.timeOutHandler, 5000);
       }
     } else {
       tempState.showCover = true;
       tempState.showError = true;
+      tempState.validOrder = false;
       tempState.message = "Select All Options";
       this.setState({ ...tempState });
     }
@@ -391,7 +415,15 @@ class ProductPage extends Component {
     this.setState({ ...tempState });
   };
   reviewHandler = () => {
-    this.props.history.push("/previeworder");
+    let tempState = { ...this.state };
+    if (this.state.validOrder) {
+      this.props.history.push("/previeworder");
+    } else {
+      tempState.showCover = true;
+      tempState.showError = true;
+      tempState.message = "Select All Options";
+    }
+    this.setState({ ...tempState });
   };
   render() {
     return (
@@ -404,9 +436,11 @@ class ProductPage extends Component {
         >
           {this.state.message}
         </Message>
-        <Review slideDown={this.state.slideDown} clicked={this.reviewHandler}>
-          Review Order
-        </Review>
+        <Review
+          slideDown={this.state.slideDown}
+          clicked={this.reviewHandler}
+          title="REVIEW CART"
+        />
 
         {this.props.user != null ? (
           <Settings welcome={this.state.firstname} />
@@ -426,6 +460,7 @@ class ProductPage extends Component {
           hairType={this.state.hairType}
           priceId={this.state.priceId}
           hairlength={this.state.hairlength}
+          clickReview={this.reviewHandler}
           clicked={(val) => this.hairLengthHandler(val)}
           lclicked={(val) => this.counterSubtractHandler(val)}
           rclicked={(val) => this.counterAddHandler(val)}

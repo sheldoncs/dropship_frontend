@@ -23,13 +23,11 @@
   margin-top: 20px;
 }
 .RemoveButton {
-  width: 120px;
-  height: 40px;
-  border-radius: 10px;
-  border: 0px solid #ccc;
+  width: 100px;
+  height: 33px;
+  border-radius: 3px;
+  border: 1px solid #919191;
   font-family: "Abel", sans-serif;
-  color: #000;
-  background: #ffcc00;
-
+  color: #919191;
   cursor: pointer;
 }

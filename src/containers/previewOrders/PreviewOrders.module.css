@@ -3,10 +3,13 @@
   flex-direction: row;
   width: 80%;
   margin-top: 40px;
-  background: #fff;
-  margin: 70px auto;
-  box-shadow: 2px 2px 15px grey;
-  border-radius: 10px;
+  /* background: #fff; */
+  margin: 20px auto;
+  /* box-shadow: 2px 2px 15px grey; */
+  /* border-radius: 3px; */
+  /* border: 1px solid #666262; */
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
 }
 .CartLabel {
   display: flex;

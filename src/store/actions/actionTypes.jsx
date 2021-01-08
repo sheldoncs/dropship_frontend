@@ -8,6 +8,7 @@ export const SAVE_USER = "SAVE_USER";
 export const SET_TOKEN = "SET_TOKEN";
 export const SAVE_SELECTED_OFFER = " SAVE_SELECTED_OFFER";
 export const SAVE_ORDER = "SAVE_ORDER";
+export const UPDATE_ORDER = "UPDATE_ORDER";
 export const SAVE_QUANTITY = "SAVE_QUANTITY";
 export const SAVE_CATEGORY = "SAVE_CATEGORY";
 export const SAVE_SOCKET_ID = "SAVE_SOCKET_ID";

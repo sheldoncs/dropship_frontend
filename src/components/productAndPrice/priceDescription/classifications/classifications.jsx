@@ -111,6 +111,9 @@ const classification = (props) => {
           BOOK IT
         </ActionButton>
       </div>
+      <div className={classes.Review} onClick={props.clickReview}>
+        <a href="#">REVIEW CART</a>
+      </div>
     </div>
   );
 };

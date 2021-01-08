@@ -1,0 +1,16 @@
+.OrderLabels {
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  width: 80%;
+  /* background: #ccc; */
+  border-radius: 3px;
+  border: 0px solid #6e6e6e;
+  /* box-shadow: 2px 2px 15px grey; */
+}
+.Labels {
+  width: 170px;
+  font-family: "Abel", sans-serif;
+  font-size: 17px;
+  padding-left: 20px;
+}

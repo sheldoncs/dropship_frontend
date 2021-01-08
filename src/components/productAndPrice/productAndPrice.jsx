@@ -19,6 +19,7 @@ const ProductAndPrice = (props) => {
         <PriceDescription
           info={props.urlphotos}
           offer={props.offer}
+          clickReview={props.clickReview}
           priceOptions={props.priceOptions}
           category={props.category}
           hairType={props.hairType}

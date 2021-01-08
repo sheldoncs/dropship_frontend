@@ -12,53 +12,40 @@ const orders = (props) => {
               <div className="mb-2">
                 <img className={classes.Photo} src={value.photo} />
               </div>
-              <div className={classes.RemoveButton}>
-                <div
-                  style={{ display: "flex", flexDirection: "row" }}
-                  className="text-center pt-1"
-                >
-                  <div>
-                    <img src={dustbin} />
-                  </div>
-                  <div className="pt-1 pl-3">REMOVE</div>
-                </div>
-              </div>
             </div>
             <div className={classes.RowMargin}>
               <div
                 style={{ position: "flex", flexDirection: "column" }}
-                className="mt-5"
+                className="mt-4"
               >
                 <div>
-                  <span>
-                    <b>Style:</b> {value.itemname}
-                  </span>
+                  <span>{value.itemname}</span>
                 </div>
-                <div></div>
+                <div className={classes.RemoveButton}>
+                  <div
+                    style={{ display: "flex", flexDirection: "row" }}
+                    className="pt-1"
+                  >
+                    <div style={{ margin: "auto", color: "#ccc" }}>
+                      <span className="text-center">REMOVE</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className={classes.RowMargin}>
-              <div className="mt-5">
-                <span>
-                  <b>Hair Type: </b>
-                </span>
+              <div className="mt-4">
                 <span>{value.hairtype}</span>
               </div>
             </div>
             <div className={classes.RowMargin}>
-              <div className="mt-5">
-                <span>
-                  <b>Hair Length: </b>
-                </span>
+              <div className="mt-4">
                 <span>{value.hairlength}</span>
               </div>
             </div>
             <div className={classes.RowMargin}>
-              <div className="mt-4">
-                <span>
-                  <b>Quantity: </b>
-                </span>
+              <div className="mt-0">
                 <input
                   type="number"
                   value={value.quantity}
@@ -68,18 +55,12 @@ const orders = (props) => {
               </div>
             </div>
             <div className={classes.RowMargin}>
-              <div className="mt-5">
-                <span>
-                  <b> Unit Price: </b>
-                </span>
+              <div className="mt-4">
                 <span>{Number(value.price).toFixed(2)}</span>
               </div>
             </div>
             <div className={classes.RowMargin}>
-              <div className="mt-5">
-                <span>
-                  <b> Total: </b>
-                </span>
+              <div className="mt-4">
                 <span>
                   {(Number(value.price).toFixed(2) * value.quantity).toFixed(2)}
                 </span>

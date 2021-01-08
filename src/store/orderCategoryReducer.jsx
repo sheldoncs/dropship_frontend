@@ -8,12 +8,26 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SAVE_ORDER:
+    case actionTypes.UPDATE_ORDER:
       let tempState = { ...state };
-      tempState.orders.push(action.order);
+      tempState.orders.map((data, index) => {
+        if (data.itemid == action.order[0].itemid) {
+          tempState.orders[index].quantity = action.order[0].quantity;
+        }
+      });
+
       return {
         ...state,
         orders: tempState.orders,
+      };
+    case actionTypes.SAVE_ORDER:
+      let orderState = { ...state };
+
+      orderState.orders.push({ ...action.order });
+
+      return {
+        ...state,
+        orders: orderState.orders,
       };
     case actionTypes.SAVE_CATEGORY:
       return {

@@ -27,15 +27,7 @@ class AdminChat extends Component {
     }).then((res) => {
       this.setState({ chatters: res.data.getActiveChatters });
     });
-    // socket.on("to_admin_msg", (data) => {
-    //   alert("to_admin_msg ", data);
-    //   let tempState = { ...this.state };
-    //   if (data.socketid == tempState.socketid) {
-    //     tempState.conversation.push({ name: data.name, message: data.msg });
-    //     console.log(tempState.conversation);
-    //     this.setState({ ...tempState });
-    //   }
-    // });
+
     socket.on("chatroom", (data) => {
       console.log("chatroom", data);
     });
