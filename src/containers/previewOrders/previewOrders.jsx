@@ -57,7 +57,9 @@ class PreviewOrders extends Component {
           tempState.grandtotal = tempState.totalprice - tempState.offertotal;
         } else {
           tempState.grandtotal = tempState.totalprice;
+          tempState.showOffer = false;
         }
+      } else if (offer.offertype == "SUBTRACT") {
       }
     }
     this.props.onSaveQuantity(totalQuantity);
@@ -77,7 +79,7 @@ class PreviewOrders extends Component {
     } else {
       offer = JSON.parse(localStorage.getItem("offer"));
     }
-
+    tempState.offer = offer;
     this.props.onSaveOffer(offer);
 
     this.calcTotals(offer);
@@ -116,7 +118,7 @@ class PreviewOrders extends Component {
   spinnerHandler = (event, itemid) => {
     let tempState = { ...this.state };
 
-    var filteredOrder = tempState.orders.filter(function (el) {
+    let filteredOrder = tempState.orders.filter(function (el) {
       return el.itemid == itemid;
     });
     filteredOrder[0].quantity = event.target.value;
@@ -131,11 +133,12 @@ class PreviewOrders extends Component {
       } else {
         tempState.quantity = Number(data.quantity) + Number(tempState.quantity);
       }
+      console.log(tempState.quantity, this.props.offer.offertype);
+
       this.props.onSaveQuantity(tempState.quantity);
 
       this.setState({ ...tempState });
       localStorage.setItem("orders", JSON.stringify(this.state.orders));
-      console.log("parse order", JSON.parse(localStorage.getItem("orders")));
       this.calcTotals(this.props.offer);
     });
   };

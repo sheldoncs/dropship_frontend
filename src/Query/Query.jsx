@@ -90,7 +90,19 @@ export const getAllItems = `query  {
   itemid
 }
 }`;
-
+export const getNonDiscountOffers = `query  {
+  getNonDiscountOffers {
+    id
+    offer
+    itemdetailsid
+    offertype
+    condition
+    amount
+    width
+    code
+    categoryid    
+  }
+}`;
 export const deactivatChatter = `mutation ($socketid:String) {
   deactivateActiveChatter(socketid:$socketid) {
     Socket {

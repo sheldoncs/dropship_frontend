@@ -13,6 +13,7 @@ import {
   options,
   pricesByCategory,
   categoryQuery,
+  getNonDiscountOffers,
   lastIdentityQuery,
 } from "../../Query/Query";
 
@@ -28,6 +29,7 @@ class ProductPage extends Component {
   state = {
     photos: { subPhotos: null, main: null },
     offer: null,
+    nonDiscountOffers: null,
     count: 1,
     submenu: null,
     hairlength: null,
@@ -117,6 +119,7 @@ class ProductPage extends Component {
       localStorage.setItem("offerid", offer.id);
       localStorage.setItem("isOffer", true);
     }
+    this.fetchNonDiscountOffer();
     this.fetchOfferQuery(localStorage.getItem("offerid"));
     this.fetchPhotosQuery(localStorage.getItem("categoryid"));
     this.fetchPricesByCategory(localStorage.getItem("categoryid"));
@@ -177,14 +180,35 @@ class ProductPage extends Component {
     ).then((res) => {
       let photos = res.data.getPhotosByCategory;
       let tempState = { ...this.state };
-      tempState.photos.subPhotos = res.data.getPhotosByCategory;
+      let filteredPhotos = res.data.getPhotosByCategory.filter(function (el) {
+        let offer = JSON.parse(localStorage.getItem("nonDiscOffers"));
+        let found = offer.find((element) => element.itemdetailsid != el.itemid);
+        return found;
+      });
+
+      tempState.photos.subPhotos = filteredPhotos;
 
       let mainPhoto = photos.map((data) => {
-        if (data.mainphoto == 1) {
-          return data.photo;
+        if (tempState.offer.offertype == "PERCENT") {
+          if (data.mainphoto == 1) {
+            return data.photo;
+          }
+        } else if (tempState.offer.offertype == "SUBTRACT") {
+          if (Number(data.itemid) == Number(tempState.offer.itemdetailsid)) {
+            return data.photo;
+          }
         }
       });
-      tempState.photos.main = mainPhoto[0];
+      let selPhoto = mainPhoto.filter(function (el) {
+        return el != undefined;
+      });
+
+      if (tempState.offer.offertype == "SUBTRACT") {
+        tempState.photos.main = selPhoto;
+        tempState.order.photo = selPhoto;
+      } else if (tempState.offer.offertype == "PERCENT") {
+        tempState.photos.main = mainPhoto[0];
+      }
       this.setState({ ...tempState });
     });
   };
@@ -203,13 +227,29 @@ class ProductPage extends Component {
       { signal: this.abortController.signal }
     ).then((res) => {
       let tempState = { ...this.state };
-      tempState.order.price = res.data.getPriceOptions[0].price;
       tempState.priceOptions = res.data.getPriceOptions;
       tempState.hairlength = res.data.getPriceOptions[0].hairlength;
 
       this.setState({
         ...tempState,
       });
+    });
+  };
+  fetchNonDiscountOffer = () => {
+    let query = getNonDiscountOffers;
+    fetch(
+      {
+        query,
+      },
+      { signal: this.abortController.signal }
+    ).then((res) => {
+      let tempState = { ...this.state };
+      tempState.nonDiscountOffers = res.data.getNonDiscountOffers;
+      localStorage.setItem(
+        "nonDiscOffers",
+        JSON.stringify(tempState.nonDiscountOffers)
+      );
+      this.setState({ ...tempState });
     });
   };
   fetchOfferQuery = (id) => {
@@ -359,6 +399,7 @@ class ProductPage extends Component {
         tempState.order["quantity"] * tempState.order["price"];
       if (val == "ADDTOCART") {
         this.props.onSaveOrder(tempState.order);
+        console.log(tempState.order);
         tempState.orders.push({ ...tempState.order });
 
         this.setState({ ...tempState, slideDown: true, validOrder: true });
@@ -379,11 +420,13 @@ class ProductPage extends Component {
     let tempState = { ...this.state };
     tempState.order.hairlength = val;
     this.setState({ ...tempState });
+    console.log("priceOptions", this.state.priceOptions);
     this.state.priceOptions.map((value, index) => {
       if (value.id == val) {
         tempState.priceId = val;
         tempState.hairlength = value.hairlength;
         tempState.order.hairlength = value.hairlength;
+        tempState.order.price = value.price;
         this.setState({ ...tempState });
       }
     });

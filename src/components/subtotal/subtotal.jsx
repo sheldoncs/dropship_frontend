@@ -3,6 +3,7 @@ import classes from "./Subtotal.module.css";
 
 const subtotal = (props) => {
   let offerClass = [];
+  console.log("showoffer", props.showOffer);
   if (props.showOffer) {
     offerClass.push(classes.ShowOffer);
   } else {

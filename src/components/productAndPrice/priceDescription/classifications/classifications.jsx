@@ -6,6 +6,7 @@ import Counter from "../../../counter/counter";
 import Input from "../../../input/input";
 import Header from "../headerDescription/headerDescription";
 import ActionButton from "../../../button/button";
+import PayPal from "../../../../assets/paypal.png";
 
 const classification = (props) => {
   let category = "";
@@ -93,13 +94,7 @@ const classification = (props) => {
         </div>
       </div>
       <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          margin: "auto",
-          width: "385px",
-          marginTop: "30px",
-        }}
+        className={classes.GroupAction}
       >
         <ActionButton whichButton={(val) => props.whichButton(val)}>
           BUY NOW
@@ -110,6 +105,11 @@ const classification = (props) => {
         <ActionButton whichButton={(val) => props.whichButton(val)}>
           BOOK IT
         </ActionButton>
+      </div>
+      <div className={classes.PayPal}>
+        <div className="text-center">
+          <img src={PayPal} />
+        </div>
       </div>
       <div className={classes.Review} onClick={props.clickReview}>
         <a href="#">REVIEW CART</a>
