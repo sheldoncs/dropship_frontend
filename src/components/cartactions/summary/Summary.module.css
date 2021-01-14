@@ -1,0 +1,101 @@
+.Summary {
+  position: fixed;
+  width: 300px;
+  max-width: 70%;
+  height: 100%;
+  right: 0;
+  top: 0;
+  z-index: 200;
+  background-color: #416e6e;
+  padding: 32px 16px;
+  box-sizing: border-box;
+  transition: transform 330ms ease-out;
+}
+.Open {
+  transform: translateX(0%);
+}
+.Close {
+  transform: translateX(100%);
+}
+.ContinueShopping {
+  width: 240px;
+  border-radius: 15px;
+  background-color: #5a31f4;
+  color: #fff;
+  height: 54px;
+  font-family: "Abel", sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin: 25px auto;
+  cursor: pointer;
+  padding-top: 14px;
+}
+.Checkout {
+  width: 240px;
+  border-radius: 15px;
+  background-color: #09a4a4;
+  color: #fff;
+  height: 54px;
+  font-family: "Abel", sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin: 0px auto;
+  cursor: pointer;
+  padding-top: 14px;
+}
+.PayPal {
+  width: 240px;
+  border-radius: 15px;
+  background: #ffc43a;
+  color: #000;
+  height: 54px;
+  font-family: "Abel", sans-serif;
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin: 25px auto;
+  cursor: pointer;
+  padding-top: 4px;
+}
+.Calculation {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  right: 20px;
+}
+.Subtotal {
+  display: flex;
+  flex-direction: row;
+  width: 240px;
+  margin: 5px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+  color: #fff;
+}
+.Label {
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px;
+  width: 80px;
+}
+.PriceLabel {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+  width: 120px;
+}
+.ShowOffer {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  margin: 5px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+}
+.HideOffer {
+  display: none;
+  flex-direction: row;
+  width: 40%;
+  margin: 25px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+}

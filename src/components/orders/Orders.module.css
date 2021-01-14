@@ -1,22 +1,28 @@
 .Orders {
   display: flex;
-  flex-direction: column;
-  width: 100%;
+  flex-direction: row;
+  width: 90%;
   margin: auto;
 }
 .OrderRow {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 80%;
+}
+.PhotoContainer {
+  display: flex;
 }
 .Photo {
-  width: 130px;
-  height: 100px;
+  width: 500px;
+  height: 442px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 .RowMargin {
-  margin: 10px;
-  width: 130px;
+  width: 170px;
   font-family: "Abel", sans-serif;
+  font-size: 17px;
+  padding-left: 20px;
 }
 .Spinner {
   width: 40px;
@@ -30,4 +36,22 @@
   font-family: "Abel", sans-serif;
   color: #919191;
   cursor: pointer;
+}
+.Prev {
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+  background: #c0c4c4;
+  font-family: "Abel", sans-serif;
+  font-size: 22px;
+  color: #777878;
+}
+.Next {
+  width: 150px;
+  height: 50px;
+  border-radius: 25px;
+  background: #c0c4c4;
+  color: #777878;
+  font-family: "Abel", sans-serif;
+  font-size: 22px;
 }

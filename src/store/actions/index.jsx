@@ -8,6 +8,8 @@ export {
   loginAuthenticated,
   saveOffer,
   saveOrder,
+  savePage,
+  removePage,
   saveQuantity,
   updateOrder,
   saveCategory,

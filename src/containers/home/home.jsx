@@ -75,7 +75,19 @@ class Home extends Component {
     const audioEl = document.getElementsByClassName("audio-element")[0];
     audioEl.play();
   };
+  pushPage = () => {
+    let page = { page: "HOME", path: "/" };
+    if (this.props.pages.length > 0) {
+      const found = this.props.pages.find((element) => element.page == "HOME");
+      if (!found) {
+        this.props.onSavePage(page);
+      }
+    } else {
+      this.props.onSavePage(page);
+    }
+  };
   componentDidMount() {
+    this.pushPage();
     this._isMounted = true;
     if (this.props.user != null) {
       let tempState = { ...this.state };
@@ -130,7 +142,7 @@ class Home extends Component {
             this.setState({ ...tempState });
 
             if (tempState.chatters.length > 0) {
-              const chatter = tempState.chatters.find(
+              const chatter = tempState.chatters(
                 (element) => element.socketid == data.socketid
               );
 
@@ -490,10 +502,13 @@ const mapStateToProps = (state) => {
     order: state.orderCategory.order,
     category: state.orderCategory.category,
     quantity: state.orderCategory.quantity,
+    pages: state.navPages.pages,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSavePage: (page) => dispatch(actionCreators.savePage(page)),
+    onRemovePage: (page) => dispatch(actionCreators.removePage(page)),
     onSaveClientSocketId: (socketid) =>
       dispatch(actionCreators.saveClientSocketID(socketid)),
     onSaveSocketId: (socketid) =>

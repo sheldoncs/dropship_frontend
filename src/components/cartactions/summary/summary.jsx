@@ -1,17 +1,23 @@
 import React from "react";
-import classes from "./Subtotal.module.css";
+import classes from "./Summary.module.css";
+import PayPal from "../../../assets/paypal.png";
 
-const subtotal = (props) => {
+const summary = (props) => {
   let offerClass = [];
-  console.log("showoffer", props.showOffer);
+
   if (props.showOffer) {
     offerClass.push(classes.ShowOffer);
   } else {
     offerClass.push(classes.HideOffer);
   }
+
+  let saveClasses = [classes.Summary, classes.Close];
+  if (props.openSummary == true) {
+    saveClasses = [classes.Summary, classes.Open];
+  }
+
   return (
-    <div className={classes.Container}>
-      <div className={classes.testFlex}></div>
+    <div className={saveClasses.join(" ")}>
       <div className={classes.Calculation}>
         <div className={classes.Subtotal}>
           <div className={classes.Label}>
@@ -29,7 +35,7 @@ const subtotal = (props) => {
             <span>{props.offerTotal.toFixed(2)}</span>
           </div>
         </div>
-        {/* <div className={classes.Divider}></div> */}
+
         <div className={classes.Subtotal}>
           <div className={classes.Label}>
             <span>Total :</span>
@@ -38,9 +44,21 @@ const subtotal = (props) => {
             {Number(props.grandTotal).toFixed(2)}
           </div>
         </div>
+
+        <div className={classes.ContinueShopping}>
+          <div className="text-center">CONTINUE SHOPPING</div>
+        </div>
+        <div className={classes.Checkout}>
+          <div className="text-center">CHECKOUT</div>
+        </div>
+        <div className={classes.PayPal}>
+          <div className="text-center">
+            <img src={PayPal} />
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default subtotal;
+export default summary;

@@ -1,0 +1,35 @@
+.NavPage {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+.NavLink {
+  margin: 5px;
+  color: #b5bdbd;
+}
+.Direction {
+  color: #000;
+  margin: 5px;
+}
+.NavLink a {
+  text-decoration: none;
+  color: #b5bdbd;
+}
+.NavLinkEnd {
+  color: #000;
+  margin: 5px;
+}
+.NavLinkEnd a {
+  color: #000;
+  text-decoration: none;
+}
+.NavLink a:hover,
+.NavLink a:active,
+.NavLink a.active {
+  border-bottom: 2px solid #09a4a4;
+  color: #b5bdbd;
+  font-weight: bold;
+}

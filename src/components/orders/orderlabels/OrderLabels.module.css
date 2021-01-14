@@ -1,16 +1,36 @@
 .OrderLabels {
   display: flex;
-  flex-direction: row;
-  margin: auto;
-  width: 80%;
-  /* background: #ccc; */
+  flex-direction: column;
   border-radius: 3px;
   border: 0px solid #6e6e6e;
-  /* box-shadow: 2px 2px 15px grey; */
+  margin-top: 20px;
+  background: #2c4663;
+  margin-left: 25px;
+  width: 370px;
+  height: 442px;
+  color: #fff;
+  border-radius: 25px;
+}
+.LabelDivider {
+  margin: 5px;
+  width: 100px;
+
+  color: #fff;
+}
+.Result {
+  display: flex;
+  justify-content: flex-end;
+  width: 150px;
+  margin: 5px;
+  right: 10px;
 }
 .Labels {
-  width: 170px;
   font-family: "Abel", sans-serif;
   font-size: 17px;
   padding-left: 20px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  border-radius: 15px;
+  background: #52769c;
 }

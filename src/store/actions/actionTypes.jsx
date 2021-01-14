@@ -13,3 +13,5 @@ export const SAVE_QUANTITY = "SAVE_QUANTITY";
 export const SAVE_CATEGORY = "SAVE_CATEGORY";
 export const SAVE_SOCKET_ID = "SAVE_SOCKET_ID";
 export const SAVE_CLIENT_SOCKET_ID = "SAVE_CLIENT_SOCKET_ID";
+export const SAVE_PAGE = "SAVE_PAGE";
+export const REMOVE_PAGE = "REMOVE_PAGE";

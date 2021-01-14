@@ -9,6 +9,7 @@ import Login from "./containers/login/login";
 import ForgotPassword from "./containers/forgotPassword/forgotPassword";
 import AdminChat from "./containers/adminChat/adminChat";
 import PreviewOrder from "./containers/previewOrders/previewOrders";
+import Checkout from "./containers/checkout/checkout";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/adminChat" component={AdminChat} />
         <Route exact path="/previeworder" component={PreviewOrder} />
+        <Route exact path="/checkout" component={Checkout} />
         <Route exact path="/" component={Home} />
       </Switch>
     </div>

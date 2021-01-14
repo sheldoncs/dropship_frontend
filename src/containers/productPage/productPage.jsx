@@ -58,7 +58,8 @@ class ProductPage extends Component {
       quantity: 0,
       offer: null,
       photo: null,
-      totalprice: 0.0,
+      itemprice: 0.0,
+      deduction: 0.0,
     },
     hairType: {
       elementtype: "select",
@@ -91,7 +92,32 @@ class ProductPage extends Component {
         });
     }, 2000);
   };
+  pushPage = () => {
+    let page = { page: "PRODUCT", path: "/productpage" };
+    if (this.props.pages.length > 0) {
+      const found = this.props.pages.find(
+        (element) => element.page == "PRODUCT"
+      );
+      if (!found) {
+        this.props.onSavePage(page);
+      }
+    } else {
+      this.props.onSavePage(page);
+    }
+  };
+  popPage = () => {
+    let page = { page: "CART", path: "/previeworder" };
+    if (this.props.pages.length > 0) {
+      const found = this.props.pages.find((element) => element.page == "CART");
+      if (found) {
+        this.props.onRemovePage(page);
+      }
+    }
+  };
+
   componentDidMount() {
+    this.popPage();
+    this.pushPage();
     if (this.props.user != null) {
       localStorage.setItem("firstname", this.props.user.firstname);
       this.setState({ firstname: this.props.user.firstname });
@@ -398,8 +424,9 @@ class ProductPage extends Component {
       tempState.order["totalprice"] =
         tempState.order["quantity"] * tempState.order["price"];
       if (val == "ADDTOCART") {
+        tempState.order.offer = this.props.offer;
         this.props.onSaveOrder(tempState.order);
-        console.log(tempState.order);
+
         tempState.orders.push({ ...tempState.order });
 
         this.setState({ ...tempState, slideDown: true, validOrder: true });
@@ -420,7 +447,7 @@ class ProductPage extends Component {
     let tempState = { ...this.state };
     tempState.order.hairlength = val;
     this.setState({ ...tempState });
-    console.log("priceOptions", this.state.priceOptions);
+
     this.state.priceOptions.map((value, index) => {
       if (value.id == val) {
         tempState.priceId = val;
@@ -526,12 +553,15 @@ const mapStateToProps = (state) => {
     offer: state.offer.offer,
     orders: state.orderCategory.orders,
     category: state.orderCategory.category,
+    pages: state.navPages.pages,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
     onSaveOrder: (order) => dispatch(actionCreators.saveOrder(order)),
+    onSavePage: (page) => dispatch(actionCreators.savePage(page)),
+    onRemovePage: (page) => dispatch(actionCreators.removePage(page)),
     onSaveCategory: (category) =>
       dispatch(actionCreators.saveCategory(category)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),

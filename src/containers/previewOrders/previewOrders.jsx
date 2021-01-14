@@ -8,8 +8,11 @@ import { categoryQuery } from "../../Query/Query";
 import Footer from "../../components/footer/footer";
 import classes from "./PreviewOrders.module.css";
 import Orders from "../../components/orders/orders";
-import Subtotal from "../../components/subtotal/subtotal";
-import OrderLabels from "../../components/orders/orderlabels/orderlabels";
+import CartActions from "../../components/cartactions/cartactions";
+import Summary from "../../components/cartactions/summary/summary";
+import Cover from "../../components/cover/cover";
+
+// import NavPage from "../../components/navpage/navpage";
 
 class PreviewOrders extends Component {
   abortController = new AbortController();
@@ -23,8 +26,11 @@ class PreviewOrders extends Component {
     quantity: 0,
     labels: [],
     offer: null,
+    orderindex: 0,
+    openSummary: false,
+    openCover: false,
   };
-  calcTotals = (offer) => {
+  calcTotals = () => {
     let tempState = { ...this.state };
     let orders = null;
 
@@ -40,49 +46,65 @@ class PreviewOrders extends Component {
     tempState.totalprice = 0;
     let totalQuantity = orders.map((data, index) => {
       quantity = Number(data.quantity) + Number(quantity);
-      if (this.props.orders == null) {
-        this.props.onSaveOrder(data);
+
+      let itemprice = 0.0;
+      if (data.offer != null) {
+        if (data.offer.offertype == "PERCENT") {
+          data.deduction =
+            (data.offer.amount / 100) *
+            Number(data.quantity) *
+            Number(data.price);
+          itemprice = data.price * data.quantity - data.deduction;
+          data.itemprice = itemprice;
+        } else if (data.offer.offertype == "SUBTRACT") {
+          data.deduction = Number(data.quantity) * Number(data.offer.amount);
+          itemprice =
+            Number(data.price) * Number(data.quantity) - data.deduction;
+          data.itemprice = itemprice;
+        }
+        if (this.props.orders == null) {
+          this.props.onSaveOrder(data);
+        }
       }
-      let itemprice = Number(data.quantity) * Number(data.price);
+
       tempState.totalprice = itemprice + tempState.totalprice;
+      tempState.grandtotal = tempState.totalprice;
+      tempState.showOffer = false;
       return quantity;
     });
 
-    if (offer != null) {
-      if (offer.offertype == "PERCENT") {
-        if (quantity >= 3) {
-          tempState.showOffer = true;
-
-          tempState.offertotal = (offer.amount / 100) * tempState.totalprice;
-          tempState.grandtotal = tempState.totalprice - tempState.offertotal;
-        } else {
-          tempState.grandtotal = tempState.totalprice;
-          tempState.showOffer = false;
-        }
-      } else if (offer.offertype == "SUBTRACT") {
-      }
-    }
     this.props.onSaveQuantity(totalQuantity);
     tempState.quantity = quantity;
     this.setState({ orders: tempState.orders, ...tempState });
   };
-  componentDidMount() {
-    let tempState = { ...this.state };
-    let offer = null;
-
-    if (this.props.offer != null) {
-      let tempOffer = JSON.parse(localStorage.getItem("offer"));
-      if (tempOffer == null) {
-        localStorage.setItem("offer", JSON.stringify(this.props.offer));
+  pushPage = () => {
+    let page = { page: "CART", path: "/previeworder" };
+    if (this.props.pages.length > 0) {
+      const found = this.props.pages.find((element) => element.page == "CART");
+      if (!found) {
+        this.props.onSavePage(page);
       }
-      offer = this.props.offer;
     } else {
-      offer = JSON.parse(localStorage.getItem("offer"));
+      this.props.onSavePage(page);
     }
-    tempState.offer = offer;
-    this.props.onSaveOffer(offer);
+  };
+  popPage = () => {
+    let page = { page: "CHECKOUT", path: "/checkout" };
+    if (this.props.pages.length > 0) {
+      const found = this.props.pages.find(
+        (element) => element.page == "CHECKOUT"
+      );
+      if (found) {
+        this.props.onRemovePage(page);
+      }
+    }
+  };
+  componentDidMount() {
+    this.popPage();
+    this.pushPage();
+    let tempState = { ...this.state };
 
-    this.calcTotals(offer);
+    this.calcTotals();
 
     if (this.props.menu != null) {
       let tempMenu = this.props.menu;
@@ -133,18 +155,43 @@ class PreviewOrders extends Component {
       } else {
         tempState.quantity = Number(data.quantity) + Number(tempState.quantity);
       }
-      console.log(tempState.quantity, this.props.offer.offertype);
 
       this.props.onSaveQuantity(tempState.quantity);
 
       this.setState({ ...tempState });
       localStorage.setItem("orders", JSON.stringify(this.state.orders));
-      this.calcTotals(this.props.offer);
+      this.calcTotals();
     });
+  };
+  prevHandler = (val) => {
+    if (val >= 1) {
+      val = val - 1;
+      this.setState({ orderindex: val });
+    }
+  };
+  nextHandler = (val) => {
+    if (val <= this.state.orders.length - 1) {
+      val = val + 1;
+      this.setState({ orderindex: val });
+    }
+  };
+  showSummary = () => {
+    let tempState = { ...this.state };
+    tempState.openSummary = !tempState.openSummary;
+    this.setState({ ...tempState });
   };
   render() {
     return (
       <React.Fragment>
+        <Cover show={this.state.openSummary} clicked={this.showSummary} />
+        <Summary
+          openSummary={this.state.openSummary}
+          offerType={this.props.offer != null ? this.props.offer.offer : null}
+          subtotal={this.state.totalprice}
+          showOffer={this.state.showOffer}
+          offerTotal={this.state.offertotal}
+          grandTotal={this.state.grandtotal}
+        />
         {this.props.user != null ? (
           <Settings
             count={this.state.quantity}
@@ -159,23 +206,19 @@ class PreviewOrders extends Component {
           page="login"
           clicked={(id) => this.navigationHandler(id)}
         />
+        {/* <NavPage pages={this.props.pages} /> */}
         <div className={classes.CartLabel}>YOUR SHOPPING CART</div>
-        <div className="mt-5">
-          <OrderLabels />
-        </div>
+
         <div className={classes.Container}>
           <Orders
             orders={this.state.orders}
+            orderindex={this.state.orderindex}
+            prevClick={(val) => this.prevHandler(val)}
+            nextClick={(val) => this.nextHandler(val)}
             spinnerChange={(e, val) => this.spinnerHandler(e, val)}
           />
         </div>
-        <Subtotal
-          offerType={this.props.offer != null ? this.props.offer.offer : null}
-          subtotal={this.state.totalprice}
-          showOffer={this.state.showOffer}
-          offerTotal={this.state.offertotal}
-          grandTotal={this.state.grandtotal}
-        />
+        <CartActions clickShowSummary={this.showSummary} />
         <Footer />
       </React.Fragment>
     );
@@ -189,10 +232,13 @@ const mapStateToProps = (state) => {
     offer: state.offer.offer,
     orders: state.orderCategory.orders,
     quantity: state.orderCategory.quantity,
+    pages: state.navPages.pages,
   };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSavePage: (page) => dispatch(actionCreators.savePage(page)),
+    onRemovePage: (page) => dispatch(actionCreators.removePage(page)),
     onSaveOrder: (order) => dispatch(actionCreators.saveOrder(order)),
     onUpdateOrder: (order) => dispatch(actionCreators.updateOrder(order)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),

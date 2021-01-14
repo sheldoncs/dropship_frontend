@@ -1,0 +1,45 @@
+.Container {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: auto;
+}
+
+.Divider {
+  width: 300px;
+  background-color: #c4c4c4;
+  display: flex;
+  border: 1px solid #c4c4c4;
+  font-family: "Abel", sans-serif;
+}
+
+.FlexActions {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 10px;
+  right: 20px;
+  width: 80%;
+}
+.ButtonSummary {
+  width: 80%;
+  border-radius: 40px;
+  background-color: #3466a3;
+  color: #fff;
+  height: 54px;
+  font-family: "Abel", sans-serif;
+  font-size: 22px;
+  margin: 25px auto;
+  cursor: pointer;
+}
+
+.PayPal {
+  width: 300px;
+  border-radius: 15px;
+  background: #ffc43a;
+  height: 54px;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
