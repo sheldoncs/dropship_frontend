@@ -24,12 +24,12 @@
 .ButtonSummary {
   width: 80%;
   border-radius: 40px;
-  background-color: #3466a3;
+  background-color: #b0a7a7;
   color: #fff;
   height: 54px;
   font-family: "Abel", sans-serif;
   font-size: 22px;
-  margin: 25px auto;
+  margin: 45px auto;
   cursor: pointer;
 }
 

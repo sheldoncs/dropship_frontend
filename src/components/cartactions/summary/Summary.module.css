@@ -6,7 +6,7 @@
   right: 0;
   top: 0;
   z-index: 200;
-  background-color: #416e6e;
+  background-color: #4f4d4d;
   padding: 32px 16px;
   box-sizing: border-box;
   transition: transform 330ms ease-out;
@@ -86,15 +86,17 @@
 .ShowOffer {
   display: flex;
   flex-direction: row;
-  width: 50%;
+  width: 240px;
   margin: 5px auto;
   font-family: "Abel", sans-serif;
   font-size: 20px;
+  font-size: 20px;
+  color: #fff;
 }
 .HideOffer {
   display: none;
   flex-direction: row;
-  width: 40%;
+  width: 240px;
   margin: 25px auto;
   font-family: "Abel", sans-serif;
   font-size: 20px;

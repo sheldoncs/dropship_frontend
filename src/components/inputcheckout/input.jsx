@@ -4,6 +4,8 @@ import classes from "./input.module.css";
 const Input = (props) => {
   let inputElement = null;
   const inputClasses = [classes.InputElement];
+  const radioClasses = [classes.RadioInputElement];
+  radioClasses.push(classes.Radio);
   if (props.invalid && props.shouldValidate && props.touched) {
     inputClasses.push(classes.Invalid);
   }
@@ -23,6 +25,7 @@ const Input = (props) => {
   switch (props.elementType) {
     case "input":
       if (props.elementName != "password") {
+        console.log("elementConfig", props.elementConfig);
         inputElement = (
           <div className="input-container">
             <input
@@ -49,20 +52,6 @@ const Input = (props) => {
         );
       }
       break;
-    case "radio":
-      inputElement = (
-        <input
-          onChange={props.changed}
-          className={inputClasses.join(" ")}
-          {...props.elementConfig}
-          value={props.value}
-          name={props.elementName}
-          id={props.elementName}
-        >
-          {props.value}
-        </input>
-      );
-      break;
     case "textarea":
       inputElement = (
         <textarea
@@ -86,6 +75,26 @@ const Input = (props) => {
           </select>
         );
       }
+      break;
+    case "radio":
+      inputElement = (
+        <div className={classes.RadioContainer}>
+          <div className="pt-2">
+            <input
+              onChange={props.changed}
+              className={radioClasses.join(" ")}
+              {...props.elementConfig}
+              value={props.dispValue}
+              name={props.name}
+              id={props.elementName}
+            />
+          </div>
+          <div className="mt-2">
+            <img src={props.icon} />
+          </div>
+          <div className="ml-5 pt-3">{props.dispValue}</div>
+        </div>
+      );
       break;
     default:
       inputElement = (

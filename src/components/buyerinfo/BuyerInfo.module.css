@@ -1,0 +1,129 @@
+.BuyerInfo {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  width: 100% !important;
+  height: 100%;
+}
+
+.Logo {
+  display: block;
+  margin: 10px;
+  width: 200px;
+  margin: 45px auto;
+}
+.Fieldset {
+  border: 1px #ccc solid;
+  border-radius: 10px;
+  width: 80%;
+  height: 100px;
+  margin: auto;
+}
+.Legend {
+  margin-left: 20px;
+  padding: 20px;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  margin: auto;
+  width: 150px;
+}
+.Divide {
+  display: block;
+  margin: 0px;
+}
+.LogoSize {
+  width: 200px;
+  height: 54px;
+}
+.ActionForm {
+  margin-top: 70px;
+}
+.PayPal {
+  width: 200px;
+  border-radius: 15px;
+  background: #ffc43a;
+  color: #000;
+  height: 35px;
+  font-family: "Abel", sans-serif;
+  font-size: 18px;
+  margin: -10px auto;
+  cursor: pointer;
+}
+.CenterPayPal {
+  width: 190px;
+  margin: auto;
+}
+.PayPalSize {
+  width: 130px;
+  height: 32px;
+}
+.Line {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  margin: 25px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 13px;
+  color: #999999;
+}
+.choiceline {
+  display: flex;
+  flex-direction: row;
+  width: 78%;
+  margin: auto;
+  font-size: 12px;
+  color: #999999;
+}
+.CategoryHeader {
+  display: flex;
+  flex: row;
+  width: 80%;
+  margin: 0px auto;
+  font-family: "Abel", sans-serif;
+  color: #000;
+  margin-top: 20px;
+}
+.LeftHeader {
+  display: flex;
+  justify-content: flex-start;
+  font-family: "Abel", sans-serif;
+  font-size: 24px;
+}
+.RightHeader {
+  display: flex;
+  justify-content: flex-end;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  margin-top: 11px;
+  width: 62%;
+}
+.RightHeader a {
+  text-decoration: none;
+  color: #bb860b;
+}
+.RightHeader a:hover,
+.RightHeader a:active,
+.RightHeader a.active {
+  border-bottom: 1px solid #bb860b;
+  color: #bb860b;
+  text-decoration: none;
+  z-index: 20;
+  display: inline-block;
+  width: auto;
+}
+.InputElement {
+  width: 80% !important;
+}
+.ContactContainer {
+  display: flex;
+  flex-direction: row;
+  width: 86% !important;
+  margin: auto;
+}
+.Name {
+  width: 100% !important;
+}
+.RadioContainer {
+  display: block;
+  margin: 3px;
+}

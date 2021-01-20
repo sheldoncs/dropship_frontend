@@ -1,4 +1,19 @@
 .Input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  /* box-shadow: px 1px 1px 1px grey; */
+  border-radius: 5px;
+  padding-top: 40px;
+  padding-bottom: 10px;
+  padding-left: 10px;
+  border: 0px solid #ccc;
+  background: #fff;
+  font-family: "Abel", sans-serif;
+}
+.RadioInput {
+  width: 20%;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -74,9 +89,23 @@
   font-family: "Roboto Condensed", sans-serif;
   padding-top: 70px;
   display: block;
-  width: 300px !important;
+  width: 80% !important;
+  height: 50px !important;
   box-sizing: border-box;
   margin: 20px auto;
+  color: #000 !important;
+}
+.RadioInputElement {
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-family: "Roboto Condensed", sans-serif;
+  padding-top: 70px;
+  width: 80%;
+  display: block;
+  width: 20% !important;
+  box-sizing: border-box;
+  margin: 10px;
   color: #000 !important;
 }
 .Invalid {
@@ -85,10 +114,38 @@
   background-color: #fda49a;
   font: inherit;
   display: block;
-  width: 250px;
+
   box-sizing: border-box;
 }
-.InputElement:focus {
-  outline: none;
+input:focus {
   background-color: #ccc;
+  border: 1px #ffcc00 solid !important;
+  outline-offset: 0px !important;
+  outline: none !important;
+  box-shadow: 0 0 3px #ffcc00 !important;
+  -moz-box-shadow: 0 0 3px #ffcc00 !important;
+  -webkit-box-shadow: 0 0 3px #ffcc00 !important;
+}
+input[type="radio"] {
+  border: 0px;
+  width: 100%;
+  height: 25px;
+}
+.Radio {
+  width: 15px !important;
+  height: 15px !important;
+  font-family: "Abel", sans-serif;
+  border: 0px #ccc solid;
+  font-size: 14px;
+}
+.RadioContainer {
+  display: flex;
+  flex-direction: row;
+  font-family: "Abel", sans-serif;
+  height: 50px;
+  font-size: 15px;
+  width: 81%;
+  margin-left: 60px;
+  border: 1px #ccc solid;
+  border-radius: 5px;
 }

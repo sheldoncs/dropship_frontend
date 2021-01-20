@@ -1,0 +1,10 @@
+.Checkout {
+  display: flex;
+  flex-direction: row;
+  width: 100% !important;
+  height: 100%;
+  background: #fff;
+}
+Form {
+  width: 50%;
+}

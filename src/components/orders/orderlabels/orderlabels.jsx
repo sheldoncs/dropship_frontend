@@ -2,7 +2,6 @@ import React from "react";
 import classes from "./OrderLabels.module.css";
 
 const OrderLabels = (props) => {
-  console.log(props.summaryInfo);
   return (
     <div className={classes.OrderLabels}>
       <div className={classes.Labels}>
@@ -45,7 +44,7 @@ const OrderLabels = (props) => {
       </div>
       <div className={classes.Labels}>
         <div className={classes.LabelDivider}>
-          <b>DEDUCTION</b>
+          <b>{props.summaryInfo.offer.offer}</b>
         </div>
         <div className={classes.Result}>
           {Number(props.summaryInfo.deduction).toFixed(2)}

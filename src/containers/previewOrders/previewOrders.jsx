@@ -40,6 +40,7 @@ class PreviewOrders extends Component {
     } else {
       orders = JSON.parse(localStorage.getItem("orders"));
     }
+    console.log("orders", orders);
     tempState.orders = orders;
 
     let quantity = 0;
@@ -49,6 +50,7 @@ class PreviewOrders extends Component {
 
       let itemprice = 0.0;
       if (data.offer != null) {
+        tempState.showOffer = true;
         if (data.offer.offertype == "PERCENT") {
           data.deduction =
             (data.offer.amount / 100) *
@@ -69,7 +71,7 @@ class PreviewOrders extends Component {
 
       tempState.totalprice = itemprice + tempState.totalprice;
       tempState.grandtotal = tempState.totalprice;
-      tempState.showOffer = false;
+      this.setState({ ...tempState });
       return quantity;
     });
 
@@ -180,17 +182,22 @@ class PreviewOrders extends Component {
     tempState.openSummary = !tempState.openSummary;
     this.setState({ ...tempState });
   };
+  checkoutHandler = () => {
+    this.props.history.push("/checkout");
+  };
   render() {
     return (
       <React.Fragment>
         <Cover show={this.state.openSummary} clicked={this.showSummary} />
         <Summary
+          clickedCheckout={this.checkoutHandler}
           openSummary={this.state.openSummary}
           offerType={this.props.offer != null ? this.props.offer.offer : null}
           subtotal={this.state.totalprice}
           showOffer={this.state.showOffer}
           offerTotal={this.state.offertotal}
           grandTotal={this.state.grandtotal}
+          orders={this.state.orders}
         />
         {this.props.user != null ? (
           <Settings

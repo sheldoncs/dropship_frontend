@@ -1,8 +1,9 @@
 .Orders {
   display: flex;
   flex-direction: row;
-  width: 90%;
+  width: 89%;
   margin: auto;
+  margin-top: 45px;
 }
 .OrderRow {
   display: flex;
@@ -13,8 +14,8 @@
   display: flex;
 }
 .Photo {
-  width: 500px;
-  height: 442px;
+  width: 471px;
+  height: 400px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -54,4 +55,11 @@
   color: #777878;
   font-family: "Abel", sans-serif;
   font-size: 22px;
+}
+.Slider {
+  background: #fff !important;
+  width: 100%;
+  height: 90%;
+  background: #524f4f;
+  border: 20px solid #524f4f;
 }

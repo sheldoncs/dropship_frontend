@@ -90,6 +90,13 @@ export const getAllItems = `query  {
   itemid
 }
 }`;
+export const getAllCountries = `query  {
+  getAllCountries {
+   id
+   country_code
+   country_name
+  }
+}`;
 export const getNonDiscountOffers = `query  {
   getNonDiscountOffers {
     id
