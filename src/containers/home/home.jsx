@@ -434,7 +434,6 @@ class Home extends Component {
   };
   componentWillUnmount() {
     this.abortController.abort();
-    this._isMounted = false;
   }
   render() {
     return (

@@ -15,7 +15,8 @@ import Cover from "../../components/cover/cover";
 // import NavPage from "../../components/navpage/navpage";
 
 class PreviewOrders extends Component {
-  abortController = new AbortController();
+ abortController = new AbortController();
+
   state = {
     menu: null,
     orders: null,

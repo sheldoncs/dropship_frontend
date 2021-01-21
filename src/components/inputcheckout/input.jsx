@@ -3,6 +3,9 @@ import classes from "./input.module.css";
 
 const Input = (props) => {
   let inputElement = null;
+  let selectClass = [classes.Select];
+  selectClass.push(classes.select_category);
+  selectClass.push(classes.white_select);
   const inputClasses = [classes.InputElement];
   const radioClasses = [classes.RadioInputElement];
   radioClasses.push(classes.Radio);
@@ -25,7 +28,6 @@ const Input = (props) => {
   switch (props.elementType) {
     case "input":
       if (props.elementName != "password") {
-        console.log("elementConfig", props.elementConfig);
         inputElement = (
           <div className="input-container">
             <input
@@ -62,13 +64,13 @@ const Input = (props) => {
       );
       break;
     case "select":
-      if (props.elementconfig !== undefined) {
+      if (props.elementConfig !== undefined) {
         inputElement = (
           <select onChange={props.changed} className={classes.Select}>
-            {props.elementconfig.selectoptions.map((option) => {
+            {props.elementConfig.selectoptions.map((option) => {
               return (
                 <option key={option.value} value={option.value}>
-                  {option.displayValue}
+                  {option.displayvalue}
                 </option>
               );
             })}

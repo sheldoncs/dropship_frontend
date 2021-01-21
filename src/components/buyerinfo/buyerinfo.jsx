@@ -5,8 +5,11 @@ import PayPal from "../../assets/paypal.png";
 import Input from "../inputcheckout/input";
 import Dropoff from "../../assets/dropoff.png";
 import Pickup from "../../assets/pickup.png";
+import Arrow from "../../assets/down_arrow.png";
 
 const buyerinfo = (props) => {
+  let arrowClass = [classes.Arrow];
+  arrowClass.push(classes.Down);
   return (
     <div className={classes.BuyerInfo}>
       <div className={classes.Logo}>
@@ -114,6 +117,56 @@ const buyerinfo = (props) => {
             elementType={props.checkoutForm["accomodation"].elementtype}
             elementConfig={props.checkoutForm["accomodation"].elementConfig}
             elementName={"accomodation"}
+          />
+        </div>
+        <div className={classes.Divide}>
+          <div className={classes.CountryContainer}>
+            <div className={classes.SelectContainer}>
+              <div className={classes.Region}>Country/Region</div>
+              <img
+                style={{
+                  position: "absolute",
+                  left: "40%",
+                  paddingTop: "20px",
+                }}
+                src={Arrow}
+              />
+
+              <Input
+                key={"country"}
+                changed={(event) => {
+                  props.inputChangeHandler(event, "country");
+                }}
+                visibility={props.checkoutForm["country"].visibility}
+                elementType={props.checkoutForm["country"].elementtype}
+                elementConfig={props.checkoutForm["country"].elementConfig}
+                elementName={"country"}
+              />
+            </div>
+          </div>
+        </div>
+        <div style={{ marginTop: "40px" }} className={classes.Divide}>
+          <Input
+            key={"postalcode"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "postalcode");
+            }}
+            visibility={props.checkoutForm["postalcode"].visibility}
+            elementType={props.checkoutForm["postalcode"].elementtype}
+            elementConfig={props.checkoutForm["postalcode"].elementConfig}
+            elementName={"postalcode"}
+          />
+        </div>
+        <div className={classes.Divide}>
+          <Input
+            key={"phone"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "phone");
+            }}
+            visibility={props.checkoutForm["phone"].visibility}
+            elementType={props.checkoutForm["phone"].elementtype}
+            elementConfig={props.checkoutForm["phone"].elementConfig}
+            elementName={"phone"}
           />
         </div>
       </div>

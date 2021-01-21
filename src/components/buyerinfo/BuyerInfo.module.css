@@ -4,6 +4,7 @@
   background: #fff;
   width: 100% !important;
   height: 100%;
+  margin-bottom: 25px;
 }
 
 .Logo {
@@ -29,7 +30,6 @@
 }
 .Divide {
   display: block;
-  margin: 0px;
 }
 .LogoSize {
   width: 200px;
@@ -126,4 +126,44 @@
 .RadioContainer {
   display: block;
   margin: 3px;
+}
+.SelectContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+}
+.PostalCode {
+  margin: auto;
+  width: 80%;
+}
+.Region {
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  color: #9DA1A1;
+  padding-left: 20px;
+}
+.CountryContainer {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: -20px auto;
+}
+.Country {
+  display: flex;
+}
+.Arrow {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  z-index: 20px;
+}
+.Down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
 }

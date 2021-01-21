@@ -1,0 +1,6 @@
+.CheckoutSummary {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: #4f4d4d;
+}

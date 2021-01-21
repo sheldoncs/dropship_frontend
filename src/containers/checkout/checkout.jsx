@@ -5,8 +5,10 @@ import classes from "./Checkout.module.css";
 import BuyerInfo from "../../components/buyerinfo/buyerinfo";
 import fetch from "../../fetchservice/fetchservice";
 import { getAllCountries } from "../../Query/Query";
+import CheckoutSummary from "../../components/checkoutsummary/checkoutsummary";
 
 class Checkout extends Component {
+  abortController = new AbortController();
   state = {
     orders: [],
     checkoutForm: {
@@ -105,10 +107,10 @@ class Checkout extends Component {
       },
       country: {
         elementtype: "select",
-        elementconfig: {
-          selectoptions: [{ value: "fastest", displayValue: "fastest" }],
+        elementConfig: {
+          selectoptions: [],
         },
-        value: "fastest",
+        value: "",
         validation: {},
         valid: true,
       },
@@ -178,9 +180,35 @@ class Checkout extends Component {
     event.preventDefault();
   };
   inputChangeHandler = (event, key) => {};
-  componentDidMount() {}
+  componentDidMount() {
+    this.fetchAllCountries();
+  }
+  componentWillUnmount() {
+    this.abortController.abort();
+  }
+  fetchAllCountries() {
+    let query = getAllCountries;
 
-  fetchAllCountries() {}
+    fetch(
+      {
+        query,
+      },
+      { signal: this.abortController.signal }
+    ).then((res) => {
+      let allCountries = res.data.getAllCountries;
+      let tempState = { ...this.state };
+
+      allCountries.map((data, index) => {
+        tempState.checkoutForm.country.elementConfig.selectoptions.push({
+          value: data.country_code,
+          displayvalue: data.country_name,
+        });
+        this.setState({ ...tempState });
+      });
+
+      //
+    });
+  }
   render() {
     return (
       <div className={classes.Checkout}>
@@ -190,6 +218,9 @@ class Checkout extends Component {
             inputChangeHandler={(eve, key) => this.inputChangeHandler(eve, key)}
           />
         </form>
+        <CheckoutSummary className={classes.CheckoutSummary}>
+          Cow itch
+        </CheckoutSummary>
       </div>
     );
   }

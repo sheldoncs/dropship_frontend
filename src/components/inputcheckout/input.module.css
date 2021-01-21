@@ -72,15 +72,36 @@
   margin: auto;
   font-family: "Roboto Condensed", sans-serif;
 }
-.Select {
-  width: 200px;
-  border: 1px solid #ccc;
-  background-color: #ebe8e8;
+.white_select {
+  background: rgba(255, 255, 255, 1) url(../../assets/up_arrow.png) no-repeat
+    scroll calc(5% + 3px) center/8px auto;
+  width: 100%;
+}
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 1px;
+  text-overflow: "";
+}
+.select_category {
   outline: none;
-  margin: 5px auto;
+  height: 50px;
+  line-height: 50px;
+  padding: 0px 20px;
+  border: 0px;
+}
+.Select {
+  width: 80%;
+  border: 0px solid #ccc;
+  background-color: #fff;
+  outline: none;
+  margin: auto;
   border-radius: 10px;
-  height: 40px;
+  height: 25px;
+  font-family: "Abel", sans-serif;
+  font-size: 14px;
   padding-left: 15px;
+  text-transform: uppercase;
 }
 .InputElement {
   outline: none;
