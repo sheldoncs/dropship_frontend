@@ -76,21 +76,7 @@ class Login extends Component {
       saveActivated: currentState.saveActivated,
     });
   };
-  // orderHandler = (event) => {
-  //   event.preventDefault();
-  //   console.log("submit");
-  //   const formData = {};
 
-  //   // for (let formElementIdentifier in this.state.loginForm) {
-  //   //   formData[formElementIdentifier] = this.state.loginForm[
-  //   //     formElementIdentifier
-  //   //   ].value;
-  //   // }
-  //   // console.log(formData);
-  //   // if (this.props.formIsValid) {
-  //   //   this.props.history.push("/");
-  //   // }
-  // };
   navigationHandler = (option) => {
     const updatedOrderForm = { ...this.state.loginForm };
     if (option === "register") {
@@ -235,6 +221,7 @@ class Login extends Component {
             response.json().then((result) => {
               if (result.auth === true) {
                 this.props.onSetToken(result.token);
+                localStorage.setItem("token", result.token);
                 localStorage.setItem("email", this.state.loginForm.email.value);
 
                 let userObject = {

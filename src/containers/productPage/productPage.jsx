@@ -23,12 +23,14 @@ import NavigateBar from "../../components/navigateBar/navigateBar";
 import fetch from "../../fetchservice/fetchservice";
 import Cover from "../../components/cover/cover";
 import Message from "../../components/errorMessage/errorMessage";
+import { throwServerError } from "@apollo/client";
 
 class ProductPage extends Component {
   abortController = new AbortController();
   state = {
     photos: { subPhotos: null, main: null },
     offer: null,
+    categoryinfo: null,
     nonDiscountOffers: null,
     count: 1,
     submenu: null,
@@ -116,13 +118,15 @@ class ProductPage extends Component {
   };
 
   componentDidMount() {
+    let category = null;
     this.popPage();
     this.pushPage();
+
     if (this.props.user != null) {
-      localStorage.setItem("firstname", this.props.user.firstname);
+      sessionStorage.setItem("firstname", this.props.user.firstname);
       this.setState({ firstname: this.props.user.firstname });
     } else {
-      this.setState({ firstname: localStorage.getItem("firstname") });
+      this.setState({ firstname: sessionStorage.getItem("firstname") });
     }
 
     if (this.props.menu != null) {
@@ -130,33 +134,76 @@ class ProductPage extends Component {
     } else {
       this.fetchMenuQuery();
     }
+
+    if (this.props.category != null) {
+      sessionStorage.setItem("category", JSON.stringify(this.props.category));
+
+      category = JSON.parse(sessionStorage.getItem("category"));
+
+      this.setState({ categoryinfo: category });
+    } else {
+      category = JSON.parse(sessionStorage.getItem("category"));
+      this.setState({ categoryinfo: category });
+    }
     if (this.props.offer != null) {
-      localStorage.setItem("offer", JSON.stringify(this.props.offer));
-      localStorage.setItem("categoryid", this.props.offer.categoryid);
-      localStorage.setItem("itemid", this.props.offer.itemdetailsid);
-      localStorage.setItem("offerid", this.props.offer.id);
-      localStorage.setItem("isOffer", true);
+      console.log(
+        "sessionStorage.getItem('category')",
+        sessionStorage.getItem("category"),
+        category,
+        offer
+      );
+      sessionStorage.setItem("offer", JSON.stringify(this.props.offer));
+      sessionStorage.setItem("categoryid", this.props.offer.categoryid);
+      if (this.props.offer.itemdetailsid != null) {
+        sessionStorage.setItem("itemid", this.props.offer.itemdetailsid);
+      } else {
+        sessionStorage.setItem("itemid", category.itemid);
+      }
+      sessionStorage.setItem("offerid", this.props.offer.id);
+      sessionStorage.setItem("isOffer", true);
       this.setState({ isOffer: true });
     } else {
-      let offer = JSON.parse(localStorage.getItem("offer"));
+      if (category != null) {
+        if (category.isOffer == false) {
+          sessionStorage.setItem("offer", null);
+        }
+      }
+      let offer = JSON.parse(sessionStorage.getItem("offer"));
+
       this.props.onSaveOffer(offer);
-      localStorage.setItem("categoryid", offer.categoryid);
-      localStorage.setItem("itemid", offer.itemdetailsid);
-      localStorage.setItem("offerid", offer.id);
-      localStorage.setItem("isOffer", true);
+      if (offer == null) {
+        this.setState({ isOffer: false });
+        sessionStorage.setItem("isOffer", false);
+      } else {
+        this.setState({ isOffer: true });
+        sessionStorage.setItem("isOffer", true);
+        sessionStorage.setItem("offerid", offer.id);
+      }
+
+      if (category != null) {
+        sessionStorage.setItem("categoryid", category.categoryid);
+        sessionStorage.setItem("itemid", category.itemid);
+      } else {
+        if (offer !== null) {
+          sessionStorage.setItem("categoryid", offer.categoryid);
+          sessionStorage.setItem("itemid", offer.itemdetailsid);
+        }
+      }
     }
     this.fetchNonDiscountOffer();
-    this.fetchOfferQuery(localStorage.getItem("offerid"));
-    this.fetchPhotosQuery(localStorage.getItem("categoryid"));
-    this.fetchPricesByCategory(localStorage.getItem("categoryid"));
+    this.fetchOfferQuery(sessionStorage.getItem("offerid"));
 
-    if (localStorage.getItem("itemid") != "null") {
-      this.fetchItemAndCategory(localStorage.getItem("itemid"));
+    this.fetchPhotosQuery(sessionStorage.getItem("categoryid"));
+    this.fetchPricesByCategory(sessionStorage.getItem("categoryid"));
+
+    if (sessionStorage.getItem("itemid") != "null") {
+      this.fetchItemAndCategory(sessionStorage.getItem("itemid"));
     } else {
       this.fetchItemAndCategory(1);
     }
-    this.fetchOptions(localStorage.getItem("categoryid"));
+    this.fetchOptions(sessionStorage.getItem("categoryid"));
     this.fetchLastIdentity();
+    window.scrollTo(0, 0);
   }
   componentWillUnmount() {
     this.abortController.abort();
@@ -205,26 +252,45 @@ class ProductPage extends Component {
       { signal: this.abortController.signal }
     ).then((res) => {
       let photos = res.data.getPhotosByCategory;
+
       let tempState = { ...this.state };
       let filteredPhotos = res.data.getPhotosByCategory.filter(function (el) {
-        let offer = JSON.parse(localStorage.getItem("nonDiscOffers"));
+        let offer = JSON.parse(sessionStorage.getItem("nonDiscOffers"));
         let found = offer.find((element) => element.itemdetailsid != el.itemid);
         return found;
       });
 
       tempState.photos.subPhotos = filteredPhotos;
 
+      let category = JSON.parse(sessionStorage.getItem("category"));
+
+      if (category != null) {
+        this.fetchItemAndCategory(category.itemid);
+      }
       let mainPhoto = photos.map((data) => {
-        if (tempState.offer.offertype == "PERCENT") {
-          if (data.mainphoto == 1) {
-            return data.photo;
+        if (category.isOffer) {
+          if (tempState.offer.offertype == "PERCENT") {
+            if (category != null) {
+              if (Number(data.itemid) == Number(category.itemid)) {
+                return data.photo;
+              }
+            } else {
+              if (data.mainphoto == 1) {
+                return data.photo;
+              }
+            }
+          } else if (tempState.offer.offertype == "SUBTRACT") {
+            if (Number(data.itemid) == Number(tempState.offer.itemdetailsid)) {
+              return data.photo;
+            }
           }
-        } else if (tempState.offer.offertype == "SUBTRACT") {
-          if (Number(data.itemid) == Number(tempState.offer.itemdetailsid)) {
+        } else {
+          if (Number(data.itemid) == Number(category.itemid)) {
             return data.photo;
           }
         }
       });
+
       let selPhoto = mainPhoto.filter(function (el) {
         return el != undefined;
       });
@@ -233,7 +299,7 @@ class ProductPage extends Component {
         tempState.photos.main = selPhoto;
         tempState.order.photo = selPhoto;
       } else if (tempState.offer.offertype == "PERCENT") {
-        tempState.photos.main = mainPhoto[0];
+        tempState.photos.main = selPhoto[0];
       }
       this.setState({ ...tempState });
     });
@@ -271,7 +337,7 @@ class ProductPage extends Component {
     ).then((res) => {
       let tempState = { ...this.state };
       tempState.nonDiscountOffers = res.data.getNonDiscountOffers;
-      localStorage.setItem(
+      sessionStorage.setItem(
         "nonDiscOffers",
         JSON.stringify(tempState.nonDiscountOffers)
       );
@@ -522,6 +588,8 @@ class ProductPage extends Component {
         <ProductAndPrice
           urlphotos={this.state.photos}
           offer={this.state.offer}
+          itemname={this.state.order.itemname}
+          categoryinfo={this.state.categoryinfo}
           isOffer={this.state.isOffer}
           showSubPhotos={this.state.showSubPhotos}
           photoclicked={(val, photo) => this.photoHandler(val, photo)}

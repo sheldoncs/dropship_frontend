@@ -49,28 +49,37 @@ const buyerinfo = (props) => {
             visibility={props.checkoutForm["email"].visibility}
             elementType={props.checkoutForm["email"].elementtype}
             elementConfig={props.checkoutForm["email"].elementConfig}
+            valid={props.checkoutForm["email"].valid}
             elementName={"email"}
           />
         </div>
         <div className={classes.RadioContainer}>
           <Input
             key={"dropDeliveryMethod"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "dropDeliveryMethod");
+            }}
             visibility={props.checkoutForm["dropDeliveryMethod"].visibility}
             elementType={props.checkoutForm["dropDeliveryMethod"].elementtype}
             elementConfig={props.checkoutForm["dropDeliveryMethod"].elemConfig}
             elementName={"dropDeliveryMethod"}
             dispValue={props.checkoutForm["dropDeliveryMethod"].value}
             name={props.checkoutForm["dropDeliveryMethod"].name}
+            valid={props.checkoutForm["dropDeliveryMethod"].valid}
             icon={Dropoff}
           />
           <Input
             key={"pickDeliveryMethod"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "pickDeliveryMethod");
+            }}
             visibility={props.checkoutForm["pickDeliveryMethod"].visibility}
             elementType={props.checkoutForm["pickDeliveryMethod"].elementtype}
             elementConfig={props.checkoutForm["pickDeliveryMethod"].elemConfig}
             elementName={"pickDeliveryMethod"}
             dispValue={props.checkoutForm["pickDeliveryMethod"].value}
             name={props.checkoutForm["pickDeliveryMethod"].name}
+            valid={props.checkoutForm["pickDeliveryMethod"].valid}
             icon={Pickup}
           />
         </div>
@@ -80,19 +89,27 @@ const buyerinfo = (props) => {
         <div className={classes.Divide}>
           <Input
             key={"firstname"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "firstname");
+            }}
             visibility={props.checkoutForm["firstname"].visibility}
             elementType={props.checkoutForm["firstname"].elementtype}
             elementConfig={props.checkoutForm["firstname"].elementConfig}
             elementName={"firstname"}
+            valid={props.checkoutForm["firstname"].valid}
           />
         </div>
         <div className={classes.Divide}>
           <Input
             key={"lastname"}
+            changed={(event) => {
+              props.inputChangeHandler(event, "lastname");
+            }}
             visibility={props.checkoutForm["lastname"].visibility}
             elementType={props.checkoutForm["lastname"].elementtype}
             elementConfig={props.checkoutForm["lastname"].elementConfig}
             elementName={"lastname"}
+            valid={props.checkoutForm["lastname"].valid}
           />
         </div>
         <div className={classes.Divide}>
@@ -105,6 +122,7 @@ const buyerinfo = (props) => {
             elementType={props.checkoutForm["address"].elementtype}
             elementConfig={props.checkoutForm["address"].elementConfig}
             elementName={"address"}
+            valid={props.checkoutForm["address"].valid}
           />
         </div>
         <div className={classes.Divide}>
@@ -117,6 +135,7 @@ const buyerinfo = (props) => {
             elementType={props.checkoutForm["accomodation"].elementtype}
             elementConfig={props.checkoutForm["accomodation"].elementConfig}
             elementName={"accomodation"}
+            valid={props.checkoutForm["accomodation"].valid}
           />
         </div>
         <div className={classes.Divide}>
@@ -141,6 +160,7 @@ const buyerinfo = (props) => {
                 elementType={props.checkoutForm["country"].elementtype}
                 elementConfig={props.checkoutForm["country"].elementConfig}
                 elementName={"country"}
+                valid={props.checkoutForm["country"].valid}
               />
             </div>
           </div>
@@ -155,6 +175,7 @@ const buyerinfo = (props) => {
             elementType={props.checkoutForm["postalcode"].elementtype}
             elementConfig={props.checkoutForm["postalcode"].elementConfig}
             elementName={"postalcode"}
+            valid={props.checkoutForm["postalcode"].valid}
           />
         </div>
         <div className={classes.Divide}>
@@ -167,7 +188,18 @@ const buyerinfo = (props) => {
             elementType={props.checkoutForm["phone"].elementtype}
             elementConfig={props.checkoutForm["phone"].elementConfig}
             elementName={"phone"}
+            valid={props.checkoutForm["phone"].valid}
           />
+        </div>
+        <div className={classes.Divide}>
+          <div className={classes.NavigateFromCheckout}>
+            <div className={classes.ToCart}>
+              <a href="#">{"< Return to cart"} </a>
+            </div>
+            <div onClick={props.clicked} className={classes.ToShipping}>
+              <div className={classes.ShippingText}>Continue to Shipping</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

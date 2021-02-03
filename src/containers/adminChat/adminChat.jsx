@@ -28,9 +28,7 @@ class AdminChat extends Component {
       this.setState({ chatters: res.data.getActiveChatters });
     });
 
-    socket.on("chatroom", (data) => {
-      console.log("chatroom", data);
-    });
+    socket.on("chatroom", (data) => {});
   }
 
   deactivateHandler = (socketid) => {

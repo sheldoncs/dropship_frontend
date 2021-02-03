@@ -25,3 +25,14 @@
   box-shadow: 2px 2px 15px grey;
   border-radius: 10px;
 }
+.otherDimen {
+  width: 250px;
+  box-shadow: 2px 2px 15px grey;
+  border-radius: 10px;
+}
+.btn_info {
+  background: #34363b !important;
+  color: #fff !important;
+  font-family: "Abel", sans-serif;
+  font-size: 20px;
+}

@@ -16,7 +16,7 @@
 .Fieldset {
   border: 1px #ccc solid;
   border-radius: 10px;
-  width: 80%;
+  width: 90%;
   height: 100px;
   margin: auto;
 }
@@ -77,7 +77,7 @@
 .CategoryHeader {
   display: flex;
   flex: row;
-  width: 80%;
+  width: 90%;
   margin: 0px auto;
   font-family: "Abel", sans-serif;
   color: #000;
@@ -144,13 +144,13 @@
 .Region {
   font-family: "Abel", sans-serif;
   font-size: 15px;
-  color: #9DA1A1;
+  color: #9da1a1;
   padding-left: 20px;
 }
 .CountryContainer {
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: 90%;
   margin: -20px auto;
 }
 .Country {
@@ -166,4 +166,49 @@
 .Down {
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
+}
+.NavigateFromCheckout {
+  display: flex;
+  flex-direction: row;
+  width: 90% !important;
+  margin: auto;
+  margin-top: 50px;
+}
+.ToCart {
+  display: flex;
+  justify-content: flex-start;
+  width: 80%;
+}
+.ToCart a {
+  text-decoration: none;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  color: #bb860b;
+  margin-top: 20px;
+}
+.ToCart a:hover,
+.ToCart a:active,
+.ToCart a.active {
+  border-bottom: 0px solid #bb860b;
+  color: #ffcc00;
+  text-decoration: none;
+  z-index: 20;
+  display: inline-block;
+  width: auto;
+}
+.ToShipping {
+  display: flex;
+  right: 10px;
+  height: 70px;
+  width: 170px;
+  background: #bb860b;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+}
+.ShippingText {
+  width: 120px;
+  margin: auto;
 }

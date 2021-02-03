@@ -32,7 +32,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.SAVE_CATEGORY:
       return {
         ...state,
-        offer: action.category,
+        category: action.category,
       };
     case actionTypes.SAVE_QUANTITY:
       return {

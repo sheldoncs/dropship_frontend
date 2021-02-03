@@ -82,12 +82,14 @@ export const activeChatters = `query ($active:Int) {
     socketid
   }
 }`;
-export const getAllItems = `query  {
-  getAllItems {
+export const getAllItems = `query ($categoryid:Int)  {
+  getAllItems(categoryid:$categoryid) {
   id
   option
   photo
   itemid
+  categoryid
+  price
 }
 }`;
 export const getAllCountries = `query  {
@@ -117,12 +119,13 @@ export const deactivatChatter = `mutation ($socketid:String) {
     }
   }
 }`;
-export const addLastIdentity = `mutation addLastIdentity($lastidentityid:Int) {
+export const addLastIdentity = `mutation ($lastidentityid:Int) {
   addLastIdentity(
     lastidentityid: $lastidentityid
     ) {
     LastIdentity {
-      lastidentityid
+           lastidentityid
          }
-      }
+    }
   }`;
+

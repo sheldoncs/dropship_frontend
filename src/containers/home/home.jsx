@@ -12,6 +12,7 @@ import {
   getAllItems,
   categoryQuery,
 } from "../../Query/Query";
+import { updateMainPhoto, resetMainPhoto } from "../../Mutation/Mutation";
 import ChatButton from "../../components/button/chatButton/chatButton";
 import ChatClient from "../../components/chatClient/chatClient";
 import socket from "../../components/socket/socket";
@@ -27,6 +28,7 @@ class Home extends Component {
   state = {
     user: { name: "", admin: 0 },
     menu: null,
+    categoryId: 2,
     offers: null,
     offer: null,
     showIntro: false,
@@ -100,7 +102,7 @@ class Home extends Component {
     this.fetchAllCategories();
     this.fetchOffers();
     this.fetchPriceOptions();
-    this.fetchAllItems();
+    this.fetchAllItems(this.state.categoryId);
 
     socket.on("new_msg", function (data) {
       let tempState = { ...this.state };
@@ -219,10 +221,11 @@ class Home extends Component {
   fetchPriceOptions = () => {
     let query = pricesByCategory;
     let variables = null;
-    if (this.props.category == null) {
+
+    if (this.props.category == null || this.props.category == undefined) {
       variables = { categoryid: 2 };
     } else {
-      variables = { categoryid: Number(this.props.category.id) };
+      variables = { categoryid: Number(this.props.category.categoryid) };
     }
 
     fetch(
@@ -256,10 +259,13 @@ class Home extends Component {
       this.setState({ menu: res.data.getAllCategories });
     });
   };
-  fetchAllItems = () => {
+  fetchAllItems = (catid) => {
     let query = getAllItems;
+    let variables = { categoryid: Number(catid) };
+
     fetch(
       {
+        variables,
         query: query,
       },
       { signal: this.signal }
@@ -269,7 +275,9 @@ class Home extends Component {
       this.setState({ ...tempState });
     });
   };
-  handleOffer = (id) => {
+  handleOffer = (id, itemid) => {
+    let category = { categoryid: 2, itemid, isOffer: true };
+    this.props.onSaveCategory(category);
     let offerList = this.state.offers;
     let tempState = { ...this.state };
 
@@ -295,7 +303,10 @@ class Home extends Component {
   navigationHandler = (catId) => {
     if (catId == 1) {
       this.props.history.push("/");
+    } else {
+      this.fetchAllItems(catId);
     }
+    this.setState({ categoryId: catId });
   };
   chatHandler = () => {
     let tempState = { ...this.state };
@@ -330,7 +341,7 @@ class Home extends Component {
       message: message,
       admin: this.state.admin,
     };
-    console.log("transmit " + data);
+
     socket.emit("message", data);
     if (this.props.user != null) {
       if (this.props.user.admin == 1) {
@@ -432,6 +443,64 @@ class Home extends Component {
       }
     }
   };
+  displayHandler = (catid, itemid, price) => {
+    let value = null;
+    let category = {};
+    let offerlist = this.state.offers;
+    let offer = null;
+    if (itemid == 5) {
+      value = offerlist.find(
+        (element) =>
+          element.categoryid == catid && element.itemdetailsid == itemid
+      );
+    } else {
+      value = offerlist.find(
+        (element) =>
+          element.categoryid == catid && element.itemdetailsid != itemid
+      );
+    }
+
+    if (value != undefined) {
+      offer = {
+        id: value.id,
+        offer: value.offer,
+        itemdetailsid: value.itemdetailsid,
+        offertype: value.offertype,
+        amount: value.amount,
+        condition: value.condition,
+        code: value.code,
+        categoryid: value.categoryid,
+      };
+    }
+
+    if (catid != 2) {
+      category = { categoryid: catid, itemid: itemid, isOffer: false, price };
+    } else {
+      category = { categoryid: catid, itemid: itemid, isOffer: true };
+    }
+    this.props.onSaveOffer(offer);
+    this.props.onSaveCategory(category);
+
+    this.props.history.push("/productpage");
+  };
+  resetMainPhoto = (categoryid) => {
+    let query = resetMainPhoto;
+    let variables = { categoryid: Number(categoryid) };
+    fetch({ query, variables })
+      .then((resp) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  updateMainPhoto = (categoryid) => {
+    let query = resetMainPhoto;
+    let variables = { categoryid: Number(categoryid) };
+    fetch({ query, variables })
+      .then((resp) => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   componentWillUnmount() {
     this.abortController.abort();
   }
@@ -475,15 +544,21 @@ class Home extends Component {
         )}
         <NavigationItems
           page="home"
-          clicked={this.navigationHandler}
+          clicked={(id) => this.navigationHandler(id)}
           menuItems={this.state.menu}
         />
         {this.state.offers != null ? (
-          <Offer offers={this.state.offers} clicked={this.handleOffer} />
+          <Offer
+            offers={this.state.offers}
+            clicked={(id, itemid) => this.handleOffer(id, itemid)}
+          />
         ) : null}
         <Display
           items={this.state.items.itemList}
           prices={this.state.items.priceOptions}
+          clickHandler={(catid, itemid, price) =>
+            this.displayHandler(catid, itemid, price)
+          }
         />
         <Footer />
       </div>
@@ -514,6 +589,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(actionCreators.saveSocketID(socketid)),
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
+    onSaveCategory: (category) =>
+      dispatch(actionCreators.saveCategory(category)),
   };
 };
 

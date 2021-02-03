@@ -9,8 +9,10 @@ const Input = (props) => {
   const inputClasses = [classes.InputElement];
   const radioClasses = [classes.RadioInputElement];
   radioClasses.push(classes.Radio);
-  if (props.invalid && props.shouldValidate && props.touched) {
+
+  if (!props.valid) {
     inputClasses.push(classes.Invalid);
+  } else {
   }
 
   let validationError = null;

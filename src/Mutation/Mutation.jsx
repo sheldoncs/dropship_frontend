@@ -41,3 +41,18 @@ addUserInfo (
  }
 }
 `;
+export const resetMainPhoto = `mutation resetMainPhoto($categoryid: Int){
+  resetMainPhoto(categoryid:$categoryid){
+    Category {
+      categoryid
+    }
+  }
+}`;
+
+export const updateMainPhoto = `mutation updateMainPhoto($itemid: Int){
+updateMainPhoto(itemid:$itemid){
+  UpdateItem {
+    itemid
+  }
+}
+}`;

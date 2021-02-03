@@ -27,11 +27,12 @@ const Offer = (props) => {
           </div>
           <div key={value.id} className={classes.OfferContainer}>
             <div className={classes.LimitedOffer}>Limited Offer</div>
-            <div
+            {/* <div
               style={{ width: value.width + "px" }}
               className={classes.Offer}
-            >
-              {value.offer}
+            > */}
+            <div className={classes.Offer}>
+              <div className="text-center pt-2">{value.offer}</div>
             </div>
             <div
               style={{ width: condLength + "px" }}
@@ -42,12 +43,21 @@ const Offer = (props) => {
             <div style={{ width: code + "px" }} className={classes.Code}>
               Code:{value.code}
             </div>
-            <button
-              onClick={() => props.clicked(value.id)}
-              className={btnClasses.join(" ")}
-            >
-              ORDER NOW!
-            </button>
+            {value.itemdetailsid != null ? (
+              <button
+                onClick={() => props.clicked(value.id, value.itemdetailsid)}
+                className={btnClasses.join(" ")}
+              >
+                ORDER NOW!
+              </button>
+            ) : (
+              <button
+                onClick={() => props.clicked(value.id, 1)}
+                className={btnClasses.join(" ")}
+              >
+                ORDER NOW!
+              </button>
+            )}
           </div>
         </div>
       </div>

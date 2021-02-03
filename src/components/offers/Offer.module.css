@@ -23,8 +23,8 @@
   display: block;
   font-family: "Fjalla One", sans-serif;
   font-size: 30px;
-  margin: auto;
-  margin-top: 20px;
+  /* margin: 0px auto; */
+  margin-top: 30px;
   font-weight: bold;
 }
 .Condition {

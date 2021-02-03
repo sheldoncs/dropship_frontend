@@ -15,7 +15,7 @@ import Cover from "../../components/cover/cover";
 // import NavPage from "../../components/navpage/navpage";
 
 class PreviewOrders extends Component {
- abortController = new AbortController();
+  abortController = new AbortController();
 
   state = {
     menu: null,
@@ -41,7 +41,7 @@ class PreviewOrders extends Component {
     } else {
       orders = JSON.parse(localStorage.getItem("orders"));
     }
-    console.log("orders", orders);
+
     tempState.orders = orders;
 
     let quantity = 0;

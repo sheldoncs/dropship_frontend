@@ -1,11 +1,17 @@
 .Counter {
   display: flex;
   flex-direction: row;
-  width: 85%;
+  width: 100%;
   padding-top: 40px;
   margin: auto;
   font-family: "Abel", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+.TextFont {
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  text-transform: uppercase;
 }
 .LeftIncrement {
   width: 40px;
@@ -21,7 +27,7 @@
   width: 40px;
   height: 40px;
   border: 1px solid #ccc;
-  font-family: "Roboto Condensed", sans-serif;
+  font-family: "Abel", sans-serif;
   font-size: 25px;
   color: #d1cfcf;
   cursor: pointer;
@@ -30,9 +36,9 @@
   width: 118px;
   height: 40px;
   border: 1px solid #ccc;
-  font-family: "Roboto Condensed", sans-serif;
-  font-size: 20px;
-  padding-top: 3px;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+  padding-top: 7px;
   color: #000;
   background: #f0f0f0;
 }

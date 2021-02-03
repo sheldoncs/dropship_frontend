@@ -1,9 +1,16 @@
 .Button {
   margin: 10px;
   font-family: "Abel", sans-serif;
-  width: 120px;
+  width: 50% !important;
   height: 50px;
   border-radius: 5px;
   border: 0px;
   margin: 5px;
+  cursor: pointer;
+  background: #57bf45;
+}
+.Properties {
+  background: #57bf45;
+  color: #fff;
+  width: 185px !important;
 }

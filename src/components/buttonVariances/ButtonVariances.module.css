@@ -28,4 +28,7 @@
     margin: auto;
     margin-top: 5px;
   }
+  .Container {
+    margin-top: 20px;
+  }
 }

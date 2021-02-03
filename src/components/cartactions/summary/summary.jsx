@@ -24,7 +24,6 @@ const summary = (props) => {
       if (data.offer != null) {
         deduction =
           deduction + (Number(data.totalprice) - Number(data.itemprice));
-        console.log("diff", Number(data.totalprice) - Number(data.itemprice));
       }
       grandtotal = total - deduction;
     });

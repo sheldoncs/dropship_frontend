@@ -40,24 +40,17 @@
   .Photo {
     width: 90%;
     height: 90%;
-    border-radius: 0px;
+    border-radius: 20px;
     margin: auto;
     border: 0px solid #ccc;
   }
+  .Photo:hover {
+    position: absolute;
+    width: 500px;
+    top: 270px !important;
+    left: 170px;
+    height: auto;
+    display: block;
+    z-index: 999;
+  }
 }
-
-/* @media (min-width: 800px) {
-  .ExpandedPhoto {
-    border-radius: 5px;
-    background-color: #fff;
-    width: 76%;
-    height: 400px;
-    margin-top: 10px;
-  }
-  .Photo {
-    width: 90%;
-    height: 100%;
-    border-radius: 10px;
-    margin: auto;
-  }
-} */

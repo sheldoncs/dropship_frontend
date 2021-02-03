@@ -11,7 +11,7 @@ const counter = (props) => {
 
   return (
     <div className={classes.Counter}>
-      <div className="pt-1">Quantity:</div>
+      <div className="pt-2 ml-5">Quantity:</div>
       <div
         style={{ marginLeft: "100px" }}
         onClick={() => props.lclicked(props.count)}

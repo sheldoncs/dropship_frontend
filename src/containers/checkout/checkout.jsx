@@ -20,11 +20,11 @@ class Checkout extends Component {
         validation: {
           required: true,
           minLength: 8,
+          regExpression: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
         },
         exist: false,
-        valid: false,
+        valid: true,
         touched: false,
-        // regExpression: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       },
       firstname: {
         elementtype: "input",
@@ -33,13 +33,12 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 1,
+          regExpression: /[A-Za-z]+$/,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
-
-        // regExpression: /^[A-Za-z0-9]+\w+[^A-Za-z0-9]+\d{2}$/,
         message: "",
       },
       lastname: {
@@ -48,13 +47,12 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 1,
+          regExpression: /[A-Za-z]+$/,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
-
-        // regExpression: /^[A-Za-z0-9]+\w+[^A-Za-z0-9]+\d{2}$/,
         message: "",
       },
       address: {
@@ -65,7 +63,7 @@ class Checkout extends Component {
           required: true,
           minLength: 8,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
 
@@ -81,9 +79,9 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 1,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
 
@@ -96,13 +94,11 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 1,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
-
-        // regExpression: /^[A-Za-z0-9]+\w+[^A-Za-z0-9]+\d{2}$/,
         message: "",
       },
       country: {
@@ -111,7 +107,7 @@ class Checkout extends Component {
           selectoptions: [],
         },
         value: "",
-        validation: {},
+        validation: { required: true },
         valid: true,
       },
       postalcode: {
@@ -120,9 +116,9 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 4,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
 
@@ -135,9 +131,9 @@ class Checkout extends Component {
         value: "",
         validation: {
           required: true,
-          minLength: 8,
+          minLength: 7,
         },
-        valid: false,
+        valid: true,
         touched: false,
         exist: false,
 
@@ -149,14 +145,27 @@ class Checkout extends Component {
         elemConfig: { type: "radio" },
         value: "Drop-Off",
         name: "deliveryMethod",
+        validation: {
+          required: true,
+        },
+        valid: true,
+        touched: false,
+        exist: false,
       },
       pickDeliveryMethod: {
         elementtype: "radio",
         elemConfig: { type: "radio" },
         value: "Pickup",
         name: "deliveryMethod",
+        validation: {
+          required: true,
+        },
+        valid: true,
+        touched: false,
+        exist: false,
       },
     },
+    formIsValid: false,
     hasAuthenticated: false,
     isRegistering: false,
     saveActivated: false,
@@ -176,11 +185,72 @@ class Checkout extends Component {
       this.props.onSavePage(page);
     }
   };
-  orderHandler = (event) => {
-    event.preventDefault();
+  orderHandler = () => {
+    let tempState = { ...this.state };
+    let updatedCheckoutForm = tempState.checkoutForm;
+
+    let formIsValid = true;
+
+    for (let inputIdentifier in updatedCheckoutForm) {
+      updatedCheckoutForm[inputIdentifier].valid = this.checkValidity(
+        updatedCheckoutForm[inputIdentifier].value,
+        updatedCheckoutForm[inputIdentifier].validation
+      );
+
+      formIsValid = updatedCheckoutForm[inputIdentifier].valid && formIsValid;
+    }
+
+    this.setState({
+      checkoutForm: updatedCheckoutForm,
+      formIsValid: formIsValid,
+    });
   };
-  inputChangeHandler = (event, key) => {};
+  inputChangeHandler = (event, inputIdentifier) => {
+    event.preventDefault();
+    
+    /*Cloned*/
+    const updatedCheckoutForm = { ...this.state.checkoutForm };
+    const updatedFormElement = { ...updatedCheckoutForm[inputIdentifier] };
+    /*Cloned*/
+    updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(
+      updatedFormElement.value,
+      updatedFormElement.validation
+    );
+
+    updatedFormElement.touched = true;
+    updatedCheckoutForm[inputIdentifier] = updatedFormElement;
+    this.setState({
+      checkoutForm: updatedCheckoutForm,
+    });
+    // this.props.onValidateForm(formIsValid);
+  };
+  checkValidity(value, rules) {
+    let isValid = true;
+
+    if (!rules) {
+      return true;
+    }
+
+    if (rules.required) {
+      isValid = value.trim() !== "" && isValid;
+    }
+    if (rules.minLength) {
+      isValid = value.length >= rules.minLength && isValid;
+    }
+
+    if (rules.regExpression) {
+      const testExpress = new RegExp(rules.regExpression);
+      let regexValid = testExpress.test(value);
+      isValid = regexValid && isValid;
+    }
+
+    return isValid;
+  }
   componentDidMount() {
+    let orders = null;
+    orders = JSON.parse(localStorage.getItem("orders"));
+    this.setState({ orders: orders });
     this.fetchAllCountries();
   }
   componentWillUnmount() {
@@ -212,15 +282,17 @@ class Checkout extends Component {
   render() {
     return (
       <div className={classes.Checkout}>
-        <form className={classes.Form} onSubmit={this.orderHandler}>
+        <form className={classes.Form}>
           <BuyerInfo
             checkoutForm={this.state.checkoutForm}
             inputChangeHandler={(eve, key) => this.inputChangeHandler(eve, key)}
+            clicked={this.orderHandler}
           />
         </form>
-        <CheckoutSummary className={classes.CheckoutSummary}>
-          Cow itch
-        </CheckoutSummary>
+        <CheckoutSummary
+          orders={this.state.orders}
+          className={classes.CheckoutSummary}
+        ></CheckoutSummary>
       </div>
     );
   }

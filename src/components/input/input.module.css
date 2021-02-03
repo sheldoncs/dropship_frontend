@@ -58,7 +58,7 @@
   font-family: "Roboto Condensed", sans-serif;
 }
 .Select {
-  width: 80%;
+  width: 100%;
   border: 1px solid #ccc;
   background-color: #ebe8e8;
   outline: none;
@@ -66,6 +66,9 @@
   border-radius: 10px;
   height: 40px;
   padding-left: 15px;
+  font-size: 15px;
+  font-family: "Abel", sans-serif;
+  text-transform: uppercase;
 }
 .InputElement {
   outline: none;
@@ -78,6 +81,9 @@
   box-sizing: border-box;
   margin: 20px auto;
   color: #000 !important;
+}
+select {
+  border: 0px !important;
 }
 .Invalid {
   outline: none;

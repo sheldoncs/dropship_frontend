@@ -17,6 +17,9 @@ const ProductAndPrice = (props) => {
           photoclicked={(val, photo) => props.photoclicked(val, photo)}
         />
         <PriceDescription
+          categoryinfo={props.categoryinfo}
+          itemname={props.itemname}
+          isOffer={props.isOffer}
           info={props.urlphotos}
           offer={props.offer}
           clickReview={props.clickReview}

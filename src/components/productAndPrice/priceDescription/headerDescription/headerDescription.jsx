@@ -1,8 +1,10 @@
 import React from "react";
 import classes from "./HeaderDescription.module.css";
+import Deals from "../../../../assets/deals.png";
 
 const HeaderDescription = (props) => {
   let price = null;
+
   if (props.price != null) {
     props.price.map((value, index) => {
       if (value.id == props.priceId) {
@@ -21,25 +23,27 @@ const HeaderDescription = (props) => {
   return (
     <div className={classes.HeaderDescription}>
       <div className={classes.Title}>
-        <div>
-          <span>Flash Deals</span>
-        </div>
         {props.offer != null ? (
-          <div className={discountClass.join(" ")}>
-            <div>
-              {props.offer.offer} {props.offer.condition.toUpperCase()}
-            </div>
-          </div>
+          props.offer.offertype == "PERCENT" ? (
+            <React.Fragment>
+              <div className={classes.OfferLabel}>
+                <div className="text-center pt-4">-{props.offer.amount}%</div>
+              </div>
+              <div>{props.offer.condition}</div>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <div className={classes.OfferLabel}>
+                <div className="text-center pt-4">-${props.offer.amount}</div>
+              </div>
+              <div>{props.offer.condition}</div>
+            </React.Fragment>
+          )
         ) : null}
       </div>
       <div className={classes.Price}>
-        <div className={classes.UnitCost}>Unit Price</div>
         <div>{price != null ? price.toFixed(2) : null}</div>
       </div>
-      {/* <div className={classes.Titles}> */}
-      {/* <div className={classes.TitleSpacers}>
-          {props.category != null ? <span>{props.category.item}</span> : null}
-        </div> */}
     </div>
   );
 };

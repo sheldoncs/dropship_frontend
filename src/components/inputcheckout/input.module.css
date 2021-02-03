@@ -91,7 +91,7 @@ select {
   border: 0px;
 }
 .Select {
-  width: 80%;
+  width: 90%;
   border: 0px solid #ccc;
   background-color: #fff;
   outline: none;
@@ -110,7 +110,7 @@ select {
   font-family: "Roboto Condensed", sans-serif;
   padding-top: 70px;
   display: block;
-  width: 80% !important;
+  width: 90% !important;
   height: 50px !important;
   box-sizing: border-box;
   margin: 20px auto;
@@ -122,22 +122,14 @@ select {
   background-color: #fff;
   font-family: "Roboto Condensed", sans-serif;
   padding-top: 70px;
-  width: 80%;
+  width: 90%;
   display: block;
   width: 20% !important;
   box-sizing: border-box;
   margin: 10px;
   color: #000 !important;
 }
-.Invalid {
-  outline: none;
-  border: 1px solid red;
-  background-color: #fda49a;
-  font: inherit;
-  display: block;
 
-  box-sizing: border-box;
-}
 input:focus {
   background-color: #ccc;
   border: 1px #ffcc00 solid !important;
@@ -146,6 +138,15 @@ input:focus {
   box-shadow: 0 0 3px #ffcc00 !important;
   -moz-box-shadow: 0 0 3px #ffcc00 !important;
   -webkit-box-shadow: 0 0 3px #ffcc00 !important;
+}
+.Invalid {
+  background-color: #ccc;
+  border: 1px red solid !important;
+  outline-offset: 0px !important;
+  outline: none !important;
+  box-shadow: 0 0 3px red !important;
+  -moz-box-shadow: 0 0 3px red !important;
+  -webkit-box-shadow: 0 0 3px red !important;
 }
 input[type="radio"] {
   border: 0px;
@@ -165,8 +166,8 @@ input[type="radio"] {
   font-family: "Abel", sans-serif;
   height: 50px;
   font-size: 15px;
-  width: 81%;
-  margin-left: 60px;
+  width: 91%;
+  margin: auto;
   border: 1px #ccc solid;
   border-radius: 5px;
 }
