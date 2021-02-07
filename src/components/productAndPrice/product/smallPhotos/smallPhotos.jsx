@@ -9,6 +9,7 @@ const SmallPhotos = (props) => {
   if (props.showSubPhotos == true) {
     if (props.urlphotos.subPhotos != null) {
       smallPhotos = props.urlphotos.subPhotos.map((value, index) => {
+        
         return (
           <div
             className={classes.Pointer}

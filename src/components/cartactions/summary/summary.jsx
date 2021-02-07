@@ -45,15 +45,18 @@ const summary = (props) => {
             <span>{deduction.toFixed(2)}</span>
           </div>
         </div>
-
-        <div className={classes.Subtotal}>
-          <div className={classes.Label}>
-            <span>Price :</span>
-          </div>
-          <div className={classes.PriceLabel}>
-            {Number(props.grandTotal).toFixed(2)}
-          </div>
-        </div>
+        {props.category != null ? (
+          props.category.isOffer ? (
+            <div className={classes.Subtotal}>
+              <div className={classes.Label}>
+                <span>Price :</span>
+              </div>
+              <div className={classes.PriceLabel}>
+                {Number(props.grandTotal).toFixed(2)}
+              </div>
+            </div>
+          ) : null
+        ) : null}
 
         <div className={classes.ContinueShopping}>
           <div className="text-center">CONTINUE SHOPPING</div>

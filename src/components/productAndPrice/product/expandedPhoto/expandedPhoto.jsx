@@ -5,10 +5,17 @@ const ExpandedPhoto = (props) => {
   let photos = props.urlphoto.main;
   if (props.urlphoto.main != null) {
     for (let index in props.urlphoto.subPhotos) {
-      if (props.offer.itemdetailsid != null) {
-        if (
-          props.urlphoto.subPhotos[index].itemid == props.offer.itemdetailsid
-        ) {
+      if (props.offer != null) {
+        if (props.offer.itemdetailsid != null) {
+          if (
+            props.urlphoto.subPhotos[index].itemid == props.offer.itemdetailsid
+          ) {
+            photos = null;
+            photos = props.urlphoto.subPhotos[index].photo;
+          }
+        }
+      } else {
+        if (props.urlphoto.subPhotos[index].itemid == props.order.itemid) {
           photos = null;
           photos = props.urlphoto.subPhotos[index].photo;
         }

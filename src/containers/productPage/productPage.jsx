@@ -119,6 +119,7 @@ class ProductPage extends Component {
 
   componentDidMount() {
     let category = null;
+    let specialoffer = null;
     this.popPage();
     this.pushPage();
 
@@ -146,12 +147,7 @@ class ProductPage extends Component {
       this.setState({ categoryinfo: category });
     }
     if (this.props.offer != null) {
-      console.log(
-        "sessionStorage.getItem('category')",
-        sessionStorage.getItem("category"),
-        category,
-        offer
-      );
+      specialoffer = this.props.offer;
       sessionStorage.setItem("offer", JSON.stringify(this.props.offer));
       sessionStorage.setItem("categoryid", this.props.offer.categoryid);
       if (this.props.offer.itemdetailsid != null) {
@@ -168,10 +164,10 @@ class ProductPage extends Component {
           sessionStorage.setItem("offer", null);
         }
       }
-      let offer = JSON.parse(sessionStorage.getItem("offer"));
+      specialoffer = JSON.parse(sessionStorage.getItem("offer"));
 
-      this.props.onSaveOffer(offer);
-      if (offer == null) {
+      this.props.onSaveOffer(specialoffer);
+      if (specialoffer == null) {
         this.setState({ isOffer: false });
         sessionStorage.setItem("isOffer", false);
       } else {
@@ -184,16 +180,17 @@ class ProductPage extends Component {
         sessionStorage.setItem("categoryid", category.categoryid);
         sessionStorage.setItem("itemid", category.itemid);
       } else {
-        if (offer !== null) {
-          sessionStorage.setItem("categoryid", offer.categoryid);
-          sessionStorage.setItem("itemid", offer.itemdetailsid);
+        if (specialoffer !== null) {
+          sessionStorage.setItem("categoryid", specialoffer.categoryid);
+          sessionStorage.setItem("itemid", specialoffer.itemdetailsid);
         }
       }
     }
     this.fetchNonDiscountOffer();
-    this.fetchOfferQuery(sessionStorage.getItem("offerid"));
-
     this.fetchPhotosQuery(sessionStorage.getItem("categoryid"));
+    if (specialoffer != null) {
+      this.fetchOfferQuery(sessionStorage.getItem("offerid"));
+    }
     this.fetchPricesByCategory(sessionStorage.getItem("categoryid"));
 
     if (sessionStorage.getItem("itemid") != "null") {
@@ -240,6 +237,8 @@ class ProductPage extends Component {
   fetchPhotosQuery = (categoryid) => {
     let query = photosByCategory;
 
+    let category = JSON.parse(sessionStorage.getItem("category"));
+
     const variables = {
       categoryid: Number(categoryid),
     };
@@ -254,6 +253,7 @@ class ProductPage extends Component {
       let photos = res.data.getPhotosByCategory;
 
       let tempState = { ...this.state };
+
       let filteredPhotos = res.data.getPhotosByCategory.filter(function (el) {
         let offer = JSON.parse(sessionStorage.getItem("nonDiscOffers"));
         let found = offer.find((element) => element.itemdetailsid != el.itemid);
@@ -261,8 +261,6 @@ class ProductPage extends Component {
       });
 
       tempState.photos.subPhotos = filteredPhotos;
-
-      let category = JSON.parse(sessionStorage.getItem("category"));
 
       if (category != null) {
         this.fetchItemAndCategory(category.itemid);
@@ -295,11 +293,16 @@ class ProductPage extends Component {
         return el != undefined;
       });
 
-      if (tempState.offer.offertype == "SUBTRACT") {
-        tempState.photos.main = selPhoto;
-        tempState.order.photo = selPhoto;
-      } else if (tempState.offer.offertype == "PERCENT") {
+      if (category.isOffer) {
+        if (tempState.offer.offertype == "SUBTRACT") {
+          tempState.photos.main = selPhoto;
+          tempState.order.photo = selPhoto;
+        } else if (tempState.offer.offertype == "PERCENT") {
+          tempState.photos.main = selPhoto[0];
+        }
+      } else {
         tempState.photos.main = selPhoto[0];
+        tempState.order.photo = selPhoto[0];
       }
       this.setState({ ...tempState });
     });
@@ -376,6 +379,7 @@ class ProductPage extends Component {
         tempState.order.itemid = res.data.getOffer.itemdetailsid;
       }
       tempState.offer = offerInfo;
+
       this.setState({ ...tempState });
     });
   };
@@ -434,6 +438,8 @@ class ProductPage extends Component {
         tempState.order.itemid = value.itemid;
         this.fetchItemAndCategory(val);
         tempState.photos.main = value.photo;
+        tempState.order.photo = value.photo;
+        tempState.order.itemid = val;
         this.setState({ ...tempState });
       }
     });
@@ -461,9 +467,13 @@ class ProductPage extends Component {
     this.setState({ ...saveState });
   };
   actionHandler = (val) => {
+    let category = null;
     let tempState = { ...this.state };
 
     let valid = true;
+
+    category = JSON.parse(sessionStorage.getItem("category"));
+
     for (let keys in tempState.order) {
       if (keys == "itemid") {
         valid = tempState.order[keys] > 0;
@@ -472,11 +482,24 @@ class ProductPage extends Component {
       } else if (keys == "lastidentityid") {
         valid = tempState.order[keys] > 0;
       } else if (keys == "price") {
-        valid = tempState.order[keys] > 0;
+        if (category != null && category.isOffer) {
+          valid = tempState.order[keys] > 0;
+        } else {
+          valid = true;
+          tempState.order[keys] = category.price;
+        }
       } else if (keys == "hairlength") {
-        valid = tempState.order[keys] != "";
+        if (category != null && category.isOffer) {
+          valid = tempState.order[keys] != "";
+        } else {
+          valid = true;
+        }
       } else if (keys == "hairtype") {
-        valid = tempState.order[keys] != "";
+        if (category != null && category.isOffer) {
+          valid = tempState.order[keys] != "";
+        } else {
+          valid = true;
+        }
       } else if (keys == "quantity") {
         valid = tempState.order[keys] > 0;
       }
@@ -589,6 +612,7 @@ class ProductPage extends Component {
           urlphotos={this.state.photos}
           offer={this.state.offer}
           itemname={this.state.order.itemname}
+          order={this.state.order}
           categoryinfo={this.state.categoryinfo}
           isOffer={this.state.isOffer}
           showSubPhotos={this.state.showSubPhotos}

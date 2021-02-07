@@ -30,20 +30,22 @@ class PreviewOrders extends Component {
     orderindex: 0,
     openSummary: false,
     openCover: false,
+    category: null,
   };
   calcTotals = () => {
     let tempState = { ...this.state };
+    tempState.category = JSON.parse(sessionStorage.getItem("category"));
     let orders = null;
 
     if (this.props.orders.length > 0) {
       orders = this.props.orders;
+      tempState.orders = orders;
       localStorage.setItem("orders", JSON.stringify(this.props.orders));
     } else {
+      orders = null;
       orders = JSON.parse(localStorage.getItem("orders"));
     }
-
     tempState.orders = orders;
-
     let quantity = 0;
     tempState.totalprice = 0;
     let totalQuantity = orders.map((data, index) => {
@@ -65,21 +67,26 @@ class PreviewOrders extends Component {
             Number(data.price) * Number(data.quantity) - data.deduction;
           data.itemprice = itemprice;
         }
-        if (this.props.orders == null) {
-          this.props.onSaveOrder(data);
-        }
+        // if (this.props.orders != null) {
+        //   this.props.onSaveOrder(data);
+        // }
+      } else {
+        tempState.showOffer = false;
+        itemprice = data.price * data.quantity;
       }
 
       tempState.totalprice = itemprice + tempState.totalprice;
       tempState.grandtotal = tempState.totalprice;
-      this.setState({ ...tempState });
+      tempState.quantity = quantity;
+
       return quantity;
     });
 
-    this.props.onSaveQuantity(totalQuantity);
-    tempState.quantity = quantity;
-    this.setState({ orders: tempState.orders, ...tempState });
+    this.props.onSaveQuantity(totalQuantity[0]);
+    tempState.menu = this.checkMenu();
+    this.setState({ ...tempState });
   };
+
   pushPage = () => {
     let page = { page: "CART", path: "/previeworder" };
     if (this.props.pages.length > 0) {
@@ -105,22 +112,25 @@ class PreviewOrders extends Component {
   componentDidMount() {
     this.popPage();
     this.pushPage();
-    let tempState = { ...this.state };
-
     this.calcTotals();
-
+  }
+  checkMenu = () => {
+    let tempState = { ...this.state };
+    var filteredMenu = null;
     if (this.props.menu != null) {
       let tempMenu = this.props.menu;
       var filteredMenu = tempMenu.filter(function (el) {
         return el.category == "Home";
       });
       tempState.menu = filteredMenu;
-      this.setState({ menu: tempState.menu });
+      localStorage.setItem("menu", JSON.stringify(this.props.menu));
     } else {
-      this.fetchMenuQuery();
+      filteredMenu = JSON.parse(localStorage.getItem("menu"));
     }
-  }
+    return filteredMenu;
+  };
   fetchMenuQuery = () => {
+    let tempState = { ...this.state };
     let query = categoryQuery;
 
     fetch(
@@ -133,7 +143,8 @@ class PreviewOrders extends Component {
       var filteredMenu = tempMenu.filter(function (el) {
         return el.category == "Home";
       });
-      this.setState({ menu: filteredMenu });
+      tempState.menu = filteredMenu;
+      this.setState({ ...tempState });
     });
   };
   componentWillUnmount() {
@@ -199,6 +210,7 @@ class PreviewOrders extends Component {
           offerTotal={this.state.offertotal}
           grandTotal={this.state.grandtotal}
           orders={this.state.orders}
+          category={this.state.category}
         />
         {this.props.user != null ? (
           <Settings
@@ -220,6 +232,7 @@ class PreviewOrders extends Component {
         <div className={classes.Container}>
           <Orders
             orders={this.state.orders}
+            category={this.state.category}
             orderindex={this.state.orderindex}
             prevClick={(val) => this.prevHandler(val)}
             nextClick={(val) => this.nextHandler(val)}

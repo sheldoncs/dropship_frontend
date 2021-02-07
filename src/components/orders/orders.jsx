@@ -19,7 +19,7 @@ const orders = (props) => {
               <img className={classes.Photo} src={value.photo} />
             </div>
             <div>
-              <Orderlabels summaryInfo={value} />
+              <Orderlabels summaryInfo={value} category={props.category} />
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@ const orders = (props) => {
       play={true}
       cancelOnInteraction={false} // should stop playing on user interaction
       interval={10000}
-      organicArrows={true}
+      organicArrows={false}
       bullets={true}
     >
       {orderinfo}

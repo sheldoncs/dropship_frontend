@@ -13,6 +13,7 @@ const ProductAndPrice = (props) => {
           clicked={(val) => props.clicked(val)}
           offer={props.offer}
           isOffer={props.isOffer}
+          order={props.order}
           showSubPhotos={props.showSubPhotos}
           photoclicked={(val, photo) => props.photoclicked(val, photo)}
         />

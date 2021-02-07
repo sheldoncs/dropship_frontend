@@ -95,12 +95,12 @@
     font-size: 20px;
   }
   .displayPrice {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    width: 80%;
+    height: 60px;
+    border-radius: 5px;
     color: #fff;
-    border: 2px solid #000;
-    background: #57f73e;
+    border: 0px solid #000;
+    background: #000;
     font-family: "Abel", sans-serif;
     font-size: 30px;
     margin: auto;
@@ -153,6 +153,7 @@
     border: 0px solid #b80a13;
     /* background: #b80a13; */
     color: #000;
+    margin-bottom: 20px;
   }
   .Select {
     font-family: "Abel", sans-serif;

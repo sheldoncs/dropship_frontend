@@ -5,7 +5,6 @@ import Classifications from "./classifications/classifications";
 import PlugType from "./plugType/plugType";
 
 const PriceDecription = (props) => {
-  console.log("itemname", props.itemname);
   return (
     <div className={classes.PriceDescription}>
       <Classifications

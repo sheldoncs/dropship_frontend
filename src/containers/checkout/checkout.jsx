@@ -6,6 +6,7 @@ import BuyerInfo from "../../components/buyerinfo/buyerinfo";
 import fetch from "../../fetchservice/fetchservice";
 import { getAllCountries } from "../../Query/Query";
 import CheckoutSummary from "../../components/checkoutsummary/checkoutsummary";
+import { throwServerError } from "@apollo/client";
 
 class Checkout extends Component {
   abortController = new AbortController();
@@ -171,6 +172,7 @@ class Checkout extends Component {
     saveActivated: false,
     mounted: false,
     showError: false,
+    category: null,
   };
   pushPage = () => {
     let page = { page: "PAYMENT", path: "/payment" };
@@ -207,7 +209,7 @@ class Checkout extends Component {
   };
   inputChangeHandler = (event, inputIdentifier) => {
     event.preventDefault();
-    
+
     /*Cloned*/
     const updatedCheckoutForm = { ...this.state.checkoutForm };
     const updatedFormElement = { ...updatedCheckoutForm[inputIdentifier] };
@@ -248,9 +250,13 @@ class Checkout extends Component {
     return isValid;
   }
   componentDidMount() {
+    let tempState = { ...this.state };
     let orders = null;
+    let category = JSON.parse(localStorage.getItem("category"));
     orders = JSON.parse(localStorage.getItem("orders"));
-    this.setState({ orders: orders });
+    tempState.orders = orders;
+    tempState.category = category;
+    this.setState({ ...tempState });
     this.fetchAllCountries();
   }
   componentWillUnmount() {
@@ -275,8 +281,6 @@ class Checkout extends Component {
         });
         this.setState({ ...tempState });
       });
-
-      //
     });
   }
   render() {
@@ -292,6 +296,7 @@ class Checkout extends Component {
         <CheckoutSummary
           orders={this.state.orders}
           className={classes.CheckoutSummary}
+          category={this.state.category}
         ></CheckoutSummary>
       </div>
     );

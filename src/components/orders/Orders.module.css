@@ -1,7 +1,7 @@
 .Orders {
   display: flex;
   flex-direction: row;
-  width: 89%;
+  width: 83%;
   margin: auto;
   margin-top: 45px;
 }
@@ -14,10 +14,10 @@
   display: flex;
 }
 .Photo {
-  width: 471px;
   height: 400px;
   margin-top: 20px;
   margin-bottom: 20px;
+  border-radius: 15px;
 }
 .RowMargin {
   width: 170px;

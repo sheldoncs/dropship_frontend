@@ -29,7 +29,7 @@ const classification = (props) => {
         {props.categoryinfo != null ? (
           props.categoryinfo.categoryid != 2 ? (
             <div className={classes.displayPrice}>
-              <div className="text-center pt-5">
+              <div className="text-center pt-1">
                 {props.categoryinfo.price} USD
               </div>
             </div>
@@ -69,9 +69,7 @@ const classification = (props) => {
               </div>
             ) : null
           ) : null}
-          <div className={StoreClasses.join(" ")}>
-            {props.itemname} {category}
-          </div>
+          <div className={StoreClasses.join(" ")}>{props.itemname}</div>
         </div>
         {props.categoryinfo != null ? (
           props.categoryinfo.categoryid == 2 ? (
@@ -80,7 +78,7 @@ const classification = (props) => {
                 margin: "auto",
                 display: "flex",
                 flexDirection: "row",
-                width: "85%",
+                width: "80%",
               }}
               className="pt-5"
             >
