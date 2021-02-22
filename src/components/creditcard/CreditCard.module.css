@@ -1,0 +1,11 @@
+.CreditCard {
+  display: flex;
+  flex-direction: row;
+  width: 80%;
+  margin: 25px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 15px;
+}
+.Divide {
+  display: block;
+}

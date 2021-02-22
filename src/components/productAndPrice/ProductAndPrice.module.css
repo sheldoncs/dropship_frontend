@@ -12,10 +12,8 @@
   .ProductAndPrice {
     width: 90%;
     margin: auto;
-    background-color: #4F4D4D;
-    height: 900px;
+    background-color: #fff;
     display: flex;
     flex-direction: row;
-    margin-bottom: 80px;
   }
 }

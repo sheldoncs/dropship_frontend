@@ -12,6 +12,7 @@ import ApolloBoost from "apollo-boost";
 import menuReducer from "./store/menuReducer";
 import loginReducer from "./store/loginReducer";
 import offerReducer from "./store/offerReducer";
+import categoryReducer from "./store/categoryReducer";
 import orderCategoryReducer from "./store/orderCategoryReducer";
 import pageNavigateReducer from "./store/pageNavigateReducer";
 
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   login: loginReducer,
   offer: offerReducer,
   orderCategory: orderCategoryReducer,
+  category: categoryReducer,
   navPages: pageNavigateReducer,
 });
 const store = createStore(rootReducer);

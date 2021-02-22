@@ -29,7 +29,7 @@ const HeaderDescription = (props) => {
               <div className={classes.OfferLabel}>
                 <div className="text-center pt-4">-{props.offer.amount}%</div>
               </div>
-              <div>{props.offer.condition}</div>
+              <div>{props.offer.offer}</div>
             </React.Fragment>
           ) : (
             <React.Fragment>

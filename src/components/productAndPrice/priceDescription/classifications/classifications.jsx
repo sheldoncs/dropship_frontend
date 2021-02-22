@@ -80,7 +80,7 @@ const classification = (props) => {
                 flexDirection: "row",
                 width: "80%",
               }}
-              className="pt-5"
+              className="pt-2"
             >
               <div className={classes.TextFont} style={{ paddingTop: "15px" }}>
                 Hair Type:
@@ -122,16 +122,14 @@ const classification = (props) => {
             </div>
           </div>
         </div>
-        <div className={classes.GroupAction}>
-          <ActionButton whichButton={(val) => props.whichButton(val)}>
-            BUY NOW
-          </ActionButton>
+
+        {/* <div className={classes.GroupAction}>
           <ActionButton whichButton={(val) => props.whichButton(val)}>
             ADD TO CART
           </ActionButton>
-          {/* <ActionButton whichButton={(val) => props.whichButton(val)}>
-          BOOK IT
-        </ActionButton> */}
+          <ActionButton whichButton={(val) => props.whichButton(val)}>
+            BOOK IT
+          </ActionButton>
         </div>
         <div className={classes.PayPal}>
           <div className="text-center">
@@ -140,7 +138,7 @@ const classification = (props) => {
         </div>
         <div className={classes.Review} onClick={props.clickReview}>
           <a href="#">REVIEW CART</a>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );

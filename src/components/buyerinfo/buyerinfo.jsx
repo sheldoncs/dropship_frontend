@@ -197,7 +197,7 @@ const buyerinfo = (props) => {
               <a href="#">{"< Return to cart"} </a>
             </div>
             <div onClick={props.clicked} className={classes.ToShipping}>
-              <div className={classes.ShippingText}>Continue to Shipping</div>
+              <div className={classes.ShippingText}>Continue to Checkout</div>
             </div>
           </div>
         </div>

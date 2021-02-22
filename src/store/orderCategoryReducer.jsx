@@ -1,10 +1,9 @@
 import * as actionTypes from "./actions/actionTypes";
+import { read_cookie, bake_cookie } from "sfcookies";
 
-const initialState = {
-  orders: [],
-  category: null,
-  quantity: 0,
-};
+const ORDER_STATE = "ORDER_STATE";
+
+const initialState = {};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -15,33 +14,36 @@ const reducer = (state = initialState, action) => {
           tempState.orders[index].quantity = action.order[0].quantity;
         }
       });
+      state = { ...state, orders: tempState.orders };
+      break;
 
-      return {
-        ...state,
-        orders: tempState.orders,
-      };
     case actionTypes.SAVE_ORDER:
-      let orderState = { ...state };
+      let orderState = {};
 
+      if (state.orders) {
+        if (state.orders.length > 0) {
+          orderState = { ...state };
+        }
+      } else {
+        orderState = { ...state, orders: [] };
+      }
       orderState.orders.push({ ...action.order });
+      state = { ...orderState };
 
-      return {
-        ...state,
-        orders: orderState.orders,
-      };
-    case actionTypes.SAVE_CATEGORY:
-      return {
-        ...state,
-        category: action.category,
-      };
+      break;
+
     case actionTypes.SAVE_QUANTITY:
-      return {
-        ...state,
-        quantity: action.quantity,
-      };
+      state = { ...state, quantity: action.quantity };
+      break;
+
     default:
-      return state;
+      state = JSON.parse(sessionStorage.getItem(ORDER_STATE)) || state;
+      break;
   }
+
+  sessionStorage.setItem(ORDER_STATE, JSON.stringify(state));
+
+  return state;
 };
 
 export default reducer;

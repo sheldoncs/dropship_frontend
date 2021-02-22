@@ -16,11 +16,12 @@
   .PriceDescription {
     display: flex;
     flex-direction: column;
-    background-color: #f7f5f5;
+    /* background-color: #f7f5f5; */
+    background-color: #fff;
     border-radius: 15px;
     justify-content: flex-end;
     width: 45%;
-    height: 85%;
+    height: 80% !important;
     margin-top: 50px;
     margin-right: 20px;
     margin-left: 10px;

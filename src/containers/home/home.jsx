@@ -79,7 +79,7 @@ class Home extends Component {
   };
   pushPage = () => {
     let page = { page: "HOME", path: "/" };
-    if (this.props.pages.length > 0) {
+    if (this.props.pages) {
       const found = this.props.pages.find((element) => element.page == "HOME");
       if (!found) {
         this.props.onSavePage(page);
@@ -102,7 +102,12 @@ class Home extends Component {
     this.fetchAllCategories();
     this.fetchOffers();
     this.fetchPriceOptions();
-    this.fetchAllItems(this.state.categoryId);
+    if (this.props.category) {
+      // this.setState({ categoryId: this.props.category.categoryid });
+      this.fetchAllItems(this.props.category.categoryid);
+    } else {
+      this.fetchAllItems(this.state.categoryId);
+    }
 
     socket.on("new_msg", function (data) {
       let tempState = { ...this.state };
@@ -225,7 +230,7 @@ class Home extends Component {
     if (this.props.category == null || this.props.category == undefined) {
       variables = { categoryid: 2 };
     } else {
-      variables = { categoryid: Number(this.props.category.categoryid) };
+      variables = { categoryid: Number(this.state.categoryId) };
     }
 
     fetch(
@@ -236,6 +241,7 @@ class Home extends Component {
       { signal: this.signal }
     ).then((res) => {
       let tempState = { ...this.state };
+      console.log("getPriceOptions", res.data.getPriceOptions);
       tempState.items.priceOptions = res.data.getPriceOptions;
       this.setState({ ...tempState });
     });
@@ -574,7 +580,7 @@ const mapStateToProps = (state) => {
     user: state.login.user,
     offer: state.offer.offer,
     order: state.orderCategory.order,
-    category: state.orderCategory.category,
+    category: state.category.category,
     quantity: state.orderCategory.quantity,
     pages: state.navPages.pages,
   };

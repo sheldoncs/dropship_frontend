@@ -6,7 +6,6 @@ import BuyerInfo from "../../components/buyerinfo/buyerinfo";
 import fetch from "../../fetchservice/fetchservice";
 import { getAllCountries } from "../../Query/Query";
 import CheckoutSummary from "../../components/checkoutsummary/checkoutsummary";
-import { throwServerError } from "@apollo/client";
 
 class Checkout extends Component {
   abortController = new AbortController();
@@ -176,7 +175,7 @@ class Checkout extends Component {
   };
   pushPage = () => {
     let page = { page: "PAYMENT", path: "/payment" };
-    if (this.props.pages.length > 0) {
+    if (this.props.pages) {
       const found = this.props.pages.find(
         (element) => element.page == "PAYMENT"
       );
@@ -206,6 +205,7 @@ class Checkout extends Component {
       checkoutForm: updatedCheckoutForm,
       formIsValid: formIsValid,
     });
+    this.props.history.push("/payment");
   };
   inputChangeHandler = (event, inputIdentifier) => {
     event.preventDefault();
@@ -252,8 +252,9 @@ class Checkout extends Component {
   componentDidMount() {
     let tempState = { ...this.state };
     let orders = null;
-    let category = JSON.parse(localStorage.getItem("category"));
-    orders = JSON.parse(localStorage.getItem("orders"));
+    let category = JSON.parse(sessionStorage.getItem("category"));
+    orders = this.props.orders;
+
     tempState.orders = orders;
     tempState.category = category;
     this.setState({ ...tempState });

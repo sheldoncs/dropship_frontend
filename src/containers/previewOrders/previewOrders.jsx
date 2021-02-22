@@ -35,15 +35,12 @@ class PreviewOrders extends Component {
   calcTotals = () => {
     let tempState = { ...this.state };
     tempState.category = JSON.parse(sessionStorage.getItem("category"));
+    console.log("category", this.props.category);
     let orders = null;
 
     if (this.props.orders.length > 0) {
       orders = this.props.orders;
       tempState.orders = orders;
-      localStorage.setItem("orders", JSON.stringify(this.props.orders));
-    } else {
-      orders = null;
-      orders = JSON.parse(localStorage.getItem("orders"));
     }
     tempState.orders = orders;
     let quantity = 0;
@@ -67,9 +64,6 @@ class PreviewOrders extends Component {
             Number(data.price) * Number(data.quantity) - data.deduction;
           data.itemprice = itemprice;
         }
-        // if (this.props.orders != null) {
-        //   this.props.onSaveOrder(data);
-        // }
       } else {
         tempState.showOffer = false;
         itemprice = data.price * data.quantity;

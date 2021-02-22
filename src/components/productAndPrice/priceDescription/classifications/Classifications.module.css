@@ -59,25 +59,11 @@
     display: block;
     background-color: #fff;
     border-radius: 10px;
-    height: 745px;
+    height: 585px;
     width: 95%;
-    margin-bottom: 10px;
-    margin-top: 160px !important;
+    margin-bottom: 40px;
+    margin-top: 10px !important;
     margin-left: 10px;
-    padding-top: 20px;
-    font-family: "Abel", sans-serif;
-    font-size: 20px;
-  }
-  .HairClassification {
-    display: block;
-    background-color: #fff;
-    border-radius: 10px;
-    height: 745px;
-    width: 95%;
-    margin-bottom: 10px;
-    margin-top: 160px !important;
-    margin-left: 10px;
-    padding-top: 20px;
     font-family: "Abel", sans-serif;
     font-size: 20px;
   }
@@ -137,10 +123,10 @@
   }
   .GroupAction {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     margin: auto;
     width: 390px;
-    margin-top: 30px;
+    margin-top: 25px;
   }
   .Type {
     height: 40px;

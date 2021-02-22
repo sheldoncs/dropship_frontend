@@ -14,15 +14,16 @@ export const checkoutsummary = (props) => {
   let summary = null;
   if (props.orders != null) {
     summary = props.orders.map((data, index) => {
+      console.log("data", data);
       subtotal = data.quantity * data.price + subtotal;
       if (props.category != null && props.category.isOffer) {
         if (data.offer.offertype == "PERCENT") {
-          offer = subtotal * (data.offer.amount / 100) + offer;
+          offer = data.deduction + offer;
         } else if (data.offer.offertype == "SUBTRACT") {
-          offer = subtotal - data.offer.amount + offer;
+          offer = data.offer.amount * data.quantity + offer;
         }
       }
-      total = subtotal + total - offer;
+      total = subtotal - offer;
       return (
         <div className={classes.PhotoContainer} key={index}>
           <div className={classes.Quantity}>
@@ -36,7 +37,7 @@ export const checkoutsummary = (props) => {
               {data.hairtype} {data.itemname}
             </div>
             <div style={{ width: "25%", justifyContent: "flex-end" }}>
-              {subtotal.toFixed(2)}
+              {(data.quantity * data.price).toFixed(2)}
             </div>
           </div>
         </div>
