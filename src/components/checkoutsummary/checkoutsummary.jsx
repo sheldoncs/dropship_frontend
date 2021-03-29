@@ -14,15 +14,18 @@ export const checkoutsummary = (props) => {
   let summary = null;
   if (props.orders != null) {
     summary = props.orders.map((data, index) => {
-      console.log("data", data);
       subtotal = data.quantity * data.price + subtotal;
-      if (props.category != null && props.category.isOffer) {
-        if (data.offer.offertype == "PERCENT") {
-          offer = data.deduction + offer;
-        } else if (data.offer.offertype == "SUBTRACT") {
-          offer = data.offer.amount * data.quantity + offer;
+
+      if (data.category != null && data.category.isOffer) {
+        if (data.offer) {
+          if (data.offer.offertype == "PERCENT") {
+            offer = data.quantity * data.price * (10 / 100) + offer;
+          } else if (data.offer.offertype == "SUBTRACT") {
+            offer = data.offer.amount * data.quantity + offer;
+          }
         }
       }
+
       total = subtotal - offer;
       return (
         <div className={classes.PhotoContainer} key={index}>

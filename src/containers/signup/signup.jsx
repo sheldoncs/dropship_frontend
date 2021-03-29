@@ -157,7 +157,7 @@ class Signup extends Component {
       this.setState({ ...tempState });
     } else {
       const fetch = createApolloFetch({
-        uri: "http://localhost:4000/graphql",
+        uri: "http://localhost:5000/graphql",
       });
 
       fetch({

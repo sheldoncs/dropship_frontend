@@ -62,6 +62,7 @@ class ProductPage extends Component {
       photo: null,
       itemprice: 0.0,
       deduction: 0.0,
+      category: null,
     },
     hairType: {
       elementtype: "select",
@@ -118,6 +119,7 @@ class ProductPage extends Component {
   };
 
   componentDidMount() {
+    console.log("help");
     let specialoffer = null;
     this.popPage();
     this.pushPage();
@@ -162,6 +164,7 @@ class ProductPage extends Component {
     ).then((res) => {
       let tempState = { ...this.state };
       tempState.order.lastidentityid = res.data.getMaxIdentity.maxidentityid;
+      this.props.onSaveLastIdentity(tempState.order.lastidentityid);
     });
   };
   fetchMenuQuery = () => {
@@ -450,7 +453,9 @@ class ProductPage extends Component {
         tempState.order["quantity"] * tempState.order["price"];
       if (val == "ADDTOCART") {
         tempState.order.offer = this.props.offer;
+        tempState.order.category = this.props.category;
         this.props.onSaveOrder(tempState.order);
+        this.props.onSaveQuantity(tempState.order["quantity"]);
 
         tempState.orders.push({ ...tempState.order });
 
@@ -522,54 +527,66 @@ class ProductPage extends Component {
   };
   render() {
     return (
-      <div>
-        <Cover show={this.state.showCover} clicked={this.errorHandler} />
-        <Message
-          clicked={this.errorHandler}
-          show={this.state.showCover}
-          showError={this.state.showError}
-        >
-          {this.state.message}
-        </Message>
-        <Review
-          slideDown={this.state.slideDown}
-          clicked={this.reviewHandler}
-          title="REVIEW CART"
-        />
+      <React.Fragment>
+        <div style={{ diplay: "flex", height: "1200px" }}>
+          <Cover show={this.state.showCover} clicked={this.errorHandler} />
+          <Message
+            clicked={this.errorHandler}
+            show={this.state.showCover}
+            showError={this.state.showError}
+          >
+            {this.state.message}
+          </Message>
+          <Review
+            slideDown={this.state.slideDown}
+            clicked={this.reviewHandler}
+            title="REVIEW CART"
+          />
 
-        {this.props.user != null ? (
-          <Settings welcome={this.state.firstname} />
-        ) : (
-          <Settings welcome="" />
-        )}
-        <NavigationItems menuItems={this.state.menu} />
-        <NavigateBar submenu={this.state.submenu} />
-        <ProductAndPrice
-          urlphotos={this.state.photos}
-          offer={this.state.offer}
-          itemname={this.state.order.itemname}
-          order={this.state.order}
-          categoryinfo={this.state.categoryinfo}
-          isOffer={this.state.isOffer}
-          showSubPhotos={this.state.showSubPhotos}
-          photoclicked={(val, photo) => this.photoHandler(val, photo)}
-          priceOptions={this.state.priceOptions}
-          category={this.state.submenu}
-          hairType={this.state.hairType}
-          priceId={this.state.priceId}
-          hairlength={this.state.hairlength}
-          clickReview={this.reviewHandler}
-          clicked={(val) => this.hairLengthHandler(val)}
-          lclicked={(val) => this.counterSubtractHandler(val)}
-          rclicked={(val) => this.counterAddHandler(val)}
-          whichButton={(val) => this.actionHandler(val)}
-          count={this.state.count}
-          selectChanged={(event) => {
-            this.selectChangeHandler(event);
-          }}
-        />
+          {this.props.user != null ? (
+            <Settings
+              welcome={this.state.firstname}
+              count={
+                this.props.quantity != undefined ? this.props.quantity : null
+              }
+            />
+          ) : (
+            <Settings
+              welcome=""
+              count={
+                this.props.quantity != undefined ? this.props.quantity : null
+              }
+            />
+          )}
+          <NavigationItems menuItems={this.state.menu} />
+          <NavigateBar submenu={this.state.submenu} />
+          <ProductAndPrice
+            urlphotos={this.state.photos}
+            offer={this.state.offer}
+            itemname={this.state.order.itemname}
+            order={this.state.order}
+            categoryinfo={this.state.categoryinfo}
+            isOffer={this.state.isOffer}
+            showSubPhotos={this.state.showSubPhotos}
+            photoclicked={(val, photo) => this.photoHandler(val, photo)}
+            priceOptions={this.state.priceOptions}
+            category={this.state.submenu}
+            hairType={this.state.hairType}
+            priceId={this.state.priceId}
+            hairlength={this.state.hairlength}
+            clickReview={this.reviewHandler}
+            clicked={(val) => this.hairLengthHandler(val)}
+            lclicked={(val) => this.counterSubtractHandler(val)}
+            rclicked={(val) => this.counterAddHandler(val)}
+            whichButton={(val) => this.actionHandler(val)}
+            count={this.state.count}
+            selectChanged={(event) => {
+              this.selectChangeHandler(event);
+            }}
+          />
+        </div>
         <Footer />
-      </div>
+      </React.Fragment>
     );
   }
 }
@@ -577,8 +594,10 @@ class ProductPage extends Component {
 const mapStateToProps = (state) => {
   return {
     menu: state.menu.menu,
+    lastidentityid: state.identity.lastIdentityid,
     user: state.login.user,
     offer: state.offer.offer,
+    quantity: state.quantity.quantity,
     orders: state.orderCategory.orders,
     category: state.category.category,
     pages: state.navPages.pages,
@@ -587,12 +606,18 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveMenu: (menu) => dispatch(actionCreators.saveMenu(menu)),
+    onSaveLastIdentity: (lastidentityid) =>
+      dispatch(actionCreators.saveLastIdentity(lastidentityid)),
     onSaveOrder: (order) => dispatch(actionCreators.saveOrder(order)),
     onSavePage: (page) => dispatch(actionCreators.savePage(page)),
     onRemovePage: (page) => dispatch(actionCreators.removePage(page)),
     onSaveCategory: (category) =>
       dispatch(actionCreators.saveCategory(category)),
     onSaveOffer: (offer) => dispatch(actionCreators.saveOffer(offer)),
+    onSaveQuantity: (quantity) =>
+      dispatch(actionCreators.saveQuantity(quantity)),
+    onRemoveQuantity: (quantity) =>
+      dispatch(actionCreators.removeQuantity(quantity)),
   };
 };
 

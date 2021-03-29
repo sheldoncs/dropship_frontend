@@ -8,6 +8,7 @@ import ShoppingCart from "../../assets/shoppingcart.png";
 const Settings = (props) => {
   let cartVisible = [];
   let count = 0;
+
   if (props.count) {
     count = props.count;
   }

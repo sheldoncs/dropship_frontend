@@ -15,5 +15,6 @@
     background-color: #fff;
     display: flex;
     flex-direction: row;
+    height: 940px;
   }
 }

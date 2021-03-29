@@ -5,7 +5,7 @@ const display = (props) => {
   let prices = props.prices;
   let items = null;
   let btnClasses = [];
-  btnClasses.push("btn");
+  // btnClasses.push("btn");
   btnClasses.push(classes.btn_info);
 
   let lengths = "";
@@ -36,10 +36,14 @@ const display = (props) => {
           <div style={{ marginTop: "20px" }}>
             {value.categoryid == 2 ? (
               <div
-                style={{ fontWeight: "normal", fontSize: "16px", color: "red" }}
+                style={{
+                  fontWeight: "normal",
+                  fontSize: "16px",
+                  color: "#000",
+                }}
               >
                 {props.prices[0].price != undefined
-                  ? "FROM " + props.prices[0].price + "USD"
+                  ? "FROM " + props.prices[0].price + " USD"
                   : null}
               </div>
             ) : (
@@ -56,7 +60,7 @@ const display = (props) => {
                   borderRadius: "15px",
                 }}
               >
-                {value.price.toFixed(2)} USD
+                {value.price.toFixed(2) + " USD"}
               </div>
             )}
 

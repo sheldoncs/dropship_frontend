@@ -27,6 +27,9 @@ export const updateOrder = (order) => {
 export const saveQuantity = (quantity) => {
   return { type: actionTypes.SAVE_QUANTITY, quantity: quantity };
 };
+export const removeQuantity = (quantity) => {
+  return { type: actionTypes.REMOVE_QUANTITY, quantity: quantity };
+};
 export const saveCategory = (category) => {
   return { type: actionTypes.SAVE_CATEGORY, category: category };
 };
@@ -58,5 +61,11 @@ export const loginAuthenticated = (isAuth, username) => {
     type: actionTypes.LOGIN_AUTHENTICATED,
     loginAuthenticated: isAuth,
     username: username,
+  };
+};
+export const saveLastIdentity = (lastidentityid) => {
+  return {
+    type: actionTypes.LAST_IDENTITY,
+    lastidentityid,
   };
 };

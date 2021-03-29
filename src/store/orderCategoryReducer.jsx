@@ -1,5 +1,4 @@
 import * as actionTypes from "./actions/actionTypes";
-import { read_cookie, bake_cookie } from "sfcookies";
 
 const ORDER_STATE = "ORDER_STATE";
 
@@ -10,9 +9,10 @@ const reducer = (state = initialState, action) => {
     case actionTypes.UPDATE_ORDER:
       let tempState = { ...state };
       tempState.orders.map((data, index) => {
-        if (data.itemid == action.order[0].itemid) {
+        if (data.itemid === action.order[0].itemid) {
           tempState.orders[index].quantity = action.order[0].quantity;
         }
+        return tempState;
       });
       state = { ...state, orders: tempState.orders };
       break;
@@ -30,10 +30,6 @@ const reducer = (state = initialState, action) => {
       orderState.orders.push({ ...action.order });
       state = { ...orderState };
 
-      break;
-
-    case actionTypes.SAVE_QUANTITY:
-      state = { ...state, quantity: action.quantity };
       break;
 
     default:

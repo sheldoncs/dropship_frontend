@@ -26,7 +26,7 @@
     margin-right: auto;
   }
 }
-@media (min-width: 800px) {
+@media (min-width: 801px) {
   .Product {
     display: flex;
     flex-direction: row;
@@ -34,9 +34,9 @@
     border-radius: 15px;
     justify-content: flex-start;
     width: 55%;
-    height: 85%;
+    height: 93%;
     margin-top: 50px;
     margin-left: 25px;
-    padding-left: 45px;
+    padding-left: 10px;
   }
 }

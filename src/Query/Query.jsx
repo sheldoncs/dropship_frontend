@@ -2,6 +2,7 @@ export const categoryQuery = `query  {
     getAllCategories {
       id
       category
+      comments
     }
   }`;
 
@@ -129,3 +130,24 @@ export const addLastIdentity = `mutation ($lastidentityid:Int) {
     }
   }`;
 
+export const addOrders = `mutation addOrders($itemid:Int,$categoryid:Int,$orderid:Int,
+                                                   $quantity:Int,$totalprice:Float, 
+                                                   $photo:String) {
+addOrders(
+      itemid: $itemid,
+      categoryid:$categoryid,
+      orderid:$orderid,
+      quantity:$quantity,
+      totalprice:$totalprice,
+      photo:$photo
+) {
+Order {
+  itemid,
+  categoryid,
+  orderid,  
+  quantity,
+  totalprice,
+  photo
+  }
+ }
+}`;

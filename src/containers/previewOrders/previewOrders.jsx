@@ -34,23 +34,21 @@ class PreviewOrders extends Component {
   };
   calcTotals = () => {
     let tempState = { ...this.state };
-    tempState.category = JSON.parse(sessionStorage.getItem("category"));
-    console.log("category", this.props.category);
+
     let orders = null;
 
     if (this.props.orders.length > 0) {
       orders = this.props.orders;
       tempState.orders = orders;
     }
-    tempState.orders = orders;
     let quantity = 0;
     tempState.totalprice = 0;
     let totalQuantity = orders.map((data, index) => {
       quantity = Number(data.quantity) + Number(quantity);
-
+      tempState.showOffer = true;
       let itemprice = 0.0;
       if (data.offer != null) {
-        tempState.showOffer = true;
+        // tempState.showOffer = true;
         if (data.offer.offertype == "PERCENT") {
           data.deduction =
             (data.offer.amount / 100) *
@@ -65,7 +63,7 @@ class PreviewOrders extends Component {
           data.itemprice = itemprice;
         }
       } else {
-        tempState.showOffer = false;
+        // tempState.showOffer = false;
         itemprice = data.price * data.quantity;
       }
 

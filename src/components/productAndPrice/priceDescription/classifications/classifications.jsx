@@ -12,10 +12,12 @@ import Arrow from "../../../../assets/down_arrow.png";
 const classification = (props) => {
   let category = "";
   let StoreClasses = [classes.Type];
-  let storeClassif = [classes.HairClassification];
+  let storeClassif = [];
   if (props.categoryinfo != null) {
     if (props.categoryinfo.categoryid != 2) {
-      storeClassif = [classes.Classification];
+      storeClassif.push(classes.Classification);
+    } else {
+      storeClassif.push(classes.HairClassification);
     }
   }
   StoreClasses.push("text-center");
@@ -78,7 +80,7 @@ const classification = (props) => {
                 margin: "auto",
                 display: "flex",
                 flexDirection: "row",
-                width: "80%",
+                width: "62%",
               }}
               className="pt-2"
             >
@@ -105,17 +107,17 @@ const classification = (props) => {
         <div className={classes.FreeShippingLabel}>
           <div>
             <div>
-              <span style={{ color: "#3FB22B", fontWeight: "bold" }}>
+              <span style={{ color: "#000", fontWeight: "bold" }}>
                 Free Shipping
               </span>{" "}
               to United States Via EMS
             </div>
             <div className={classes.FreeshippingText}>
-              <span style={{ color: "#989C98", fontSize: "15px" }}>
+              <span style={{ color: "#000", fontSize: "15px" }}>
                 Estimated Delivery Time:
               </span>{" "}
               <span
-                style={{ color: "red", fontSize: "15px", fontWeight: "bold" }}
+                style={{ color: "#000", fontSize: "15px", fontWeight: "bold" }}
               >
                 10 Days
               </span>
@@ -123,7 +125,7 @@ const classification = (props) => {
           </div>
         </div>
 
-        {/* <div className={classes.GroupAction}>
+        <div className={classes.GroupAction}>
           <ActionButton whichButton={(val) => props.whichButton(val)}>
             ADD TO CART
           </ActionButton>
@@ -137,8 +139,10 @@ const classification = (props) => {
           </div>
         </div>
         <div className={classes.Review} onClick={props.clickReview}>
-          <a href="#">REVIEW CART</a>
-        </div> */}
+          <div className="text-center">
+            <a href="#">REVIEW CART</a>
+          </div>
+        </div>
       </div>
     </React.Fragment>
   );

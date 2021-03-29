@@ -174,7 +174,7 @@ class Login extends Component {
   fetchMenuQuery = () => {
     let query = categoryQuery;
     const fetch = createApolloFetch({
-      uri: "http://localhost:8080/graphql",
+      uri: "http://localhost:5000/graphql",
     });
     fetch({
       query,
@@ -202,13 +202,14 @@ class Login extends Component {
   };
   loginHandler = (event) => {
     event.preventDefault();
+
     if (this.state.loginForm.email.value) {
       let data = {
         username: this.state.loginForm.email.value,
         password: this.state.loginForm.password.value,
       };
 
-      fetch("http://localhost:8080/login", {
+      fetch("http://localhost:5000/login", {
         method: "POST",
         body: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
@@ -221,8 +222,8 @@ class Login extends Component {
             response.json().then((result) => {
               if (result.auth === true) {
                 this.props.onSetToken(result.token);
-                localStorage.setItem("token", result.token);
-                localStorage.setItem("email", this.state.loginForm.email.value);
+                // localStorage.setItem("token", result.token);
+                // localStorage.setItem("email", this.state.loginForm.email.value);
 
                 let userObject = {
                   username: this.state.loginForm.email.value,
@@ -264,7 +265,7 @@ class Login extends Component {
     }
   };
   responseGoogle = (response) => {
-    const uri = "http://localhost:8080/graphql";
+    const uri = "http://localhost:5000/graphql";
 
     let query = creatUser;
 

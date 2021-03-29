@@ -1,6 +1,7 @@
 import { createApolloFetch } from "apollo-fetch";
 const fetch = createApolloFetch({
-  uri: "http://localhost:8080/graphql",
+  uri: "http://localhost:5000/graphql",
+  mode: "cors", // no-cors, *cors, same-origin
 });
 
 export default fetch;

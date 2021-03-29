@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Payments from "../../components/creditcard/creditcard";
+import Cards from "react-credit-cards";
+import "react-credit-cards/es/styles-compiled.css";
 
 class CreditCard extends Component {
   state = {

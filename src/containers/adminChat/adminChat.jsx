@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { socket } from "../home/home";
+// import { socket } from "../home/home";
 import ChatInquiry from "../../components/chatInquiry/chatInquiry";
 import fetch from "../../fetchservice/fetchservice";
 import { activeChatters, deactivatChatter } from "../../Query/Query";
@@ -28,7 +28,7 @@ class AdminChat extends Component {
       this.setState({ chatters: res.data.getActiveChatters });
     });
 
-    socket.on("chatroom", (data) => {});
+    // socket.on("chatroom", (data) => {});
   }
 
   deactivateHandler = (socketid) => {
@@ -44,20 +44,20 @@ class AdminChat extends Component {
     });
   };
   socketIdHandler = (val) => {
-    socket.on("to_admin_msg", (data) => {
-      alert(data);
-      this.setState({ socketid: val });
-    });
+    // socket.on("to_admin_msg", (data) => {
+    //   alert(data);
+    //   this.setState({ socketid: val });
+    // });
   };
   handleSend = (msg, eventObject) => {
-    socket.emit("sendtoclient", {
-      name: "Tyler",
-      message: msg,
-      socketid: this.state.socketid,
-    });
-    let tempState = { ...this.state };
-    tempState.conversation.push({ name: "Tyler", message: msg });
-    this.setState({ ...tempState });
+    // socket.emit("sendtoclient", {
+    //   name: "Tyler",
+    //   message: msg,
+    //   socketid: this.state.socketid,
+    // });
+    // let tempState = { ...this.state };
+    // tempState.conversation.push({ name: "Tyler", message: msg });
+    // this.setState({ ...tempState });
   };
   render() {
     return (

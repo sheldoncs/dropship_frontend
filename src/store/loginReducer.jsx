@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
       state = { ...state, token: action.token };
       break;
     case actionTypes.SAVE_USER:
-      state = { ...state, token: action.user };
+      state = { ...state, user: action.user };
       break;
     case actionTypes.IS_REGISTERING:
       state = {

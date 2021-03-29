@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.REMOVE_PAGE:
       let remState = { ...state };
       remState.pages = remState.pages.filter(function (el) {
-        return el.page != action.page;
+        return el.page !== action.page;
       });
       state = {
         ...state,

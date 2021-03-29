@@ -2,22 +2,31 @@ import React from "react";
 import classes from "./ChatMessage.module.css";
 
 const chatMessage = (props) => {
-  let result = props.channels.map((value, index) => {
-    return (
-      <div key={index}>
-        {value.onActivate == false ? (
-          <div>
-            <div className={classes.Participant}>{value.name}</div>
-            <div className={classes.Message}>{value.message}</div>
+  let result = (
+    <div>
+      {props.displayHeader == true ? (
+        <div className={classes.Welcome}>
+          <div className="text-center pt-1 ml-3">
+            {"Welcome " + props.headerTitle}
           </div>
-        ) : (
-          <div className={classes.Welcome}>
-            <div className="text-center pt-1">{"Welcome " + value.name}</div>
-          </div>
-        )}
-      </div>
-    );
-  });
+        </div>
+      ) : null}
+      {props.onActivate == true
+        ? props.conversations.map((data, index) => {
+            return (
+              <div
+                key={index}
+                style={{ display: "flex", flexDirection: "row", width: "50%" }}
+              >
+                <div className={classes.Participant}>{data.name}</div>
+                <div className={classes.Message}>{data.message}</div>
+              </div>
+            );
+          })
+        : null}
+    </div>
+  );
+
   return <div className={classes.chatMessage}>{result}</div>;
 };
 

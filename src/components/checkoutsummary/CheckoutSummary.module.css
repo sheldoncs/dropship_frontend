@@ -7,7 +7,7 @@
 
 .Photos {
   width: 300px;
-  height: 255px;
+  border-radius: 20px;
 }
 .PhotoContainer {
   display: flex;

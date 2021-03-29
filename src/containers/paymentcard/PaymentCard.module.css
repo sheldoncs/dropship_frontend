@@ -1,0 +1,86 @@
+.PaymentCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh !important;
+  background: #7bb31e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #9be024,
+    #438c67
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #9be024, #438c67);
+}
+.App {
+  width: 50%;
+  display: flex;
+  height: 100vh !important;
+  flex-direction: column;
+  background: #ffff;
+  border-radius: 0px;
+  padding-top: 30px;
+}
+.YourOrder {
+  display: flex;
+  height: 100% !important;
+  width: 50%;
+  flex-direction: column;
+  margin-top: 30px;
+  border-radius: 0px;
+  color: #fff;
+}
+.CardContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto;
+}
+
+form {
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+input {
+  background: #f9f9f9;
+  padding: 10px;
+  width: 100%;
+  border: 0px solid #a8a5a5;
+  border-radius: 0px;
+  margin-bottom: 10px !important;
+  font-size: 14px;
+  color: rgb(0, 0, 0);
+  outline: none;
+  font-weight: 300;
+}
+.PayNow {
+  width: 80%;
+  margin: auto;
+  height: 55px;
+  cursor: pointer;
+  background: #7bb31e; /* fallback for old browsers */
+  font-family: "Abel", sans-serif;
+  font-size: 25px;
+  color: #fff;
+}
+.rccs__card--unknown > div {
+  background: #75c9a5;
+}
+.Header {
+  display: flex;
+  color: #fff;
+  font-family: "Abel", sans-serif;
+  font-size: 25px;
+  width: 20%;
+  margin: auto;
+}
+.Line {
+  display: block;
+  width: 100%;
+  border-bottom: 2px solid #fff;
+  margin: 25px auto;
+  font-family: "Abel", sans-serif;
+  font-size: 13px;
+  color: #fff;
+}

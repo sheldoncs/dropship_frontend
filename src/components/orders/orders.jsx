@@ -19,7 +19,7 @@ const orders = (props) => {
               <img className={classes.Photo} src={value.photo} />
             </div>
             <div>
-              <Orderlabels summaryInfo={value} category={props.category} />
+              <Orderlabels summaryInfo={value} category={value.category} />
             </div>
           </div>
         </div>

@@ -252,11 +252,11 @@ class Checkout extends Component {
   componentDidMount() {
     let tempState = { ...this.state };
     let orders = null;
-    let category = JSON.parse(sessionStorage.getItem("category"));
+
     orders = this.props.orders;
 
     tempState.orders = orders;
-    tempState.category = category;
+
     this.setState({ ...tempState });
     this.fetchAllCountries();
   }
@@ -297,7 +297,6 @@ class Checkout extends Component {
         <CheckoutSummary
           orders={this.state.orders}
           className={classes.CheckoutSummary}
-          category={this.state.category}
         ></CheckoutSummary>
       </div>
     );
@@ -307,6 +306,7 @@ class Checkout extends Component {
 const mapStateToProps = (state) => {
   return {
     menu: state.menu.menu,
+    lastidentityid: state.identity.lastidentityid,
     user: state.login.user,
     offer: state.offer.offer,
     orders: state.orderCategory.orders,

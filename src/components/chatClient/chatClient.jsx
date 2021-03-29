@@ -9,14 +9,16 @@ const chatClient = (props) => {
   let value = "";
   let eventObject = null;
   let chatMessage = "";
+  let chatDiv = [];
 
-  if (props.channels.length > 0) {
+  if (props.conversations.length > 1 || props.displayHeader === true) {
     chatMessage = (
       <ChatMessage
-        participant=""
-        message=""
-        setActive={value.onActivate}
-        channels={props.channels}
+        displayHeader={props.displayHeader}
+        onActivate={props.onActivate}
+        conversations={props.conversations}
+        headerTitle={props.headerTitle}
+        role={props.role}
       />
     );
   } else {
@@ -36,7 +38,7 @@ const chatClient = (props) => {
   function inputHandler(event) {
     event.preventDefault();
     eventObject = event;
-    
+
     value = event.target.value;
   }
   let holdClasses = [classes.Button];
@@ -45,7 +47,7 @@ const chatClient = (props) => {
   holdClasses.push("ml-2");
 
   let chatArea = props.chatPressed ? (
-    <div className={classes.ChatClient}>
+    <div id="chatlist" className={classes.ChatClient}>
       <ScrollArea
         smoothScrolling={true}
         speed={10000}
@@ -74,9 +76,7 @@ const chatClient = (props) => {
         />
         <button
           className={holdClasses.join(" ")}
-          onClick={() =>
-            props.eventChanged(value, props.channels[0].name, eventObject)
-          }
+          onClick={() => props.eventChanged(value)}
         >
           Send
         </button>

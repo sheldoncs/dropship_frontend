@@ -15,9 +15,12 @@ import offerReducer from "./store/offerReducer";
 import categoryReducer from "./store/categoryReducer";
 import orderCategoryReducer from "./store/orderCategoryReducer";
 import pageNavigateReducer from "./store/pageNavigateReducer";
+import quantityReducer from "./store/quantityReducer";
+import identityReducer from "./store/identityReducer";
 
 const client = new ApolloBoost({
-  uri: "http://localhost:8080/graphql",
+  uri: " http://localhost:5000/graphql",
+  // uri: "http://wizzywigs.com:5000",
 });
 
 const rootReducer = combineReducers({
@@ -26,7 +29,9 @@ const rootReducer = combineReducers({
   offer: offerReducer,
   orderCategory: orderCategoryReducer,
   category: categoryReducer,
+  quantity: quantityReducer,
   navPages: pageNavigateReducer,
+  identity: identityReducer,
 });
 const store = createStore(rootReducer);
 

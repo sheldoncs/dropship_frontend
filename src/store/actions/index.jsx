@@ -11,8 +11,10 @@ export {
   savePage,
   removePage,
   saveQuantity,
+  removeQuantity,
   updateOrder,
   saveCategory,
   saveSocketID,
   saveClientSocketID,
+  saveLastIdentity,
 } from "./login";

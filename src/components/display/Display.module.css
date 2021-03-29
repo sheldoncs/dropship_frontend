@@ -31,8 +31,9 @@
   border-radius: 10px;
 }
 .btn_info {
-  background: #34363b !important;
-  color: #fff !important;
+  background: #fff !important;
+  color: #000 !important;
   font-family: "Abel", sans-serif;
   font-size: 20px;
+  border: 2px solid #000;
 }
