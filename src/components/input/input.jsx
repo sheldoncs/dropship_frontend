@@ -22,6 +22,7 @@ const Input = (props) => {
 
   switch (props.elementType) {
     case "input":
+      console.log(props.elementType);
       if (props.elementName != "password") {
         inputElement = (
           <div className="input-container">
@@ -98,6 +99,7 @@ const Input = (props) => {
           name={props.elementName}
           id={props.elementName}
           type={props.visibility}
+          onKeyPress={props.onPress}
         />
       );
   }

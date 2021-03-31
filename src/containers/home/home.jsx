@@ -50,6 +50,7 @@ class Home extends Component {
       elementName: "chatClient",
       elementConfig: { type: "text", placeholder: "Chat" },
       visibility: "true",
+      value: "",
     },
     chatName: {
       elemenType: "input",
@@ -331,7 +332,8 @@ class Home extends Component {
 
     this.setState({ chatPressed: !tempState.chatPressed });
   };
-  eventHandler = (msg) => {
+
+  eventHandler = (msg, event) => {
     let tempState = { ...this.state };
 
     /*new messages sent from client or admin*/
@@ -369,7 +371,7 @@ class Home extends Component {
     this.setState({
       ...tempState,
     });
-
+    event.target.value = "";
     socket.emit("message", data);
   };
   activateChatHandler = (nameEvent, emailEvent) => {
@@ -512,6 +514,7 @@ class Home extends Component {
           elementtype={this.state.chatType.elementType}
           elementconfig={this.state.chatType.elementConfig}
           elementname={this.state.chatType.elementName}
+          value={this.state.chatType.value}
           chatName={this.state.chatName}
           chatEmail={this.state.chatEmail}
           showIntro={this.state.showIntro}
@@ -523,7 +526,7 @@ class Home extends Component {
           activateChat={(nameEvent, emailEvent) =>
             this.activateChatHandler(nameEvent, emailEvent)
           }
-          eventChanged={(msg, chatMsg) => this.eventHandler(msg, chatMsg)}
+          eventChanged={(msg, event) => this.eventHandler(msg, event)}
         />
         <ChatButton chatClicked={this.chatHandler} />
         {this.state.user.admin == 1 ? (

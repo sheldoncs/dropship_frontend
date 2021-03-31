@@ -10,6 +10,7 @@ const chatClient = (props) => {
   let eventObject = null;
   let chatMessage = "";
   let chatDiv = [];
+  var input = document.getElementById(props.elementName);
 
   if (props.conversations.length > 1 || props.displayHeader === true) {
     chatMessage = (
@@ -34,13 +35,19 @@ const chatClient = (props) => {
       );
     }
   }
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
 
-  function inputHandler(event) {
+    if (e.key === "Enter") {
+      document.getElementById("send").click();
+    }
+  };
+  const inputHandler = (event) => {
     event.preventDefault();
     eventObject = event;
 
     value = event.target.value;
-  }
+  };
   let holdClasses = [classes.Button];
   holdClasses.push("btn");
   holdClasses.push("btn-warning");
@@ -70,13 +77,15 @@ const chatClient = (props) => {
           elementconfig={props.elementConfig}
           elementname={props.elementName}
           visibility={props.visibility}
+          onPress={handleKeypress}
           changed={(event) => {
             inputHandler(event);
           }}
         />
         <button
           className={holdClasses.join(" ")}
-          onClick={() => props.eventChanged(value)}
+          id="send"
+          onClick={() => props.eventChanged(value, eventObject)}
         >
           Send
         </button>
