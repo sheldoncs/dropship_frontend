@@ -21,7 +21,6 @@ import Message from "../../components/errorMessage/errorMessage";
 import { creatUser } from "../../Mutation/Mutation";
 import { createApolloFetch } from "apollo-fetch";
 import { categoryQuery } from "../../Query/Query";
-import fetch from "../../fetchservice/fetchservice";
 
 class Login extends Component {
   state = {
@@ -174,8 +173,9 @@ class Login extends Component {
   }
   fetchMenuQuery = () => {
     let query = categoryQuery;
-
-    fetch({
+    const uri = "https://heroku-seller-app.herokuapp.com/graphql";
+    const apolloFetch = createApolloFetch({ uri });
+    apolloFetch({
       query,
     }).then((res) => {
       let tempMenu = res.data.getAllCategories;
@@ -287,7 +287,10 @@ class Login extends Component {
 
     const apolloFetch = createApolloFetch({ uri });
 
-    apolloFetch({ query, variables })
+    apolloFetch({
+      query,
+      variables,
+    })
       .then((resp) => {})
       .catch((error) => {
         console.log(error);
