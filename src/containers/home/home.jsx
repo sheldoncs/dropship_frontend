@@ -286,11 +286,16 @@ class Home extends Component {
         query: query,
       },
       { signal: this.signal }
-    ).then((res) => {
-      let tempState = { ...this.state };
-      tempState.items.itemList = res.data.getAllItems;
-      this.setState({ ...tempState });
-    });
+    )
+      .then((res) => {
+        let tempState = { ...this.state };
+        tempState.items.itemList = res.data.getAllItems;
+        console.log(res.data.getAllItems);
+        this.setState({ ...tempState });
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
   handleOffer = (id, itemid) => {
     let category = { categoryid: 2, itemid, isOffer: true };

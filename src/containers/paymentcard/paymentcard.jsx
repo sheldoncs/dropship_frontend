@@ -47,7 +47,7 @@ class PaymentCard extends Component {
       lastidentityid: this.props.lastidentityid,
       email: this.state.email,
     };
-    fetch("http://localhost:5000/order", {
+    fetch("https://heroku-seller-app.herokuapp.com/order", {
       method: "POST",
       body: JSON.stringify(orderParam),
       contentType: "application/json; charindex.set=utf-8",
