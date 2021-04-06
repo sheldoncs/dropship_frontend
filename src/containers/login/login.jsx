@@ -210,6 +210,7 @@ class Login extends Component {
 
       fetch("https://heroku-seller-app.herokuapp.com/login", {
         method: "POST",
+        mode: "cors",
         body: JSON.stringify(data),
         contentType: "application/json; charset=utf-8",
         headers: { "Content-Type": "application/json" },
