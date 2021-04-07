@@ -22,8 +22,8 @@ const Input = (props) => {
 
   switch (props.elementType) {
     case "input":
-      console.log(props.elementType);
       if (props.elementName != "password") {
+        console.log("props.elementType", props.elementType);
         inputElement = (
           <div className="input-container">
             <input
