@@ -19,11 +19,10 @@ const Input = (props) => {
   inputClasses.push(classes.InputColor);
   if (props.elementType === "input") {
   }
-
+  console.log("props.elementName", props.elementName);
   switch (props.elementType) {
     case "input":
       if (props.elementName != "password") {
-        console.log("props.elementType", props.elementType);
         inputElement = (
           <div className="input-container">
             <input
