@@ -78,7 +78,7 @@
   padding-top: 70px;
   display: block;
   width: 300px !important;
-  height:40px;
+  height:35px !important;
   box-sizing: border-box;
   margin: 20px auto;
   color: #000 !important;
@@ -98,4 +98,7 @@ select {
 .InputElement:focus {
   outline: none;
   background-color: #ccc;
+}
+input{
+  height:35px !important;
 }

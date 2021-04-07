@@ -15,7 +15,7 @@ const Input = (props) => {
     );
   }
 
-  inputClasses.push("form-control");
+  // inputClasses.push("form-control");
   inputClasses.push(classes.InputColor);
   if (props.elementType === "input") {
   }
