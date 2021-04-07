@@ -24,17 +24,15 @@ const Input = (props) => {
     case "input":
       if (props.elementName != "password") {
         inputElement = (
-          <div className="input-container">
-            <input
-              onChange={props.changed}
-              className={inputClasses.join(" ")}
-              {...props.elementConfig}
-              value={props.value}
-              name={props.elementName}
-              id={props.elementName}
-              type={props.visibility}
-            />
-          </div>
+          <input
+            onChange={props.changed}
+            className={inputClasses.join(" ")}
+            {...props.elementConfig}
+            value={props.value}
+            name={props.elementName}
+            id={props.elementName}
+            type={props.visibility}
+          />
         );
       } else {
         inputElement = (
