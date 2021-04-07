@@ -53,7 +53,7 @@ class Home extends Component {
       value: "",
     },
     chatName: {
-      elemenType: "input",
+      elementType: "input",
       elementName: "chatName",
       elementConfig: { type: "text", placeholder: "Chat Name" },
       visibility: "true",
