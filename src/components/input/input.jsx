@@ -23,6 +23,7 @@ const Input = (props) => {
   switch (props.elementType) {
     case "input":
       if (props.elementname != "password") {
+        console.log("props.elementname", props.elementname);
         inputElement = (
           <input
             onChange={props.changed}
