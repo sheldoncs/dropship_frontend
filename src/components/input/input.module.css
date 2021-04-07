@@ -73,15 +73,15 @@
 .InputElement {
   outline: none;
   border: 1px solid #ccc;
-  background-color: #fff;
+  /* background-color: #fff;
   font-family: "Roboto Condensed", sans-serif;
   padding-top: 70px;
-  display: block;
+  display: block; */
   width: 300px !important;
   height:35px !important;
-  box-sizing: border-box;
-  margin: 20px auto;
-  color: #000 !important;
+  /* box-sizing: border-box;
+  margin: 20px auto; */
+  /* color: #000 !important; */
 }
 select {
   border: 0px !important;
