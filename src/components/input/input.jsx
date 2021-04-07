@@ -20,14 +20,14 @@ const Input = (props) => {
   if (props.elementType === "input") {
   }
   console.log("props.elementname", props.elementname, props.elementType);
-  switch (props.elementType) {
+  switch (props.elementtype) {
     case "input":
       if (props.elementname != "password") {
         inputElement = (
           <input
             onChange={props.changed}
             className={inputClasses.join(" ")}
-            {...props.elementConfig}
+            {...props.elementconfig}
             value={props.value}
             name={props.elementname}
             id={props.elementname}
@@ -93,8 +93,8 @@ const Input = (props) => {
           className={inputClasses.join(" ")}
           {...props.elementconfig}
           value={props.value}
-          name={props.elementName}
-          id={props.elementName}
+          name={props.elementname}
+          id={props.elementname}
           type={props.visibility}
           onKeyPress={props.onPress}
         />
