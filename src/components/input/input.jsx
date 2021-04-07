@@ -19,10 +19,11 @@ const Input = (props) => {
   inputClasses.push(classes.InputColor);
   if (props.elementType === "input") {
   }
-  console.log("input","props", props);
+
   switch (props.elementtype) {
     case "input":
       if (props.elementname != "password") {
+        console.log("props.elementname", props.elementname);
         inputElement = (
           <input
             onChange={props.changed}

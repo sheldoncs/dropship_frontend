@@ -16,7 +16,7 @@ const chatIntro = (props) => {
   let btnClasses = [classes.Button];
   btnClasses.push("btn");
   btnClasses.push("btn-danger");
-  console.log("chatintro", props);
+
   return (
     <div className={classes.ChatIntro}>
       <Input
