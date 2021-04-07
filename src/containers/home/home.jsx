@@ -46,7 +46,7 @@ class Home extends Component {
       priceOptions: null,
     },
     chatType: {
-      elemenType: "input",
+      elementType: "input",
       elementName: "chatClient",
       elementConfig: { type: "text", placeholder: "Chat" },
       visibility: "true",
@@ -60,7 +60,7 @@ class Home extends Component {
       value: "",
     },
     chatEmail: {
-      elemenType: "input",
+      elementType: "input",
       elementName: "email",
       elementConfig: { type: "text", placeholder: "email" },
       visibility: "true",
