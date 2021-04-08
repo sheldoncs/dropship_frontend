@@ -75,7 +75,7 @@
   border: 1px solid #ccc;
   background-color: #fff;
   font-family: "Roboto Condensed", sans-serif;
-  padding-top: 70px;
+  /* padding-top: 70px; */
   display: block;
   width: 300px !important;
   height:35px !important;
