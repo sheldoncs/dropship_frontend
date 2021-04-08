@@ -169,7 +169,7 @@ class Home extends Component {
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
         } else {
-          // this.processOpenedClient();
+          this.processOpenedClient();
         }
       }
     } else if (tempState.user.admin == 0) {
@@ -196,6 +196,7 @@ class Home extends Component {
   processOpenedClient = () => {
     let tempState = { ...this.state };
     let chatter = tempState.chatters.find((element) => element.opened == true);
+    console.log("right here");
     if (chatter) {
       if (!tempState.intervalCalled) {
         this.stopInterval();
