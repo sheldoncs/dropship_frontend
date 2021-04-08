@@ -375,12 +375,12 @@ class Home extends Component {
 
     tempState.channels[0].messages[msgIndex].displayed = true;
     tempState.conversation = conversation;
+    console.log("conversations before push", tempState.conversations);
     tempState.conversations.push({
       name: tempState.channels[0].name + " : ",
       message: obj.message,
     });
-    console.log("conversation", tempState.conversation);
-    console.log("conversations", tempState.conversations);
+    console.log("conversations after", tempState.conversations);
     tempState.chatType.value = "";
     this.setState({
       ...tempState.conversations,
