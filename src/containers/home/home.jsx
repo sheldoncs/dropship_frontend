@@ -154,6 +154,7 @@ class Home extends Component {
         admin: data.admin,
         messages: [{ displayed: false, message: data.message }],
       });
+      /*Brand new chatter*/
     }
     this.setState({ ...tempState.chatters });
     console.log(this.state.chatters);
@@ -174,6 +175,7 @@ class Home extends Component {
 
       if (data.admin == 1 && data.clientsocketid == tempState.socketid) {
         this.start();
+        console.log(`client message ${data.clientsocketid}`, data.message);
         let conversation = { name: data.name + " : ", message: data.message };
         tempState.conversation = conversation;
         tempState.conversations.push(conversation);
