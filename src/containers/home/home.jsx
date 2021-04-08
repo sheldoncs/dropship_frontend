@@ -426,9 +426,13 @@ class Home extends Component {
 
       this.setState({ ...tempState });
     } else {
+      /*Get Previous chatter*/
       let removeChatter = tempState.chatters.find(
         (element) => element.opened == true
       );
+
+      /*Resetting new chatter list */
+      tempState.conversations = [];
       if (tempState.chatters.length > 0) {
         tempState.chatters = tempState.chatters.filter(
           (element) => element.opened == false
@@ -444,6 +448,7 @@ class Home extends Component {
           admin: this.state.user.admin,
         };
 
+        /*Let previous chatter know that chat has ended */
         socket.emit("message", data);
         this.setState({ intervalCalled: false, ...tempState });
       }
