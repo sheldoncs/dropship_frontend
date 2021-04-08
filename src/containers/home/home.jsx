@@ -168,10 +168,6 @@ class Home extends Component {
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
         } else {
-          console.log(
-            `new client message from ${data.clientsocketid}`,
-            data.message
-          );
           this.processOpenedClient();
         }
       }
@@ -216,7 +212,7 @@ class Home extends Component {
 
         conversations.push(conversation);
 
-        tempState.conversations = conversations;
+        tempState.conversations.push(conversation);
         this.setState({
           clientsocketid: chatter.clientsocketid,
           ...tempState,
