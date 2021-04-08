@@ -165,7 +165,6 @@ class Home extends Component {
         this.start();
         /*Ensure interval is called once*/
         if (!tempState.intervalCalled) {
-          console.log(`client message ${data.clientsocketid}`, data.message);
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
         } else {
@@ -200,14 +199,14 @@ class Home extends Component {
   processOpenedClient = () => {
     let tempState = { ...this.state };
     let chatter = tempState.chatters.find((element) => element.opened == true);
-    console.log("right here");
+
     if (chatter) {
       this.stopInterval();
 
       tempState.clientsocketid = chatter.clientsocketid;
 
       /* Show messages not displayed by client */
-      console.log(`client message ${tempState.clientsocketid}`);
+
       let conversations = [];
       chatter.messages.map((chatterInfo, index) => {
         let conversation = {
@@ -364,10 +363,11 @@ class Home extends Component {
       admin: this.state.user.admin,
     };
 
+    /*Messages not sent */
     let obj = tempState.channels[0].messages.find(
       (element) => element.displayed === false
     );
-
+    /*Get Index of message */
     let msgIndex = tempState.channels[0].messages.findIndex(
       (element) => element.message === obj.message
     );
@@ -380,6 +380,7 @@ class Home extends Component {
     tempState.channels[0].messages[msgIndex].displayed = true;
     tempState.conversation = conversation;
     tempState.conversations.push(conversation);
+    console.log("conversations", tempState.conversations);
     tempState.chatType.value = "";
     this.setState({
       ...tempState,
