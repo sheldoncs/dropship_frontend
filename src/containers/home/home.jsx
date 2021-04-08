@@ -157,7 +157,6 @@ class Home extends Component {
       /*Brand new chatter*/
     }
     this.setState({ ...tempState.chatters });
-    console.log(this.state.chatters);
     /* Displays messages from client and admin */
 
     if (tempState.user.admin == 1) {
@@ -166,6 +165,7 @@ class Home extends Component {
         this.start();
         /*Ensure interval is called once*/
         if (!tempState.intervalCalled) {
+          console.log(`client message ${data.clientsocketid}`, data.message);
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
         }
@@ -175,7 +175,6 @@ class Home extends Component {
 
       if (data.admin == 1 && data.clientsocketid == tempState.socketid) {
         this.start();
-        console.log(`client message ${data.clientsocketid}`, data.message);
         let conversation = { name: data.name + " : ", message: data.message };
         tempState.conversation = conversation;
         tempState.conversations.push(conversation);
@@ -199,6 +198,7 @@ class Home extends Component {
       tempState.clientsocketid = chatter.clientsocketid;
 
       /* Show messages not displayed by client */
+      console.log(`client message ${tempState.clientsocketid}`);
       let conversations = [];
       chatter.messages.map((chatterInfo, index) => {
         let conversation = {
@@ -217,7 +217,6 @@ class Home extends Component {
     }
   };
   stopInterval = () => {
-    console.log("interval stopped");
     clearInterval(this.openInterval);
     this.setState({ intervalCalled: false });
   };
@@ -265,7 +264,6 @@ class Home extends Component {
 
     this.signal.addEventListener("abort", () => {
       // Logs true:
-      console.log("signal abort = " + this.signal.aborted);
     });
 
     fetch(
@@ -292,7 +290,6 @@ class Home extends Component {
       .then((res) => {
         let tempState = { ...this.state };
         tempState.items.itemList = res.data.getAllItems;
-        console.log(res.data.getAllItems);
         this.setState({ ...tempState });
       })
       .catch((error) => {

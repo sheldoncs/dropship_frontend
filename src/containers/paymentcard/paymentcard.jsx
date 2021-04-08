@@ -26,7 +26,7 @@ class PaymentCard extends Component {
   };
   payHandler = () => {
     let order = null;
-    console.log("this.props.orders", this.props.orders);
+
     let orders = this.props.orders.map((value, index) => {
       let payment = 0.0;
       if (value.category.categoryid === 2) {

@@ -119,7 +119,6 @@ class ProductPage extends Component {
   };
 
   componentDidMount() {
-    console.log("help");
     let specialoffer = null;
     this.popPage();
     this.pushPage();
