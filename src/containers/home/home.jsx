@@ -168,11 +168,14 @@ class Home extends Component {
           console.log(`client message ${data.clientsocketid}`, data.message);
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
+        } else {
+          this.processOpenedClient();
         }
       }
     } else if (tempState.user.admin == 0) {
       /*Client */
 
+      /*Check if message has come from the server*/
       if (data.admin == 1 && data.clientsocketid == tempState.socketid) {
         this.start();
         let conversation = { name: data.name + " : ", message: data.message };
@@ -187,14 +190,16 @@ class Home extends Component {
   };
   checkOpenedClient = () => {
     this.openInterval = setInterval(() => {
-      this.checkForNewClient();
+      this.processOpenedClient();
     }, 2000);
   };
-  checkForNewClient = () => {
+  processOpenedClient = () => {
     let tempState = { ...this.state };
     let chatter = tempState.chatters.find((element) => element.opened == true);
     if (chatter) {
-      this.stopInterval();
+      if (!tempState.intervalCalled) {
+        this.stopInterval();
+      }
       tempState.clientsocketid = chatter.clientsocketid;
 
       /* Show messages not displayed by client */
@@ -401,7 +406,7 @@ class Home extends Component {
       emailEvent.target.value = "";
     }
   };
-  /*Designed to open chat line with a client*/
+  /*Designed to open/close chat line with a client*/
   controllerHandler = (val) => {
     let tempState = { ...this.state };
     let chatData = null;
@@ -439,7 +444,7 @@ class Home extends Component {
         };
 
         socket.emit("message", data);
-        this.setState({ ...tempState });
+        this.setState({ intervalCalled: false, ...tempState });
       }
     }
   };
