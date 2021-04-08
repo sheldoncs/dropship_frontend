@@ -198,9 +198,8 @@ class Home extends Component {
     let chatter = tempState.chatters.find((element) => element.opened == true);
     console.log("right here");
     if (chatter) {
-      if (!tempState.intervalCalled) {
-        this.stopInterval();
-      }
+      this.stopInterval();
+
       tempState.clientsocketid = chatter.clientsocketid;
 
       /* Show messages not displayed by client */
