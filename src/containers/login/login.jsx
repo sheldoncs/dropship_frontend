@@ -26,9 +26,10 @@ class Login extends Component {
   state = {
     loginForm: {
       email: {
-        elementtype: "input",
+        elementType: "input",
         visibility: "visible",
         elementConfig: { type: "text", placeholder: "email" },
+        elementName: "email",
         value: "",
         validation: {
           required: true,
@@ -40,9 +41,10 @@ class Login extends Component {
         // regExpression: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       },
       password: {
-        elementtype: "input",
+        elementType: "input",
         elementConfig: { type: "password", placeholder: "password" },
         value: "",
+        elementName: "password",
         validation: {
           required: true,
           minLength: 8,
@@ -343,9 +345,10 @@ class Login extends Component {
                 this.inputChangeHandler(event, pairs.id);
               }}
               visibility={pairs.config.visibility}
-              elementType={pairs.config.elementtype}
+              elementType={pairs.config.elementType}
+              elementname={pairs.config.elementName}
               elementConfig={pairs.config.elementConfig}
-              elementName={pairs.id}
+              id={pairs.id}
             />
           </div>
         </React.Fragment>
