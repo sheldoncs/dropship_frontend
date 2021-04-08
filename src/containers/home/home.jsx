@@ -169,6 +169,10 @@ class Home extends Component {
           this.checkOpenedClient();
           this.setState({ intervalCalled: true });
         } else {
+          console.log(
+            `new client message from ${data.clientsocketid}`,
+            data.message
+          );
           this.processOpenedClient();
         }
       }
