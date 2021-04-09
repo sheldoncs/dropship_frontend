@@ -205,18 +205,21 @@ class Home extends Component {
 
       let conversations = [];
       chatter.messages.map((chatterInfo, index) => {
-        let conversation = {
-          name: chatter.name + " : ",
-          message: chatterInfo.message,
-        };
+        if (chatterInfo.displayed === false) {
+          let conversation = {
+            name: chatter.name + " : ",
+            message: chatterInfo.message,
+          };
 
-        conversations.push(conversation);
+          conversations.push(conversation);
 
-        tempState.conversations.push(conversation);
-        this.setState({
-          clientsocketid: chatter.clientsocketid,
-          ...tempState,
-        });
+          tempState.conversations.push(conversation);
+          tempState.chatter.messages[index].displayed = true;
+          this.setState({
+            clientsocketid: chatter.clientsocketid,
+            ...tempState,
+          });
+        }
       });
     }
   };
