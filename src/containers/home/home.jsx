@@ -200,7 +200,9 @@ class Home extends Component {
       this.stopInterval();
 
       tempState.clientsocketid = chatter.clientsocketid;
-
+      let chatterIndex = tempState.chatters.findIndex(
+        (element) => element.socketid == chatter.clientsocketid
+      );
       /* Show messages not displayed by client */
 
       let conversations = [];
@@ -214,7 +216,7 @@ class Home extends Component {
           conversations.push(conversation);
 
           tempState.conversations.push(conversation);
-          tempState.chatter.messages[index].displayed = true;
+          tempState.chatters[chatterIndex].messages[index].displayed = true;
           this.setState({
             clientsocketid: chatter.clientsocketid,
             ...tempState,
