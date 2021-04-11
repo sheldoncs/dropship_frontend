@@ -574,10 +574,12 @@ class Home extends Component {
             />
           ) : null}
           {this.props.user != null ? (
-            <Settings
-              count={this.props.quantity}
-              welcome={this.props.user.firstname}
-            />
+            this.state.switchItem === false ? (
+              <Settings
+                count={this.props.quantity}
+                welcome={this.props.user.firstname}
+              />
+            ) : null
           ) : (
             <Settings welcome="" count={this.props.quantity} />
           )}
