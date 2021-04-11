@@ -574,15 +574,13 @@ class Home extends Component {
             />
           ) : null}
           {this.props.user != null ? (
-            this.state.switchItem === false ? (
-              <Settings
-                count={this.props.quantity}
-                welcome={this.props.user.firstname}
-              />
-            ) : null
-          ) : (
+            <Settings
+              count={this.props.quantity}
+              welcome={this.props.user.firstname}
+            />
+          ) : this.state.switchItem === false ? (
             <Settings welcome="" count={this.props.quantity} />
-          )}
+          ) : null}
           <NavigationItems
             page="home"
             clicked={(id) => this.navigationHandler(id)}
