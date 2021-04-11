@@ -532,7 +532,7 @@ class Home extends Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
         <div>
           <Cover show={this.state.switchItem} />
           <div className={classes.CenterSpinner}>
@@ -540,65 +540,67 @@ class Home extends Component {
           </div>
         </div>
         <div>
-          <audio className="audio-element">
-            <source src={soundfile}></source>
-          </audio>
-        </div>
-        <ChatClient
-          key={this.state.chatType.elementName}
-          chatPressed={this.state.chatPressed}
-          elementtype={this.state.chatType.elementType}
-          elementconfig={this.state.chatType.elementConfig}
-          elementname={this.state.chatType.elementName}
-          value={this.state.chatType.value}
-          chatName={this.state.chatName}
-          chatEmail={this.state.chatEmail}
-          showIntro={this.state.showIntro}
-          displayHeader={this.state.displayHeader}
-          role={this.state.user.admin}
-          conversations={this.state.conversations}
-          onActivate={this.state.onActivate}
-          headerTitle={this.state.name}
-          activateChat={(nameEvent, emailEvent) =>
-            this.activateChatHandler(nameEvent, emailEvent)
-          }
-          eventChanged={(msg, event) => this.eventHandler(msg, event)}
-        />
-        <ChatButton chatClicked={this.chatHandler} />
-        {this.state.user.admin == 1 ? (
-          <ChatController
-            chatControlClicked={(val) => this.controllerHandler(val)}
+          <div>
+            <audio className="audio-element">
+              <source src={soundfile}></source>
+            </audio>
+          </div>
+          <ChatClient
+            key={this.state.chatType.elementName}
+            chatPressed={this.state.chatPressed}
+            elementtype={this.state.chatType.elementType}
+            elementconfig={this.state.chatType.elementConfig}
+            elementname={this.state.chatType.elementName}
+            value={this.state.chatType.value}
+            chatName={this.state.chatName}
+            chatEmail={this.state.chatEmail}
+            showIntro={this.state.showIntro}
+            displayHeader={this.state.displayHeader}
+            role={this.state.user.admin}
+            conversations={this.state.conversations}
+            onActivate={this.state.onActivate}
+            headerTitle={this.state.name}
+            activateChat={(nameEvent, emailEvent) =>
+              this.activateChatHandler(nameEvent, emailEvent)
+            }
+            eventChanged={(msg, event) => this.eventHandler(msg, event)}
           />
-        ) : null}
-        {this.props.user != null ? (
-          <Settings
-            count={this.props.quantity}
-            welcome={this.props.user.firstname}
+          <ChatButton chatClicked={this.chatHandler} />
+          {this.state.user.admin == 1 ? (
+            <ChatController
+              chatControlClicked={(val) => this.controllerHandler(val)}
+            />
+          ) : null}
+          {this.props.user != null ? (
+            <Settings
+              count={this.props.quantity}
+              welcome={this.props.user.firstname}
+            />
+          ) : (
+            <Settings welcome="" count={this.props.quantity} />
+          )}
+          <NavigationItems
+            page="home"
+            clicked={(id) => this.navigationHandler(id)}
+            menuItems={this.state.menu}
           />
-        ) : (
-          <Settings welcome="" count={this.props.quantity} />
-        )}
-        <NavigationItems
-          page="home"
-          clicked={(id) => this.navigationHandler(id)}
-          menuItems={this.state.menu}
-        />
-        {this.state.offers != null ? (
-          <Offer
-            offers={this.state.offers}
-            clicked={(id, itemid) => this.handleOffer(id, itemid)}
+          {this.state.offers != null ? (
+            <Offer
+              offers={this.state.offers}
+              clicked={(id, itemid) => this.handleOffer(id, itemid)}
+            />
+          ) : null}
+          <Display
+            items={this.state.items.itemList}
+            prices={this.state.items.priceOptions}
+            clickHandler={(catid, itemid, price) =>
+              this.displayHandler(catid, itemid, price)
+            }
           />
-        ) : null}
-        <Display
-          items={this.state.items.itemList}
-          prices={this.state.items.priceOptions}
-          clickHandler={(catid, itemid, price) =>
-            this.displayHandler(catid, itemid, price)
-          }
-        />
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      </React.Fragment>
     );
   }
 }
