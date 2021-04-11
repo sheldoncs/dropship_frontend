@@ -10,5 +10,8 @@
 .CenterSpinner{
     width:100px;
     margin:70px auto;
-    display:fixed;
+    display:absolute;
+    left:0px;
+    right:0px;
+    text-align: center;
 }

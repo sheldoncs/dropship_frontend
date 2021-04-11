@@ -534,6 +534,12 @@ class Home extends Component {
     return (
       <React.Fragment>
         <div>
+          <Cover show={this.state.switchItem} />
+          <div className={classes.CenterSpinner}>
+            {this.state.switchItem === true ? <Spinner /> : null}
+          </div>
+        </div>
+        <div>
           <div>
             <audio className="audio-element">
               <source src={soundfile}></source>
@@ -593,12 +599,6 @@ class Home extends Component {
           />
 
           <Footer />
-        </div>
-        <div>
-          <Cover show={this.state.switchItem} />
-          <div className={classes.CenterSpinner}>
-            {this.state.switchItem === true ? <Spinner /> : null}
-          </div>
         </div>
       </React.Fragment>
     );
