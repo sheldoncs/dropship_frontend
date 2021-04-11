@@ -1,12 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import classes from "./Cover.module.css";
 
 const cover = (props) => {
-  return (
-    <div>
-      <div onClick={props.clicked} className={classes.Cover}></div>
-    </div>
-  );
+  return props.show == true ? <div className={classes.Cover}></div> : null;
 };
 
 export default cover;

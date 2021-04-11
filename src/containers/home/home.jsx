@@ -534,16 +534,10 @@ class Home extends Component {
     return (
       <div>
         <div>
-          {this.state.switchItem === true ? (
-            <div>
-              <div className={classes.Middle}>
-                <Spinner />
-              </div>
-              <div>
-                <Cover />
-              </div>
-            </div>
-          ) : null}
+          <Cover show={this.state.switchItem} />
+          <div className={classes.CenterSpinner}>
+            {this.state.switchItem === true ? <Spinner /> : null}
+          </div>
         </div>
         <div>
           <audio className="audio-element">
