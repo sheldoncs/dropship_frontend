@@ -9,3 +9,6 @@
   background: #ebe8e8;
   color: #000 !important;
 }
+.Button:hover { 
+  color: white;
+}
