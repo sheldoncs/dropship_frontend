@@ -21,6 +21,8 @@ import ChatController from "../../components/chatController/chatController";
 import soundfile from "../../assets/sound/chatsignal.mp3";
 import fetch from "../../fetchservice/fetchservice";
 import { throwServerError } from "@apollo/client";
+import Spinner from "../../components/Spinner/Spinner";
+import Cover from "../../components/cover/cover";
 
 class Home extends Component {
   abortController = new AbortController();
@@ -40,6 +42,7 @@ class Home extends Component {
     channels: [],
     chatters: [],
     socketid: "",
+    switchItem: false,
     clientsocketid: "",
     items: {
       itemList: null,
@@ -286,6 +289,7 @@ class Home extends Component {
     });
   };
   fetchAllItems = (catid) => {
+    this.setState({ ...tempState, switchItem: true });
     let query = getAllItems;
     let variables = { categoryid: Number(catid) };
 
@@ -299,6 +303,7 @@ class Home extends Component {
       .then((res) => {
         let tempState = { ...this.state };
         tempState.items.itemList = res.data.getAllItems;
+        tempState.switchItem = false;
         this.setState({ ...tempState });
       })
       .catch((error) => {
@@ -527,6 +532,14 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <div>
+          {this.state.switchItem === true ? (
+            <div>
+              <Spinner />
+              <Cover />
+            </div>
+          ) : null}
+        </div>
         <div>
           <audio className="audio-element">
             <source src={soundfile}></source>
