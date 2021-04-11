@@ -289,7 +289,7 @@ class Home extends Component {
     });
   };
   fetchAllItems = (catid) => {
-    this.setState({ ...tempState, switchItem: true });
+    this.setState({ switchItem: true });
     let query = getAllItems;
     let variables = { categoryid: Number(catid) };
 
