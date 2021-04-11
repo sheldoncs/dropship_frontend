@@ -10,5 +10,5 @@
   color: #000 !important;
 }
 .Button:hover { 
-  color: white;
+  color: white !important;
 }
