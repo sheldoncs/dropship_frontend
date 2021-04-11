@@ -90,9 +90,9 @@ const classification = (props) => {
               <div className={classes.Select}>
                 <img className={classes.SelectArrow} src={Arrow} />
                 <Input
-                  elementType={props.hairType.elementtype}
-                  elementconfig={props.hairType.elementconfig}
-                  elementName={props.hairType.elementname}
+                  elementtype={props.hairType.elementType}
+                  elementconfig={props.hairType.elementConfig}
+                  elementname={props.hairType.elementName}
                   changed={props.changed}
                 />
               </div>

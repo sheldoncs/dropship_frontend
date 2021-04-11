@@ -72,6 +72,7 @@ const Input = (props) => {
       );
       break;
     case "select":
+      console.log("select", elementtype);
       if (props.elementconfig !== undefined) {
         inputElement = (
           <select onChange={props.changed} className={classes.Select}>

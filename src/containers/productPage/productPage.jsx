@@ -65,9 +65,9 @@ class ProductPage extends Component {
       category: null,
     },
     hairType: {
-      elementtype: "select",
-      elementname: "HairType",
-      elementconfig: {
+      elementType: "select",
+      elementName: "HairType",
+      elementConfig: {
         selectoptions: [
           { value: "Malaysian", displayValue: "Malaysian hair" },
           { value: "Brazilian", displayValue: "Brazilian hair" },
