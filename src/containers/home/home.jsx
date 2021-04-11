@@ -23,6 +23,7 @@ import fetch from "../../fetchservice/fetchservice";
 import { throwServerError } from "@apollo/client";
 import Spinner from "../../components/Spinner/Spinner";
 import Cover from "../../components/cover/cover";
+import classes from "./Home.module.css";
 
 class Home extends Component {
   abortController = new AbortController();
@@ -535,7 +536,7 @@ class Home extends Component {
         <div>
           {this.state.switchItem === true ? (
             <div>
-              <div className="text-center pt-4">
+              <div className={classes.Middle}>
                 <Spinner />
               </div>
               <div>
