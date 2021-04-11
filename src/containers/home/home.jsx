@@ -535,8 +535,12 @@ class Home extends Component {
         <div>
           {this.state.switchItem === true ? (
             <div>
-              <Spinner />
-              <Cover />
+              <div className="text-center pt-4">
+                <Spinner />
+              </div>
+              <div>
+                <Cover />
+              </div>
             </div>
           ) : null}
         </div>
