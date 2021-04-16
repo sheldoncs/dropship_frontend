@@ -2,7 +2,7 @@ import * as actionTypes from "./actions/actionTypes";
 
 const LOGIN_STATE = "LOGIN_STATE";
 
-const initialState = {};
+const initialState = { firstname: "", admin: 0 };
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SAVE_SOCKET_ID:
