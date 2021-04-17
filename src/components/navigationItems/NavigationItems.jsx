@@ -7,7 +7,9 @@ const navigationItems = React.memo((props) => {
   let elem = null;
   let showClasses = [classes.ShowNavigation];
 
-  props.onMenuList();
+  //only use for hooks
+  // props.onMenuList();
+
   console.log("NavigationItems");
   if (props.menuItems != null) {
     elem = props.menuItems.map((value, index) => {
