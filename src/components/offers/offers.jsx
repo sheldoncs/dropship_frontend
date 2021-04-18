@@ -14,8 +14,8 @@ const Offer = (props) => {
   btnClasses.push("btn-info");
   props.giftListing();
 
-  let offers = props.gifts
-    ? props.gifts.map((value, index) => {
+  let offers = props.offers
+    ? props.offers.map((value, index) => {
         let condLength = value.condition.length * 14.9;
 
         let code = ("Code:".length + value.code.length) * 19;
