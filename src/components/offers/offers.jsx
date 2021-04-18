@@ -12,7 +12,7 @@ const Offer = (props) => {
   let btnClasses = [classes.Button];
   btnClasses.push("btn");
   btnClasses.push("btn-info");
-  props.giftListing();
+  // props.giftListing();
 
   let offers = props.offers
     ? props.offers.map((value, index) => {
